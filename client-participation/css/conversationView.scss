@@ -160,8 +160,8 @@ img {
 
 .lightPanel {
   background-color: white;
-  border: solid 1px lightgray;
-  border-radius: 5px;
+  //border: solid 1px lightgray;
+  //border-radius: 5px;
 }
 .darkPanel {
   background-color: $panel-color;
@@ -179,11 +179,11 @@ img {
 
 #agreeButton {
   border-inline-start: 0;
-  border-radius: 0 0 0 8px;
+  //border-radius: 0 0 0 8px;
 }
 
 #passButton {
-  border-radius: 0 0 8px 0;
+  //border-radius: 0 0 8px 0;
 }
 
 #agreeButton, #disagreeButton, #passButton {
@@ -304,18 +304,33 @@ img {
 .reactionButton{
   cursor: pointer;
   transition: all .2s ease-in-out;
-  color: rgb(0,0,0);
+  color: white;
   border-color: rgba(0,0,0,0);
-  background-color: rgba(0,0,0,0);
+  background-color: $kennislink-black;
   text-decoration: none;
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-right: 1.5rem;
+
+  & span{
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.5rem;
+
+    &:first-child{
+      background: $kennislink-medium-gray;
+    }
+  }
 }
-.reactionButton:hover{
-  -ms-transform: scale(1.12,1.12); /* IE 9 */
-  -webkit-transform: scale(1.12,1.12); /* Safari */
-  transform: scale(1.12,1.12);
+
+
+.reactionButton span{
+
 }
 
 #visualization_div {
@@ -375,6 +390,13 @@ svg {
   -moz-flex-wrap: wrap-reverse;
   -ms-flex-wrap: wrap-reverse;
   flex-wrap: wrap-reverse;
+}
+
+.justify-content-flex-start {
+  -webkit-justify-content: flex-start;
+  -moz-justify-content: flex-start;
+  -ms-justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .justify-content-flex-end {

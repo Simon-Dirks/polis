@@ -27,14 +27,21 @@ $light-blue-gray: #6f7c80;
 $blue-gray: #555f61;
 $dark-blue-gray: #373d3f;
 
-$green: #2ecc71;
-$dark-green: #27ae60;
-
 $header-footer-color: #F4F4F4;
 
 // $brand-light-color: #4daae8;
-$brand-color: #3498db;
+$brand-color: #02e639;
+$brand-color-darker: #41d016;
+
+$green: $brand-color; // #2ecc71;
+$dark-green: $brand-color-darker;
+
+
 $brand-text-color: #0a77bf;
+
+$kennislink-light-gray: #efefef;
+$kennislink-medium-gray: #252525;
+$kennislink-black: #010101;
 
 $panel-color: #f7f7f7;
 
@@ -49,7 +56,7 @@ $link-color: $brand-text-color;
 $hover-color: #0565a6;
 
 // Buttons
-$btn-hover-color: #0a77bf;
+$btn-hover-color: $brand-color-darker;
 
 // Notifications
 $warning-bg-color: #eeeff0;

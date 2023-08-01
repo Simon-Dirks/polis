@@ -68,10 +68,10 @@ module.exports = Handlebones.ModelView.extend({
       ctx.customBtnStyles = "background-color: " + btnBg + ";";
     }
     if (Strings.direction == "rtl") {
-      ctx.pMarginStyle = "margin-right: 55px;";
+      ctx.pMarginStyle = "margin-right: 0px;";
       ctx.floatStyle = "float:left;"  // This is a hack to fix the bug in chrome, not supporting float:inline-start and end
     } else {
-      ctx.pMarginStyle = "margin-left: 55px;";
+      ctx.pMarginStyle = "margin-left: 0px;";
       ctx.floatStyle = "float:right;"
     }
 

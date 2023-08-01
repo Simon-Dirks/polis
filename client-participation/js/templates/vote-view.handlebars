@@ -276,7 +276,6 @@
       class="
         reactionButtons
         flexbox
-        justify-content-space-around
         align-items-baseline
         unselectable
       "
@@ -287,42 +286,27 @@
         display: -webkit-flex;
         display: flex;
         -webkit-flex-flow: row wrap;
-        justify-content: space-around;
-        margin-bottom: 20px;
+        justify-content: start;
       ">
       <button
         id="agreeButton"
         class="reactionButton"
         >
-        <i class="svgIcon" style="
-          display: inline-block;
-          position: relative;
-          margin-inline-end: 2px;
-          top: 5px;
-          width: 22px;
-          fill: #2ecc71;
-          ">{{> iconFaCircleCheck}}</i>
-        {{s.agree}}
+        <span>V</span>
+        <span>{{s.agree}}</span>
       </button>
       <button
         id="disagreeButton"
         class="reactionButton"
         >
-        <i class="svgIcon" style="
-          display: inline-block;
-          position: relative;
-          margin-inline-end: 2px;
-          top: 5px;
-          width: 22px;
-          fill: #e74c3c;
-          ">{{> iconFaBan}}</i>
-        {{s.disagree}}
+        <span>X</span>
+        <span>{{s.disagree}}</span>
       </button>
       <button
         id="passButton"
         class="reactionButton"
         >
-        {{s.pass}}
+        <span>{{s.pass}}</span>
       </button>
     </div>
 
