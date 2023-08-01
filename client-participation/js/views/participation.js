@@ -259,19 +259,19 @@ module.exports = ConversationView.extend({
   },
 
   updateHeader: function() {
-    if (!window.renderHeader) {
-      console.error("window.renderHeader missing");
-      return;
-    }
-    window.renderHeader(
-      document.getElementById("header_root"),
-      {
-        user: window.preload.firstUser,
-        is_owner: window.preload.firstConv.is_owner,
-        conversation_id: this.conversation_id,
-        is_embedded: window.isEmbedded(),
-      }
-    );
+    // if (!window.renderHeader) {
+    //   console.error("window.renderHeader missing");
+    //   return;
+    // }
+    // window.renderHeader(
+    //   document.getElementById("header_root"),
+    //   {
+    //     user: window.preload.firstUser,
+    //     is_owner: window.preload.firstConv.is_owner,
+    //     conversation_id: this.conversation_id,
+    //     is_embedded: window.isEmbedded(),
+    //   }
+    // );
   },
 
   curationType: null,
