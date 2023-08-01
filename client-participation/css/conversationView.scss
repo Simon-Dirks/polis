@@ -303,9 +303,9 @@ img {
 
 .reactionButton{
   cursor: pointer;
-  transition: all .2s ease-in-out;
+  //transition: all .2s ease-in-out;
   color: white;
-  border-color: rgba(0,0,0,0);
+  border: none;
   background-color: $kennislink-black;
   text-decoration: none;
   font-size: 14px;
@@ -315,6 +315,15 @@ img {
   display: flex;
   align-items: center;
   margin-right: 1.5rem;
+
+  &:hover {
+    background: $brand-color;
+    color: black;
+
+    & span:first-child {
+      background: $brand-color-darker;
+    }
+  }
 
   & span{
     height: 2rem;
