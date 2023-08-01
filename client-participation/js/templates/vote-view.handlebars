@@ -104,11 +104,12 @@
       {{remainingStringScreenReader}}
     </span>
 
+    {{#if false}}
     {{! social stuff }}
-    <img
-      src="{{social.img}}"
-      alt=""
-      style="
+        <img
+                src="{{social.img}}"
+                alt=""
+                style="
         width: 36px;
         min-height: 36px;
         min-width: 36px;
@@ -117,50 +118,50 @@
         border-radius: 3px;
         border: 1px solid #ccc;
         "
-      ></img>
-    <p
-      style="
+        ></img>
+        <p
+                style="
         display: inline;
         position: relative;
         top: -3px;
         margin-inline-start: 5px;
         font-weight: 300;
     ">
-      {{social.name}}
-      <span style="
+            {{social.name}}
+            <span style="
       ">
         {{#if tweet_id}}
-          <a href="https://twitter.com/{{social.screen_name}}/status/{{tweet_id}}" target="_blank">{{s.x_tweeted}}</a>
+            <a href="https://twitter.com/{{social.screen_name}}/status/{{tweet_id}}" target="_blank">{{s.x_tweeted}}</a>
         {{else}} {{!-- !tweet_id --}}
-          {{#if quote_src_url}}
-            <a href="{{quote_src_url}}" target="_blank">{{s.x_wrote}}</a>
-          {{else}}
-            {{s.x_wrote}}
-          {{/if}}
+            {{#if quote_src_url}}
+                <a href="{{quote_src_url}}" target="_blank">{{s.x_wrote}}</a>
+            {{else}}
+                {{s.x_wrote}}
+            {{/if}}
         {{/if}} {{!-- /tweet_id --}}
       </span>
-      <span aria-hidden="true" style="
-        {{floatStyle}}
-        margin-inline-end: 10px;
-        position: relative;
-        top: 13px;
-        font-weight: 300;
-        font-family: Georgia;
-        font-size: 12px;
-        font-style: italic;
-        color: rgb(0, 0, 0);
-        ">
-        {{remainingString}}
-      </span>
-    </p>
+            <span aria-hidden="true" style="
+                {{floatStyle}}
+                    margin-inline-end: 10px;
+                    position: relative;
+                    top: 13px;
+                    font-weight: 300;
+                    font-family: Georgia;
+                    font-size: 12px;
+                    font-style: italic;
+                    color: rgb(0, 0, 0);
+                    ">
+                {{remainingString}}
+            </span>
+        </p>
     {{!-- {{social.twitter_user_id}} --}}
     {{!-- {{social.screen_name}} --}}
+    {{/if}}
     <p lang="{{lang}}" style="
       {{pMarginStyle}} {{!-- 10 + 36 + 5 from social above --}}
       font-weight: 400;
       min-height: 65px;
       position: relative;
-      top: -13px;
       width: 70%;
       line-height: 1.3;
       font-size: 18px;
@@ -190,7 +191,6 @@
         font-weight: 400;
         min-height: 55px;
         position: relative;
-        top: -13px;
         width: 70%;
         line-height: 1.3;
         font-size: 18px;
