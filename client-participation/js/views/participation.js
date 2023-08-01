@@ -198,7 +198,7 @@ module.exports = ConversationView.extend({
     ctx.no_vis = !Utils.userCanSeeVis() || ctx.vis_type === Constants.VIS_TYPE.OFF;
     ctx.no_write = ctx.write_type === 0 || !Utils.userCanWrite() || !ctx.is_active;
     ctx.no_voting = !Utils.userCanVote() || !ctx.is_active;
-    ctx.no_topic = !Utils.userCanSeeTopic() || !ctx.topic || ctx.topic.length === 0;
+    ctx.no_topic = true; // !Utils.userCanSeeTopic() || !ctx.topic || ctx.topic.length === 0;
     ctx.no_description = !Utils.userCanSeeDescription() || !ctx.description || ctx.description.length === 0;
     ctx.no_footer = !Utils.userCanSeeFooter();
 
