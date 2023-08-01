@@ -160,7 +160,7 @@ img {
 
 .lightPanel {
   background-color: $kennislink-light-gray;
-  padding: 1.5rem;
+  padding: 1.5rem 3rem;
   //border: solid 1px lightgray;
   //border-radius: 5px;
 }
@@ -316,6 +316,7 @@ img {
   display: flex;
   align-items: center;
   margin-right: 1.5rem;
+  margin-top: 0.5rem;
 
   &:hover {
     background: $brand-color;
