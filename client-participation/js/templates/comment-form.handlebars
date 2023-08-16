@@ -1,5 +1,11 @@
 {{!-- Copyright (C) 2012-present, The Authors. This program is free software: you can redistribute it and/or  modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>. --}}
 
+<div>
+    <p style="font-weight: bold; margin-bottom: 0;">
+        Dien zelf een stelling in waar anderen op kunnen stemmen
+    </p>
+</div>
+
 {{!-- ================ PROTIPS ================ --}}
 
 <div
@@ -9,7 +15,7 @@
     width: 100%;
     {{#if desktop}}width: 60%;{{/if}}
      --}}
-    margin-top: 0px;
+    margin: 0;
 
     color: black;
     padding: 5px 0px 5px 0px;
@@ -109,12 +115,6 @@
     role="form"
     style="padding-bottom: 1px; {{! no stripe of background_content color mobile }}
     ">
-
-    <div>
-        <p style="font-weight: bold">
-            Dien zelf een stelling in waar anderen op kunnen stemmen
-        </p>
-    </div>
     {{!-- ================ SOCIAL PICTURE && TEXT AREA ================ --}}
     <div style="display: table; width: 100%" dir={{direction}}>
       {{#unless is_anon}}
