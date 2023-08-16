@@ -17,11 +17,13 @@ var SHOULD_PROMPT_FOR_FB = false;
 module.exports = Handlebones.ModelView.extend({
   name: "readReactView",
   template: template,
+  mode: "comments",
   events: {
 
     "click #fbNotNowBtn": "fbNotNowBtn",
     "click #fbNoUseBtn": "fbNoUseBtn",
     "click #fbConnectBtn": "fbConnectBtn",
+    "click #switchBetweenCommentsAndVotingButton": "switchBetweenCommentsAndVotingButton",
     // "click #passButton": "participantPassed",
 
   },
@@ -39,6 +41,15 @@ module.exports = Handlebones.ModelView.extend({
       // alert("facebook error");
     });
   },
+  switchBetweenCommentsAndVotingButton: function() {
+    if (this.mode === "comments") {
+      this.mode = "voting";
+    } else {
+      this.mode = "comments";
+    }
+
+    this.render();
+  },
 
   context: function() {
     var ctx = Handlebones.ModelView.prototype.context.apply(this, arguments);
@@ -48,6 +59,8 @@ module.exports = Handlebones.ModelView.extend({
     var voteCountForFacebookPrompt = 3;
 
     ctx.promptFacebook = SHOULD_PROMPT_FOR_FB && !hasFacebookAttached && !this.model.get("response") && this.model.get("voteCount") > voteCountForFacebookPrompt;
+
+    ctx.showingComments = this.mode === "comments";
     return ctx;
   },
 

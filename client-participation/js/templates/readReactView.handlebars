@@ -17,6 +17,17 @@
   		{{!-- min-height: 144px; attempt to avoid flashing on vote view load--}}
   	">
 
+
+    <button class="reactionButton" id="switchBetweenCommentsAndVotingButton">
+        {{#if showingComments}}
+            <span>*</span>
+            <span>Stem</span>
+        {{else}}
+            <span>+</span>
+            <span>Nieuw</span>
+        {{/if}}
+    </button>
+
     {{!-- This is the optional social prompt --}}
 	  {{#if promptFacebook}}
 	  <div style="margin: 20px;" class="Notification Notification--warning">
@@ -39,7 +50,7 @@
 	  {{/if}}
 	</div>
 
-	
+
 	{{#if false}}
   	{{!-- Empty "Card stack" div1 (notice css "top" and "width") --}}
 	<div
