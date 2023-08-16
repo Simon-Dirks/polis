@@ -110,6 +110,11 @@
     style="padding-bottom: 1px; {{! no stripe of background_content color mobile }}
     ">
 
+    <div>
+        <p style="font-weight: bold">
+            Dien zelf een stelling in waar anderen op kunnen stemmen
+        </p>
+    </div>
     {{!-- ================ SOCIAL PICTURE && TEXT AREA ================ --}}
     <div style="display: table; width: 100%" dir={{direction}}>
       {{#unless is_anon}}
@@ -249,7 +254,7 @@
           {{#if no_write_hint}}visibility: hidden;{{/if}}
           width: 100%;
           {{#if desktop}}{{!-- margin-inline-end: 20px; --}}width: 100%;{{/if}}
-          margin-top: 0px;
+          margin-top: 0.5rem;
           "> {{! protips column }}
 
         <p

@@ -2,9 +2,9 @@
 
 var s = {};
 
-s.agree = "Akkoord";
-s.disagree = "Niet akkoord";
-s.pass = "Onzeker";
+s.agree = "EENS";
+s.disagree = "ONEENS";
+s.pass = "OVERSLAAN";
 
 s.modSpam = "Spam";
 s.modOffTopic = "Niet relevant";
@@ -70,7 +70,7 @@ s.tipOneIdea = "Splits lange reacties op in verschillende ideeën. Dit maakt het
 s.tipNoQuestions = "Probeer vragen in uw reacties te vermijden. Deelnemers zullen vervolgens al dan niet akkoord gaan met uw stelling.";
 s.commentTooLongByChars = "De lengte van uw reactie werd met  {{CHARACTERS_COUNT}} karakters overschreden.";
 s.notSentSinceDemo = "(niet echt, dit is een demo)";
-s.submitComment = "Reageer";
+s.submitComment = "INDIENEN";
 s.tipStarred = "Gemarkeerd als belangrijk.";
 s.participantHelpWelcomeText = "Welkom bij een nieuwe soort discussie - <span style='font-weight: 700.'>stem</span> op de meningen van personen en draag bij tot het gesprek door zelf te reageren.";
 s.participantHelpGroupsText = "Personen die gelijkaardig stemmen <span style='font-weight: 700.'>worden gegroepeerd.</span> Klik op een groep om te zien welk standpunt zij innemen <a style='font-weight: 700. cursor: pointer. text-decoration: underline' id='helpTextGroupsExpand'>...more</a>";
