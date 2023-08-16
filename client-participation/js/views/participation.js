@@ -1,7 +1,6 @@
 // Copyright (C) 2012-present, The Authors. This program is free software: you can redistribute it and/or  modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 var Backbone = require("backbone");
-var CommentFormView = require("../views/comment-form");
 var CommentsCollection = require("../collections/comments");
 var Constants = require("../util/constants");
 var ConversationInfoSlideView = require('../views/conversationInfoSlideView');
@@ -197,6 +196,7 @@ module.exports = ConversationView.extend({
 
     ctx.no_vis = !Utils.userCanSeeVis() || ctx.vis_type === Constants.VIS_TYPE.OFF;
     ctx.no_write = ctx.write_type === 0 || !Utils.userCanWrite() || !ctx.is_active;
+    this.model.set('no_write', ctx.no_write);
     ctx.no_voting = !Utils.userCanVote() || !ctx.is_active;
     ctx.no_topic = true; // !Utils.userCanSeeTopic() || !ctx.topic || ctx.topic.length === 0;
     ctx.no_description = !Utils.userCanSeeDescription() || !ctx.description || ctx.description.length === 0;
@@ -526,7 +526,9 @@ module.exports = ConversationView.extend({
         isSubscribed: function() {
           return that.isSubscribed.apply(that, arguments);
         },
-        conversation_id: conversation_id
+        conversation_id: conversation_id,
+        wipCommentFormText: this.wipCommentFormText,
+        noWrite: this.model.get('no_write')
       }));
 
       this.topCommentsCollection = new CommentsCollection([]);
@@ -967,15 +969,6 @@ module.exports = ConversationView.extend({
       //   pid: "mypid",
       // });
 
-      this.commentForm = this.addChild(new CommentFormView({
-        model: new Backbone.Model({}),
-        conversationModel: this.model,
-        serverClient: this.serverClient,
-        // collection: this.commentsByMe,
-        conversation_id: conversation_id,
-        wipCommentFormText: this.wipCommentFormText,
-      }));
-
       this.analyzeGroupModel = new Backbone.Model({
         selectedGid: this.selectedGid,
       });
@@ -1028,11 +1021,6 @@ module.exports = ConversationView.extend({
         that.groupSelectionView.setSelectedGroup(-1);
 
 
-      });
-
-
-      this.commentForm.on("commentSubmitted", function() {
-        // $("#"+VOTE_TAB).tab("show");
       });
 
       // Clicking on the background dismisses the popovers.

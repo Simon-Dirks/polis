@@ -46,7 +46,18 @@
 	    </div>
 	  </div>
 	  {{else}}
-  		{{view voteView}}
+        {{#if showingComments}}
+            {{!  ------------ SUBMIT COMMENT FORM ---------------  }}
+            <div
+                    id="commentFormParent"
+                    class="POLIS_COMMENT_FORM {{#if no_write}}displayNone{{/if}}"
+            >
+                {{view commentForm}}
+            </div>
+        {{else}}
+          {{view voteView}}
+        {{/if}}
+
 	  {{/if}}
 	</div>
 
