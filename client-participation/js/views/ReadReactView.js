@@ -20,7 +20,7 @@ var SHOULD_PROMPT_FOR_FB = false;
 module.exports = Handlebones.ModelView.extend({
   name: "readReactView",
   template: template,
-  mode: "comments",
+  mode: "voting",
   events: {
 
     "click #fbNotNowBtn": "fbNotNowBtn",
