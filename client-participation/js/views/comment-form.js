@@ -148,7 +148,8 @@ module.exports = Handlebones.ModelView.extend({
       // if (remaining > 0) {
       // } else {
       // }
-      this.$("#commentCharCount").text(txt.replace("{{CHARACTERS_COUNT}}", num));
+      // TODO: Translate 'tekens' to other languages
+      this.$("#commentCharCount").text(txt.replace("{{CHARACTERS_COUNT}}", num) + " tekens");
       this.$("#commentCharCount").show();
       this.$("#commentCharCountExceeded").text("");
       this.$("#commentCharCountExceeded").hide();
@@ -370,9 +371,9 @@ module.exports = Handlebones.ModelView.extend({
     // }));
     this.serverClient = options.serverClient;
 
-    this.profilePicView = this.addChild(new ProfilePicView({
-      model: CurrentUserModel,
-    }));
+    // this.profilePicView = this.addChild(new ProfilePicView({
+    //   model: CurrentUserModel,
+    // }));
 
     if (options.wipCommentFormText) {
       this.shouldAutofocusOnTextarea = true;

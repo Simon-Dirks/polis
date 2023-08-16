@@ -317,6 +317,7 @@ img {
   align-items: center;
   margin-right: 1.5rem;
   margin-top: 0.5rem;
+  height: 2rem;
 
   &:hover {
     background: $brand-color;
@@ -328,7 +329,7 @@ img {
   }
 
   & span{
-    height: 2rem;
+    height: 100%;
     display: flex;
     align-items: center;
     padding: 0 0.5rem;
@@ -339,9 +340,27 @@ img {
   }
 }
 
+#switchBetweenCommentsAndVotingButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0;
 
-.reactionButton span{
+  background-color: $brand-color;
+  color: $kennislink-black;
 
+  &:hover {
+    background: $kennislink-black;
+    color: white;
+
+    & span:first-child {
+      background: $kennislink-medium-gray;
+    }
+  }
+
+  & span:first-child{
+      background: $brand-color-darker;
+  }
 }
 
 #visualization_div {
@@ -525,6 +544,16 @@ svg {
   color: #0a77bf;
 }
 
+#comment_button {
+  margin-top: 0;
+  float: right;
+}
+
+
+#commentCharCount {
+  margin-right: 15px;
+}
+
 #comment_shower p, #comment_shower h3 {
    font-weight: normal;
    line-height: normal;
@@ -537,6 +566,13 @@ svg {
 #comment_form_textarea{
     white-space: pre-wrap;
     resize: none;
+    border-radius: 0;
+    box-shadow: none;
+    border: 0;
+
+    &:focus {
+      outline: 1px $kennislink-medium-gray solid;
+    }
 }
 
 .margin_bottom_20 {
