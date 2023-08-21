@@ -319,12 +319,21 @@ img {
   margin-top: 0.5rem;
   height: 2rem;
 
+  & .reactionButtonIcon svg {
+    height: 10px;
+    fill: white;
+  }
+
   &:hover {
     background: $brand-color;
     color: black;
 
     & span:first-child {
       background: $brand-color-darker;
+    }
+
+    & svg {
+      fill: black;
     }
   }
 
@@ -349,9 +358,17 @@ img {
   background-color: $brand-color;
   color: $kennislink-black;
 
+  & .reactionButtonIcon svg {
+    fill: $kennislink-black;
+  }
+
   &:hover {
     background: $kennislink-black;
     color: white;
+
+    & svg {
+      fill: white;
+    }
 
     & span:first-child {
       background: $kennislink-medium-gray;
