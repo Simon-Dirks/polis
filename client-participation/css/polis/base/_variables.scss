@@ -86,7 +86,7 @@ $default-leading: 1.5;
 
 @font-face {
   font-family: 'Campton-Bold';
-  src: url("https://boasmedia.nl/polis-kennislink/campton-book.woff2") format("woff2");
+  src: url("https://boasmedia.nl/polis-kennislink/campton-bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -96,18 +96,18 @@ $default-leading: 1.5;
 
 @font-face {
   font-family: 'Campton-SemiBold';
-  src: url("https://boasmedia.nl/polis-kennislink/campton-book.woff2") format("woff2");
+  src: url("https://boasmedia.nl/polis-kennislink/campton-semibold.woff2") format("woff2");
 }
 
 
-$headline-font: "Helvetica Neue", Helvetica, sans-serif;
+$headline-font: "Campton-Book", Helvetica, sans-serif;
 $sans-font: "Campton-Book", Helvetica, sans-serif;
 //  alternate sans-serif (?): "Droid Sans", sans-serif;
 // "chaparral-pro", "Chaparral Pro",
 // "chaparral-pro-display",
 
-$serif-font: "Helvetica Neue", Helvetica, sans-serif;
-$serif-headline-font: "Helvetica Neue", Helvetica, sans-serif;
+$serif-font: "Campton-Book", Helvetica, sans-serif;
+$serif-headline-font: "Campton-Book", Helvetica, sans-serif;
 
 
 // $serif-font: "canada-type-gibson", "Hoefler Text", "Baskerville", "Garamond", "Cambria", Georgia, serif;
