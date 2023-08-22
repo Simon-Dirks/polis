@@ -237,13 +237,16 @@
           cursor: pointer;
           border: none;
           border-radius: 0px;
-          color: white;
           letter-spacing: 0.07em;
           min-width: 110px;
           margin-inline-start: 5px;
           {{customBtnStyles}}
           ">
-          <span>+</span>
+          <span class="reactionButtonIcon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65.9 65.9" xml:space="preserve">
+                  <path d="M0 37.8h28.1v28.1h9.7V28.1H0z"/><path d="M65.9 28.1H37.8V0h-9.7v37.8h37.8z"/>
+              </svg>
+          </span>
           <span>{{s.submitComment}}</span>
       </button>
    </div>
