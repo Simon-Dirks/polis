@@ -24,7 +24,7 @@ s.info = "Info";
 s.addPolisToYourSite = "<img style='height: 20px. margin: 0px 4px.' src='{{URL}}'/>";
 s.privacy = "Privacy";
 s.TOS = "Servicevoorwaarden";
-s.writePrompt = "Bijvoorbeeld: we moeten eerst duidelijke afspraken maken over wie toegang krijgen tot de technologie, voordat we overgaan tot het gebruik ervan.";
+s.writePrompt = "Bijvoorbeeld: We moeten de nadruk leggen op genezen in plaats van verbeteren.";
 s.anonPerson = "Anoniem";
 s.helpWhatAmISeeingTitle = "Wat ben ik aan het bekijken?";
 s.helpWhatAmISeeing = "Mensen met een gelijkaardige mening zijn gegroepeerd. Klik op een groep om hun mening te bekijken.";
