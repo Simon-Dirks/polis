@@ -51,7 +51,7 @@ s.pctDisagreedOfGroup = "{{pct}}% van Groep {{group}} waren niet akkoord";
 s.pctDisagreedLong = "{{pct}}% van iedereen wie stemden op {{comment_id}} waren niet akkoord.";
 s.pctAgreedOfGroupLong = "{{pct}}% van de Groep {{group}} wie stemden op stelling {{comment_id}} waren akkoord.";
 s.pctDisagreedOfGroupLong = "{{pct}}% van de Groep {{group}} wie stemden op stelling {{comment_id}} waren niet akkoord.";
-s.commentSent = "Stelling verzonden! Andere deelnemers zullen uw stelling zien en akkoord zijn of niet.";
+s.commentSent = "Stelling verzonden! Andere deelnemers zullen uw stelling zien en daarop stemmen.";
 s.commentSendFailed = "Er was een fout bij het toevoegen van uw stelling.";
 s.commentSendFailedEmpty = "Er was een fout bij het toevoegen van uw stelling - de stelling mag niet leeg zijn.";
 s.commentSendFailedTooLong = "Er was een fout bij het toevoegen van uw stelling - de stelling is te lang.";
@@ -96,7 +96,7 @@ s.noCommentsYet = "Er zijn nog geen stellingen beschikbaar.";
 s.noCommentsYetSoWrite = "Start dit gesprek door als eerste een stelling toe te voegen.";
 s.noCommentsYetSoInvite = "Start dit gesprek door nieuwe deelnemers toe te voegen, of voeg als eerste een stelling toe.";
 s.noCommentsYouVotedOnAll = "U hebt op alle stellingen gestemd.";
-s.noCommentsTryWritingOne = "Als u zelf iets wilt toevoegen aan het gesprek, probeer dan een stelling te schrijven.";
+s.noCommentsTryWritingOne = "Als u zelf iets wilt toevoegen aan het gesprek, probeer dan een stelling te schrijven via de knop rechtsboven.";
 s.convIsClosed = "Dit gesprek is afgesloten.";
 s.noMoreVotingAllowed = "Er mag niet meer gestemd worden.";
 

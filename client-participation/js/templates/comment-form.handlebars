@@ -211,21 +211,8 @@
       height: 40px;
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: start;
       ">
-      <span
-        id="commentCharCount"
-        aria-hidden="true" {{!-- don't show this to screen reader, since there's no problem --}}
-        style="display: none; color: gray; {{#if desktop}}min-width: 20px;{{/if}}"
-        class="comment_form_control_hideable unselectable">
-      </span>
-      <label
-        id="commentCharCountExceeded"
-        for="comment_form_textarea"
-        role="alert"
-        style="display: none; color: red; {{#if desktop}}min-width: 20px;{{/if}}"
-        class="comment_form_control_hideable unselectable">
-      </label>
       <button
         class="reactionButton"
         id="comment_button"
@@ -239,7 +226,7 @@
           border-radius: 0px;
           letter-spacing: 0.07em;
           min-width: 110px;
-          margin-inline-start: 5px;
+          margin-inline-end: 15px;
           {{customBtnStyles}}
           ">
           <span class="reactionButtonIcon">
@@ -249,6 +236,19 @@
           </span>
           <span>{{s.submitComment}}</span>
       </button>
+       <span
+               id="commentCharCount"
+               aria-hidden="true" {{!-- don't show this to screen reader, since there's no problem --}}
+               style="display: none; color: gray; {{#if desktop}}min-width: 20px;{{/if}}"
+               class="comment_form_control_hideable unselectable">
+      </span>
+       <label
+               id="commentCharCountExceeded"
+               for="comment_form_textarea"
+               role="alert"
+               style="display: none; color: red; {{#if desktop}}min-width: 20px;{{/if}}"
+               class="comment_form_control_hideable unselectable">
+       </label>
    </div>
 
       {{!-- ================ SUBMIT BUTTON CLICKED RESPONSE AREA ================ --}}
