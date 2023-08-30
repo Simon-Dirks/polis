@@ -83,9 +83,10 @@ const BarChartsForGroupVotes = ({
   }
 
   return (
-    <g>
-      {selectedComment ? drawBarChartsForGroupVotesOnSelectedComment() : null}
-    </g>
+      <div></div>
+    // <g>
+    //   {selectedComment ? drawBarChartsForGroupVotesOnSelectedComment() : null}
+    // </g>
   )
 
 }

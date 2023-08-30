@@ -28,12 +28,13 @@ const BarChartCompact = ({selectedComment, groupVotes, translate}) => {
   const blank = nMembers - sawTheComment / nMembers * w;
 
   return (
-    <g transform={translate ? ("translate(" + translate[0] + "," + translate[1] + ")") : "translate(100, 100)"}>
-      <rect x={0} width={w + 0.5} height={10} fill={"white"} stroke={"rgb(180,180,180)"} />
-      <rect x={.5} width={agree} y={.5} height={9} fill={globals.colors.agree} />
-      <rect x={.5 + agree} width={disagree} y={.5} height={9} fill={globals.colors.disagree} />
-      <rect x={.5 + agree + disagree} width={pass} y={.5} height={9} fill={globals.colors.pass} />
-    </g>
+      <div></div>
+    // <g transform={translate ? ("translate(" + translate[0] + "," + translate[1] + ")") : "translate(100, 100)"}>
+    //   <rect x={0} width={w + 0.5} height={10} fill={"white"} stroke={"rgb(180,180,180)"} />
+    //   <rect x={.5} width={agree} y={.5} height={9} fill={globals.colors.agree} />
+    //   <rect x={.5 + agree} width={disagree} y={.5} height={9} fill={globals.colors.disagree} />
+    //   <rect x={.5 + agree + disagree} width={pass} y={.5} height={9} fill={globals.colors.pass} />
+    // </g>
   )
 };
 

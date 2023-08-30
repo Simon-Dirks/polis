@@ -57,27 +57,28 @@ const BarChart = ({comment, groupVotes, ptptCount/*, conversation*/}) => {
   }
 
   return (
-    <g>
-      {arr.map((d, i) => {
-        return (
-          <g key={i}>
-            <text x={leftTextOffset} y={(i+1) * 15} fontFamily="Helvetica" fontSize="10" textAnchor={"end"}>
-              {d.label}
-            </text>
-            <rect
-              width={d.percent}
-              height={barHeight}
-              x={rectStartX}
-              y={((i+1) * 15) - 9}
-              fill={d.fill}/>
-            <text x={leftTextOffset + d.percent + 10} y={(i+1) * 15 + 2} fontFamily="Helvetica" fontSize="10" textAnchor={"start"}>
-              {Math.floor(d.percent) + "%"}
-              {d.ratio}
-            </text>
-          </g>
-        )
-      })}
-    </g>
+    <div></div>
+    // <g>
+    //   {arr.map((d, i) => {
+    //     return (
+    //       <g key={i}>
+    //         <text x={leftTextOffset} y={(i+1) * 15} fontFamily="Helvetica" fontSize="10" textAnchor={"end"}>
+    //           {d.label}
+    //         </text>
+    //         <rect
+    //           width={d.percent}
+    //           height={barHeight}
+    //           x={rectStartX}
+    //           y={((i+1) * 15) - 9}
+    //           fill={d.fill}/>
+    //         <text x={leftTextOffset + d.percent + 10} y={(i+1) * 15 + 2} fontFamily="Helvetica" fontSize="10" textAnchor={"start"}>
+    //           {Math.floor(d.percent) + "%"}
+    //           {d.ratio}
+    //         </text>
+    //       </g>
+    //     )
+    //   })}
+    // </g>
   )
 };
 
