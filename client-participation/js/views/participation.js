@@ -67,6 +67,7 @@ module.exports = ConversationView.extend({
     // "click #helpTextGroups": "hideHelpTextGroups",
     // "click #helpTextWelcome": "hideHelpTextWelcome",
     "click #helpTextGroupsExpand": "expandHelpTextGroups",
+    "click #expandVisContainerButton": "toggleExpandVisContainer"
     // "click #fbLoginBtn": "fbConnectBtn", // NOTE: may want a separate handler/API
     // "click #twitterLoginBtn": "twitterConnectBtn", // NOTE: may want a separate handler/API
   },
@@ -98,6 +99,15 @@ module.exports = ConversationView.extend({
     $("#helpTextGroupsExpand").hide();
     $("#helpTextGroupsMore").show();
     return false;
+  },
+  toggleExpandVisContainer: function() {
+    const expandableVisContainer = $("#expandableVisContainer");
+    expandableVisContainer.toggle();
+    if (expandableVisContainer.is(":hidden")) {
+      $("#expandVisContainerButtonArrow").text("▴");
+    } else {
+      $("#expandVisContainerButtonArrow").text("▾");
+    }
   },
   hideVis: function() {
     $("#vis_sibling_bottom").hide();

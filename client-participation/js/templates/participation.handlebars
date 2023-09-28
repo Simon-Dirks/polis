@@ -318,104 +318,106 @@
 {{/if}}  {{!-- auth_prompt_any_social --}}
 
 <span class="{{#if no_vis}}displayNone{{/if}}"> {{!-- no_vis toggle wrapper --}}
+    <p id="expandVisContainerButton" style="cursor: pointer">Bekijk jouw meningengroep
+        <span id="expandVisContainerButtonArrow">▾</span>
+    </p>
+    <div id="expandableVisContainer">
+        {{#if show_pca_vis}}
+        <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
+        {{!-- <img src="https://pol.is/polis-favicon_favicon.png" height="20px" id="opinion_groups_logo"> --}}
+                  {{s.opinionGroups}}
+        </div>
 
-  {{#if show_pca_vis}}
-    <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
-      {{!-- <img src="https://pol.is/polis-favicon_favicon.png" height="20px" id="opinion_groups_logo"> --}}
-      {{s.opinionGroups}}
-    </div>
+        <div
+                id="helpTextGroups"
+                style="
+                    {{!-- background-color: {{help_bgcolor}}; --}}
+                    {{!-- border: 1px solid rgb(85, 172, 238); --}}
+                    {{!-- color: rgb(68, 136, 189); --}}
+                    {{!--    color: {{help_color}};
+                        padding: 15px 30px 15px 15px;
+                        width: 99%;
+                        margin: 0px auto 10px auto;
+                        border-radius: 4px;
+                        position: relative; --}}
 
-    <div
-      id="helpTextGroups"
-      style="
-        {{!-- background-color: {{help_bgcolor}}; --}}
-        {{!-- border: 1px solid rgb(85, 172, 238); --}}
-        {{!-- color: rgb(68, 136, 189); --}}
-    {{!--    color: {{help_color}};
-        padding: 15px 30px 15px 15px;
-        width: 99%;
-        margin: 0px auto 10px auto;
-        border-radius: 4px;
-        position: relative; --}}
-
-        padding: 5px 0px 5px 0px;
-      " class="
+                        padding: 5px 0px 5px 0px;
+                        " class="
         clickDoesNotDeselectHull
         {{#if hideHelp}}displayNone{{/if}}
-      ">
-      <p
-        style="margin: 0px; margin-bottom: 10px;"
+        ">
+          <p
+                  style="margin: 0px; margin-bottom: 10px;"
+          >
+            <span class="displayNone" id="vis_help_label">
+              {{!-- TODO_SECURITY try to not use triple brackets. --}}
+                {{{s.participantHelpGroupsText}}}
+            </span>
+            <span class="displayNone" id="vis_not_yet_label">
+              {{!-- TODO_SECURITY try to not use triple brackets. --}}
+                {{{s.participantHelpGroupsNotYetText}}}
+            </span>
+          </p>
+            <!--      <div id="helpTextGroupsMore" style="display:none; margin-top: 10px">-->
+            <!--        {{{s.helpWhatAreGroupsDetail}}}-->
+            <!--      </div>-->
+        </div>
+        {{/if}}
+
+        <div id="vis_section" class="displayNone">
+
+
+        <div style="margin-bottom: 15px;"> {{!-- vis and carousel --}}
+
+        <div id="vis_sibling_above_tab_content"></div>
+
+        <div
+                id="visualization_parent_div"
+                class="clickDoesNotDeselectHull"
+                style="text-align: end; visibility: hidden; background-color: rgba(0,0,0,0);"
         >
-        <span class="displayNone" id="vis_help_label">
-          {{!-- TODO_SECURITY try to not use triple brackets. --}}
-          {{{s.participantHelpGroupsText}}}
-        </span>
-        <span class="displayNone" id="vis_not_yet_label">
-          {{!-- TODO_SECURITY try to not use triple brackets. --}}
-          {{{s.participantHelpGroupsNotYetText}}}
-        </span>
-      </p>
-<!--      <div id="helpTextGroupsMore" style="display:none; margin-top: 10px">-->
-<!--        {{{s.helpWhatAreGroupsDetail}}}-->
-<!--      </div>-->
+          <div
+                  id="visualization_div"
+                  style="display:none"
+                  class="vis_container clickDoesNotDeselectHull"
+          >
+          </div>
+
+          <div id="vis2_root"></div>
+
+            {{#if show_top_comments}}
+                <div id="top_comments" style="text-align: start">
+            <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
+                {{s.topComments}}
+            </div>
+                    {{view topCommentsView}}
+          </div>
+            {{/if}}
+            {{#if show_divisive_comments}}
+                <div id="divisive_comments" style="text-align: start">
+            <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
+                {{s.divisiveComments}}
+            </div>
+                    {{view divisiveCommentsView}}
+          </div>
+            {{/if}}
+        </div>
+        <div
+                id="groupSelectionViewContainer"
+                class="clickDoesNotDeselectHull"
+                style="
+            display: none;
+            text-align: center;
+            min-height: 34px;
+            margin: 0px;
+            padding: 10px 0px 10px 0px;
+          ">
+            {{view groupSelectionView}}
+        </div>
+
+        </div> {{!-- end lightPanel --}}
+        </div> {{!-- end vis_section --}}
     </div>
-  {{/if}}
-
-
-<div id="vis_section" class="displayNone">
-
-
-<div style="margin-bottom: 15px;"> {{!-- vis and carousel --}}
-
-<div id="vis_sibling_above_tab_content"></div>
-
-<div
-  id="visualization_parent_div"
-  class="clickDoesNotDeselectHull"
-  style="text-align: end; visibility: hidden; background-color: rgba(0,0,0,0);"
-  >
-  <div
-    id="visualization_div"
-    style="display:none"
-    class="vis_container clickDoesNotDeselectHull"
-    >
-  </div>
-
-  <div id="vis2_root"></div>
-
-  {{#if show_top_comments}}
-  <div id="top_comments" style="text-align: start">
-    <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
-      {{s.topComments}}
-    </div>
-    {{view topCommentsView}}
-  </div>
-  {{/if}}
-  {{#if show_divisive_comments}}
-  <div id="divisive_comments" style="text-align: start">
-    <div class="HeadingC" style="text-transform:none; cursor: default; white-space: nowrap; border-bottom: none;">
-      {{s.divisiveComments}}
-    </div>
-    {{view divisiveCommentsView}}
-  </div>
-  {{/if}}
-</div>
-<div
-  id="groupSelectionViewContainer"
-  class="clickDoesNotDeselectHull"
-  style="
-    display: none;
-    text-align: center;
-    min-height: 34px;
-    margin: 0px;
-    padding: 10px 0px 10px 0px;
-  ">
-  {{view groupSelectionView}}
-</div>
-
-</div> {{!-- end lightPanel --}}
-</div> {{!-- end vis_section --}}
-
 </span> {{!-- end no_vis toggle wrapper --}}
 
 
