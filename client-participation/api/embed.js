@@ -264,7 +264,7 @@
             // NOTE: Overwriting passed data properties here
             let styleStr = "max-width: 100%; border: 0; padding: 0; ";
             if (h) {
-              styleStr += `height: ${h.toString()}px !important;`;
+              styleStr += "height: " + h.toString() + "px !important;";
             }
             iframe.setAttribute("style", styleStr);
           }
