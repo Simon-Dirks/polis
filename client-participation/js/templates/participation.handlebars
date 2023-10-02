@@ -318,8 +318,13 @@
 {{/if}}  {{!-- auth_prompt_any_social --}}
 
 <span class="{{#if no_vis}}displayNone{{/if}}"> {{!-- no_vis toggle wrapper --}}
-    <p id="expandVisContainerButton" style="cursor: pointer">Bekijk jouw meningengroep
-        <span id="expandVisContainerButtonArrow">▾</span>
+    <p id="expandVisContainerButton" style="cursor: pointer">
+        <span style="text-decoration: underline">Bekijk jouw meningengroep</span>
+        <span id="expandVisContainerButtonArrow">
+             <svg width="10" style="display: inline;" height="7">
+              <polygon style="fill:black" points="0,0 10,0 5,6"></polygon>
+            </svg>
+        </span>
     </p>
     <div id="expandableVisContainer">
         {{#if show_pca_vis}}

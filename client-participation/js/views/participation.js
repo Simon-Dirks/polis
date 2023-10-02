@@ -103,10 +103,18 @@ module.exports = ConversationView.extend({
   toggleExpandVisContainer: function() {
     const expandableVisContainer = $("#expandableVisContainer");
     expandableVisContainer.toggle();
+
     if (expandableVisContainer.is(":hidden")) {
-      $("#expandVisContainerButtonArrow").text("▴");
+      $("#expandVisContainerButtonArrow").html(`
+        <svg width="10" style="display: inline;" height="8">
+          <polygon style="fill:black" points="0,6 10,6 5,0"></polygon>
+        </svg>
+        `);
     } else {
-      $("#expandVisContainerButtonArrow").text("▾");
+      $("#expandVisContainerButtonArrow").html(`
+        <svg width="10" style="display: inline;" height="7">
+          <polygon style="fill:black" points="0,0 10,0 5,6"></polygon>
+        </svg>`);
     }
   },
   hideVis: function() {
@@ -225,6 +233,7 @@ module.exports = ConversationView.extend({
     ctx.show_divisive_comments = ctx.vis_type === Constants.VIS_TYPE.TOP_COMMENTS;
 
     ctx.show_pca_vis = ctx.vis_type === Constants.VIS_TYPE.PCA;
+
     return ctx;
   },
 
