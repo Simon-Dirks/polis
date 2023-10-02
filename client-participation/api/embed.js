@@ -254,9 +254,10 @@
           var frameId = "polis_" + data.polisFrameId;
           var iframe = document.getElementById(frameId);
           var h = data.height;
-          if (h > maxHeightsSeen[frameId] || typeof maxHeightsSeen[frameId] === "undefined") {
+          if (true || (h > maxHeightsSeen[frameId] || typeof maxHeightsSeen[frameId] === "undefined")) {
             // Prevents resize loops and excessive scrollbar flashing by only allowing iframe to expand.
-            maxHeightsSeen[frameId] = h;
+            // NOTE: Removed this functionality as we want to be able to collapse elements in the embedded frame (making the iframe smaller again)
+            // maxHeightsSeen[frameId] = h;
             iframe.setAttribute("height", h);
           }
         }
