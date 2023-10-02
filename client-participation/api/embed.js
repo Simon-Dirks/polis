@@ -163,7 +163,7 @@
     iframe.src = src;
     iframe.width = "100%"; // may be constrained by parent div
     iframe.style.maxWidth = window.innerWidth + "px";
-    iframe.height = o.height || 930;
+    iframe.style.height = (o.height || 930) + 'px !important';
     iframe.style.border = o.border || "1px solid #ccc";
     iframe.style.borderRadius = o.border_radius || "4px";
     iframe.style.padding = o.padding || "4px"; // 1px ensures that right border shows up on default wordpress theme
@@ -258,7 +258,8 @@
             // Prevents resize loops and excessive scrollbar flashing by only allowing iframe to expand.
             // NOTE: Removed this functionality as we want to be able to collapse elements in the embedded frame (making the iframe smaller again)
             // maxHeightsSeen[frameId] = h;
-            iframe.setAttribute("height", h);
+            // iframe.setAttribute("height", h);
+            iframe.style.height = h + 'px !important';
           }
         }
       }
