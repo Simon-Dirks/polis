@@ -262,7 +262,7 @@
             // iframe.setAttribute("height", h);
 
             // NOTE: Overwriting passed data properties here
-            const styleStr = "max-width: 100%; border: 0; padding: 0; ";
+            let styleStr = "max-width: 100%; border: 0; padding: 0; ";
             if (h) {
               styleStr += h.toString() + 'px !important;';
             }
