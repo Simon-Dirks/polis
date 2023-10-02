@@ -1349,5 +1349,8 @@ module.exports = ConversationView.extend({
         that.allCommentsCollection.doFetch({});
       }, 3000);
 
+      setTimeout(() => {
+        this.toggleExpandVisContainer();
+      });
     } // end initialize
 });
