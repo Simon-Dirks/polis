@@ -262,7 +262,7 @@
             // iframe.setAttribute("height", h);
 
             // NOTE: Overwriting passed data properties here
-            iframe.setAttribute("style", `max-width: 100%; border: 0; padding: 0; height: ${c}px !important;`);
+            iframe.setAttribute("style", `max-width: 100%; border: 0; padding: 0; height: ${h}px !important;`);
           }
         }
       }
