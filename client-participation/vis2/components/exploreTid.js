@@ -39,14 +39,41 @@ const DataSentence = ({math, selectedTidCuration, selectedComment, repfulFor, St
 
     markup = (
       <div style={{display: "flex"}}>
-        <svg height={40} style={{
-            display: "inline",
-            marginRight: 10,
-            fill: repfulForAgree ? globals.colors.agree : globals.colors.disagree
-          }} viewBox="0 0 1792 1792">
-          <path d={repfulForAgree ? checkmark : ban}/>
-          </svg>
-        <p style={{
+          {repfulForAgree ? (
+              <svg
+                  height={40}
+                  style={{
+                      display: 'inline',
+                      marginRight: 10,
+                      fill: globals.colors.agree,
+                  }}
+                  viewBox="0 0 1792 1792"
+              >
+                  <path d={checkmark} />
+              </svg>
+          ) : (
+              <svg
+                  height={40}
+                  enableBackground="new 0 0 34.1 34.4"
+                  version="1.1"
+                  viewBox="0 0 34.1 34.4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{
+                      display: 'inline',
+                      marginRight: 10,
+                      padding: '3.5px'
+                  }}
+              >
+                  <style type="text/css">
+                      {`.st0 { fill: #D65745; } .st1 { fill: #D65745; stroke: #D65745; stroke-width: 3; stroke-miterlimit: 10; }`}
+                  </style>
+                  <path className="st0" d="M17,34.4c-9.5,0-17.2-7.7-17.2-17.2S7.5,0,17,0s17.2,7.7,17.2,17.2S26.4,34.4,17,34.4z M17,5C10.2,5,4.8,10.5,4.8,17.2S10.2,29.4,17,29.4s12.2-5.5,12.2-12.2S23.7,5,17,5z"></path>
+                  <polygon className="st1" points="10.2 12.2 15.2 17.2 10.2 22.2 11.9 23.9 18.7 17.2 11.9 10.4"></polygon>
+                  <polygon className="st1" points="23.7 22.2 18.7 17.2 23.7 12.2 22 10.4 15.2 17.2 22 23.9"></polygon>
+              </svg>
+          )}
+
+          <p style={{
             fontSize: 14,
             fontFamily: "Helvetica",
             fontWeight: 500,
@@ -70,13 +97,39 @@ const DataSentence = ({math, selectedTidCuration, selectedComment, repfulFor, St
 
     markup = (
       <div style={{display: "flex"}}>
-        <svg height={40} style={{
-            display: "inline",
-            marginRight: 10,
-            fill: repfulForAgree ? globals.colors.agree : globals.colors.disagree
-          }} viewBox="0 0 1792 1792">
-          <path d={repfulForAgree ? checkmark : ban}/>
-          </svg>
+          {repfulForAgree ? (
+              <svg
+                  height={40}
+                  style={{
+                      display: 'inline',
+                      marginRight: 10,
+                      fill: globals.colors.agree,
+                  }}
+                  viewBox="0 0 1792 1792"
+              >
+                  <path d={checkmark} />
+              </svg>
+          ) : (
+              <svg
+                  height={40}
+                  enableBackground="new 0 0 34.1 34.4"
+                  version="1.1"
+                  viewBox="0 0 34.1 34.4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  style={{
+                      display: 'inline',
+                      marginRight: 10,
+                      padding: '3.5px'
+                  }}
+              >
+                  <style type="text/css">
+                      {`.st0 { fill: #D65745; } .st1 { fill: #D65745; stroke: #D65745; stroke-width: 3; stroke-miterlimit: 10; }`}
+                  </style>
+                  <path className="st0" d="M17,34.4c-9.5,0-17.2-7.7-17.2-17.2S7.5,0,17,0s17.2,7.7,17.2,17.2S26.4,34.4,17,34.4z M17,5C10.2,5,4.8,10.5,4.8,17.2S10.2,29.4,17,29.4s12.2-5.5,12.2-12.2S23.7,5,17,5z"></path>
+                  <polygon className="st1" points="10.2 12.2 15.2 17.2 10.2 22.2 11.9 23.9 18.7 17.2 11.9 10.4"></polygon>
+                  <polygon className="st1" points="23.7 22.2 18.7 17.2 23.7 12.2 22 10.4 15.2 17.2 22 23.9"></polygon>
+              </svg>
+          )}
         <p style={{
             fontSize: 14,
             fontFamily: "Helvetica",
@@ -152,13 +205,26 @@ class ExploreTid extends React.Component {
         cursor: "pointer",
       }}
       onClick={this.handleDisagree.bind(this)}>
-        <svg
-          style={{
-            marginRight: 3,
-            position: "relative",
-            top: 2,
-            display: "inline-block"
-          }} fill="rgb(200,0,0)" width="15" viewBox="0 0 1792 1792"><path d="M1440 893q0-161-87-295l-754 753q137 89 297 89 111 0 211.5-43.5t173.5-116.5 116-174.5 43-212.5zm-999 299l755-754q-135-91-300-91-148 0-273 73t-198 199-73 274q0 162 89 299zm1223-299q0 157-61 300t-163.5 246-245 164-298.5 61-298.5-61-245-164-163.5-246-61-300 61-299.5 163.5-245.5 245-164 298.5-61 298.5 61 245 164 163.5 245.5 61 299.5z"/></svg>
+          <svg
+              width={15}
+              enableBackground="new 0 0 34.1 34.4"
+              version="1.1"
+              viewBox="0 0 34.1 34.4"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{
+                  marginRight: 3,
+                  position: "relative",
+                  top: 2,
+                  display: "inline-block"
+              }}
+          >
+              <style type="text/css">
+                  {`.st0 { fill: #D65745; } .st1 { fill: #D65745; stroke: #D65745; stroke-width: 3; stroke-miterlimit: 10; }`}
+              </style>
+              <path className="st0" d="M17,34.4c-9.5,0-17.2-7.7-17.2-17.2S7.5,0,17,0s17.2,7.7,17.2,17.2S26.4,34.4,17,34.4z M17,5C10.2,5,4.8,10.5,4.8,17.2S10.2,29.4,17,29.4s12.2-5.5,12.2-12.2S23.7,5,17,5z"></path>
+              <polygon className="st1" points="10.2 12.2 15.2 17.2 10.2 22.2 11.9 23.9 18.7 17.2 11.9 10.4"></polygon>
+              <polygon className="st1" points="23.7 22.2 18.7 17.2 23.7 12.2 22 10.4 15.2 17.2 22 23.9"></polygon>
+          </svg>
         Disagree
       </button>
     );
