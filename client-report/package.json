@@ -30,6 +30,7 @@
     "gulp-rename": "~1.0.0",
     "gulp-s3": "github:pol-is/gulp-s3#master",
     "json-loader": "~0.5.7",
+    "prettier": "3.0.3",
     "react-transform-catch-errors": "~1.0.2",
     "react-transform-hmr": "~1.0.4",
     "rimraf": "~2.4.5",
