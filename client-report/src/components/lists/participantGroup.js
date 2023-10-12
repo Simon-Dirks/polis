@@ -5,6 +5,7 @@ import * as globals from '../globals'
 // import Flex from "../framework/flex"
 // import style from "../../util/style";
 import CommentList from './commentList'
+import CommentGrid from './commentGrid'
 
 const ParticipantGroup = ({
     gid,
@@ -27,12 +28,12 @@ const ParticipantGroup = ({
     }
 
     return (
-        <div>
-            <h1>
+        <div className={'pb-8'}>
+            <h1 className={'mb-8'}>
                 Deze stellingen zijn typerend voor {groupLabel} (
                 {groupVotesForThisGroup['n-members']} deelnemers)
             </h1>
-            <CommentList
+            <CommentGrid
                 conversation={conversation}
                 ptptCount={ptptCount}
                 math={math}

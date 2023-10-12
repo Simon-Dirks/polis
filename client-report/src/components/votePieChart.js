@@ -1,58 +1,85 @@
-import React from 'react'
-import { Pie } from 'react-chartjs-2'
+import React, { useEffect, useRef, useState } from 'react'
+// import { Pie } from 'react-chartjs-2'
 import { brandColors } from './globals'
+import { Chart } from 'chart.js/auto'
 
-const VotePieChart = ({ comment, voteCounts, nMembers, voteColors }) => {
+const VotePieChart = ({
+    comment,
+    voteCounts,
+    sizePx,
+    // nMembers,
+    // voteColors
+}) => {
     if (!comment) return null
 
-    let w = 100
+    const chartCanvasRef = useRef(null)
+    const [chartData, setChartData] = useState({})
+    const [chart, setChart] = useState(null)
+    const [title, setTitle] = useState('')
+
+    // const initChange = () => {}
+
+    useEffect(() => {
+        const chartContainer = chartCanvasRef.current
+        const ctx = chartContainer.getContext('2d')
+
+        const options = {
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    enabled: false,
+                },
+            },
+            responsive: false,
+            maintainAspectRatio: false,
+        }
+
+        setChart(
+            new Chart(ctx, {
+                type: 'pie',
+                options: options,
+            })
+        )
+    }, [])
+
     let agrees = 0
     let disagrees = 0
     let sawTheComment = 0
     let missingCounts = false
 
-    if (typeof voteCounts != 'undefined') {
-        agrees = voteCounts.A
-        disagrees = voteCounts.D
-        sawTheComment = voteCounts.S
-    } else {
-        missingCounts = true
-    }
+    let agreeString = ''
+    let disagreeString = ''
+    let passString = ''
 
-    let passes = sawTheComment - (agrees + disagrees)
-    // let totalVotes = agrees + disagrees + passes;
+    useEffect(() => {
+        if (typeof voteCounts != 'undefined') {
+            agrees = voteCounts.A
+            disagrees = voteCounts.D
+            sawTheComment = voteCounts.S
+        } else {
+            missingCounts = true
+        }
 
-    // const agree = (agrees / nMembers) * w
-    // const disagree = (disagrees / nMembers) * w
-    // const pass = (passes / nMembers) * w
-    // const blank = nMembers - (sawTheComment / nMembers) * w;
+        let passes = sawTheComment - (agrees + disagrees)
+        // let totalVotes = agrees + disagrees + passes;
 
-    const agreeSaw = (agrees / sawTheComment) * w
-    const disagreeSaw = (disagrees / sawTheComment) * w
-    const passSaw = (passes / sawTheComment) * w
+        // const agree = (agrees / nMembers) * w
+        // const disagree = (disagrees / nMembers) * w
+        // const pass = (passes / nMembers) * w
+        // const blank = nMembers - (sawTheComment / nMembers) * w;
 
-    const agreeString = (agreeSaw << 0) + '%'
-    const disagreeString = (disagreeSaw << 0) + '%'
-    const passString = (passSaw << 0) + '%'
+        const agreeSaw = (agrees / sawTheComment) * 100
+        const disagreeSaw = (disagrees / sawTheComment) * 100
+        const passSaw = (passes / sawTheComment) * 100
 
-    const data = {
-        datasets: [
-            {
-                data: [disagreeSaw, agreeSaw, passSaw],
-                backgroundColor: [brandColors.disagree, brandColors.agree, brandColors.pass],
-                borderWidth: 0,
-                animation: {
-                    animateRotate: true,
-                    animateScale: true,
-                },
-            },
-        ],
-    }
+        agreeString = (agreeSaw << 0) + '%'
+        disagreeString = (disagreeSaw << 0) + '%'
+        passString = (passSaw << 0) + '%'
 
-    return (
-        <div
-            title={
-                agreeString +
+        setTitle(
+            agreeString +
                 ' Agreed\n' +
                 disagreeString +
                 ' Disagreed\n' +
@@ -60,36 +87,54 @@ const VotePieChart = ({ comment, voteCounts, nMembers, voteColors }) => {
                 ' Passed\n' +
                 sawTheComment +
                 ' Respondents'
-            }
-        >
-            <div>
+        )
+
+        setChartData({
+            datasets: [
+                {
+                    data: [disagreeSaw, agreeSaw, passSaw],
+                    backgroundColor: [brandColors.disagree, brandColors.agree, brandColors.pass],
+                    borderWidth: 0,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                    },
+                },
+            ],
+        })
+    }, [voteCounts])
+
+    useEffect(() => {
+        if (!chart) {
+            return
+        }
+        chart.data = chartData
+        chart.update()
+    }, [chart, chartData])
+
+    return (
+        <div title={title}>
+            <>
                 {missingCounts ? (
                     <span style={{ fontSize: 12, marginRight: 4, color: 'grey' }}>
                         Missing vote counts
                     </span>
                 ) : (
-                    <div>
-                        <div
-                            className={
-                                'flex justify-center items-center h-[50px] w-[50px] overflow-hidden'
-                            }
-                        >
-                            <Pie
-                                data={data}
-                                options={{
-                                    plugins: {
-                                        legend: {
-                                            display: false,
-                                        },
-                                    },
-                                    responsive: false,
-                                    maintainAspectRatio: false,
-                                }}
-                            />
-                        </div>
+                    <div
+                        className={'flex justify-center items-center overflow-hidden'}
+                        style={{
+                            height: sizePx + 'px',
+                            width: sizePx + 'px',
+                        }}
+                    >
+                        <canvas
+                            ref={chartCanvasRef}
+                            width={sizePx * 1.5}
+                            height={sizePx * 1.5}
+                        ></canvas>
                     </div>
                 )}
-            </div>
+            </>
         </div>
     )
 }

@@ -3,23 +3,28 @@
 import React from 'react'
 import _ from 'lodash'
 // import * as globals from '../globals'
-import CommentRow from './commentRow'
+import CommentTile from './commentTile'
 
-class CommentList extends React.Component {
+class CommentGrid extends React.Component {
     render() {
         const comments = _.keyBy(this.props.comments, 'tid')
 
         return (
-            <div>
+            <div className={'grid grid-cols-2 lg:grid-cols-4'}>
                 {this.props.tidsToRender.map((tid, i) => {
+                    if (!comments[tid]) {
+                        return null
+                    }
                     return (
-                        <CommentRow
-                            key={i}
-                            index={i}
-                            groups={this.props.math['group-votes']}
-                            comment={comments[tid]}
-                            voteColors={this.props.voteColors}
-                        />
+                        <div className={'pb-4'} key={i}>
+                            <CommentTile
+                                index={i}
+                                groups={this.props.math['group-votes']}
+                                comment={comments[tid]}
+                                voteColors={this.props.voteColors}
+                                sizePx={150}
+                            />
+                        </div>
                     )
                 })}
             </div>
@@ -27,4 +32,4 @@ class CommentList extends React.Component {
     }
 }
 
-export default CommentList
+export default CommentGrid
