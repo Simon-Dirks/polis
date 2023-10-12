@@ -8,15 +8,32 @@ export const barChartWidth = 250
 export const side = 1200
 
 export const brandColors = {
-    agree: 'rgb(46, 204, 113)',
+    agree: 'rgb(101, 201, 122)',
     agreeColorblind: 'rgb(0, 140, 230)',
-    disagree: 'rgb(231, 76, 60)',
-    pass: 'rgb(230,230,230)',
+    disagree: 'rgb(214, 87, 69)',
+    pass: 'rgba(216, 216, 216)',
     comment: '#03a9f4',
     yellowForRadial: '#DFE74D',
     blue: '#03A9F4',
     mediumGrey: 'rgb(130,130,130)',
     lightgrey: 'rgb(215,215,215)',
+    groups: [
+        {
+            agree: 'rgb(156, 0, 234)',
+            disagree: 'rgb(219, 149, 255)',
+            pass: 'rgb(240, 217, 252)',
+        },
+        {
+            agree: 'rgb(0, 197, 255)',
+            disagree: 'rgb(133, 227, 255)',
+            pass: 'rgb(208, 244, 255)',
+        },
+        {
+            agree: 'rgb(249, 136, 47)',
+            disagree: 'rgb(255, 186, 131)',
+            pass: 'rgb(255, 235, 219)',
+        },
+    ],
 }
 
 export const allCommentsSortDefault = 'pctAgreed'

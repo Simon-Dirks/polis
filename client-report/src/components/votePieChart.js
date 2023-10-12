@@ -8,7 +8,7 @@ const VotePieChart = ({
     voteCounts,
     sizePx,
     // nMembers,
-    // voteColors
+    voteColors,
 }) => {
     if (!comment) return null
 
@@ -92,8 +92,8 @@ const VotePieChart = ({
         setChartData({
             datasets: [
                 {
-                    data: [disagreeSaw, agreeSaw, passSaw],
-                    backgroundColor: [brandColors.disagree, brandColors.agree, brandColors.pass],
+                    data: [agreeSaw, disagreeSaw, passSaw],
+                    backgroundColor: [voteColors.agree, voteColors.disagree, voteColors.pass],
                     borderWidth: 0,
                     animation: {
                         animateRotate: true,

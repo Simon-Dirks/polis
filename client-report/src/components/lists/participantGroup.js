@@ -27,6 +27,11 @@ const ParticipantGroup = ({
         groupLabel = 'Groep ' + globals.groupLabels[gid]
     }
 
+    let groupVoteColors = voteColors
+    if (gid < globals.brandColors.groups.length) {
+        groupVoteColors = globals.brandColors.groups[gid]
+    }
+
     return (
         <div className={'pb-8'}>
             <h1 className={'mb-8'}>
@@ -40,7 +45,7 @@ const ParticipantGroup = ({
                 formatTid={formatTid}
                 tidsToRender={_.map(groupComments, 'tid') /* uncertainTids would be funnier */}
                 comments={comments}
-                voteColors={voteColors}
+                voteColors={groupVoteColors}
             />
         </div>
     )
