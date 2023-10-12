@@ -34,7 +34,7 @@ const CommentRow = ({ comment, groups, voteColors }) => {
                 </div>
                 <div>
                     <p>Stelling {comment.tid}</p>
-                    <p className={'text-2xl font-bold'}>{comment.txt}</p>
+                    <p className={'text-2xl'}>{comment.txt}</p>
                 </div>
             </div>
             <div className={'h-1 border-b-2'}></div>

@@ -23,22 +23,15 @@ const ParticipantGroup = ({
 }) => {
     let groupLabel = groupName
     if (typeof groupLabel === 'undefined') {
-        groupLabel = 'Group ' + globals.groupLabels[gid]
+        groupLabel = 'Groep ' + globals.groupLabels[gid]
     }
 
     return (
-        <div
-            style={{
-                width: '100%',
-            }}
-        >
-            <p style={globals.secondaryHeading}>
-                {groupLabel}: {groupVotesForThisGroup['n-members']} participants
-            </p>
-            <p style={globals.paragraph}>
-                {' '}
-                Statements which make this group unique, by their votes:{' '}
-            </p>
+        <div>
+            <h1>
+                Deze stellingen zijn typerend voor {groupLabel} (
+                {groupVotesForThisGroup['n-members']} deelnemers)
+            </h1>
             <CommentList
                 conversation={conversation}
                 ptptCount={ptptCount}

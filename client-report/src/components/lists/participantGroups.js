@@ -27,15 +27,6 @@ class ParticipantGroups extends React.Component {
         return (
             <div style={Object.assign({}, styles.base, this.props.style)}>
                 <div>
-                    <p style={globals.primaryHeading}> Opinion Groups </p>
-                    <p style={globals.paragraph}>
-                        Across {this.props.ptptCount} total participants,{' '}
-                        {this.props.math['group-votes'].length} opinion groups emerged. There are
-                        two factors that define an opinion group. First, each opinion group is made
-                        up of a number of participants who tended to vote similarly on multiple
-                        statements. Second, each group of participants who voted similarly will have
-                        also voted distinctly differently from other groups.
-                    </p>
                     <Metadata
                         math={this.props.math}
                         comments={this.props.comments}

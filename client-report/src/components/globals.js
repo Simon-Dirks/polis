@@ -19,7 +19,7 @@ export const brandColors = {
     lightgrey: 'rgb(215,215,215)',
 }
 
-export const allCommentsSortDefault = 'tid'
+export const allCommentsSortDefault = 'pctAgreed'
 
 const fontSizes = {
     largest: 36,

@@ -18,18 +18,11 @@ const computeVoteTotal = (users) => {
 
 // }
 
-const Number = ({ number, label }) => (
-    <div style={{ marginLeft: '10px', marginRight: '10px' }}>
-        <p style={globals.overviewNumber}>{number.toLocaleString()}</p>
-        <p style={globals.overviewLabel}>{label}</p>
-    </div>
-)
-
 const Overview = ({
     // conversation,
     // demographics,
-    // ptptCount,
-    ptptCountTotal,
+    ptptCount,
+    // ptptCountTotal,
     math,
     // comments,
     //stats,
@@ -37,7 +30,7 @@ const Overview = ({
 }) => {
     return (
         <div>
-            <p>{ptptCountTotal} Deelnemers</p>
+            <p>{ptptCount} Deelnemers</p>
             <p>{computeVoteTotal(math['user-vote-counts'])} stemmen</p>
             <p>{math['n-cmts']} stellingen</p>
         </div>
