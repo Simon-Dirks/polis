@@ -1,4 +1,6 @@
 import React from 'react'
+import { Pie } from 'react-chartjs-2'
+import { brandColors } from './globals'
 
 const VotePieChart = ({ comment, voteCounts, nMembers, voteColors }) => {
     if (!comment) return null
@@ -33,6 +35,20 @@ const VotePieChart = ({ comment, voteCounts, nMembers, voteColors }) => {
     const disagreeString = (disagreeSaw << 0) + '%'
     const passString = (passSaw << 0) + '%'
 
+    const data = {
+        datasets: [
+            {
+                data: [disagreeSaw, agreeSaw, passSaw],
+                backgroundColor: [brandColors.disagree, brandColors.agree, brandColors.pass],
+                borderWidth: 0,
+                animation: {
+                    animateRotate: true,
+                    animateScale: true,
+                },
+            },
+        ],
+    }
+
     return (
         <div
             title={
@@ -53,16 +69,24 @@ const VotePieChart = ({ comment, voteCounts, nMembers, voteColors }) => {
                     </span>
                 ) : (
                     <div>
-                        <p>
-                            Agree: {agreeSaw} ({agreeString})
-                        </p>
-                        <p>
-                            Disagree: {disagreeSaw} ({disagreeString})
-                        </p>
-                        <p>
-                            Pass: {passSaw} ({passString})
-                        </p>
-                        <p>{sawTheComment} respondents</p>
+                        <div
+                            className={
+                                'flex justify-center items-center h-[50px] w-[50px] overflow-hidden'
+                            }
+                        >
+                            <Pie
+                                data={data}
+                                options={{
+                                    plugins: {
+                                        legend: {
+                                            display: false,
+                                        },
+                                    },
+                                    responsive: false,
+                                    maintainAspectRatio: false,
+                                }}
+                            />
+                        </div>
                     </div>
                 )}
             </div>

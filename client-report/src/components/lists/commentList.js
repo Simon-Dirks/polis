@@ -18,20 +18,27 @@ const CommentRow = ({ comment, groups, voteColors }) => {
     })
 
     return (
-        <div>
-            <span>{comment.tid}</span>
-            <span>{comment.txt}</span>
-            <VotePieChart
-                comment={comment}
-                voteCounts={{
-                    A: comment.agreed,
-                    D: comment.disagreed,
-                    S: comment.saw,
-                }}
-                nMembers={totalMembers}
-                voteColors={voteColors}
-            />
-        </div>
+        <>
+            <div className={'flex flex-row py-4'}>
+                <div className={'flex items-center pr-4'}>
+                    <VotePieChart
+                        comment={comment}
+                        voteCounts={{
+                            A: comment.agreed,
+                            D: comment.disagreed,
+                            S: comment.saw,
+                        }}
+                        nMembers={totalMembers}
+                        voteColors={voteColors}
+                    />
+                </div>
+                <div>
+                    <p>Stelling {comment.tid}</p>
+                    <p className={'text-2xl font-bold'}>{comment.txt}</p>
+                </div>
+            </div>
+            <div className={'h-1 border-b-2'}></div>
+        </>
     )
 }
 

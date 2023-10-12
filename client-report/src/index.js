@@ -4,8 +4,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+
 import App from './components/app'
 import './index.css'
+
+ChartJS.register(ArcElement, Legend)
 
 // const store = configureStore();
 
