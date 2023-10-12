@@ -32,6 +32,7 @@ const VotePieChart = ({
                     enabled: false,
                 },
             },
+            events: [],
             responsive: false,
             maintainAspectRatio: false,
         }
