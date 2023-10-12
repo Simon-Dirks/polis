@@ -51,12 +51,12 @@ data[3][1] = [];
 
 csv.forEach(function(x) {
 var v1 = Math.floor(x.Q1),
-  v2 = Math.floor(x.Q2),
-  v3 = Math.floor(x.Q3),
-  v4 = Math.floor(x.Q4);
-  // add more variables if your csv file has more columns
+v2 = Math.floor(x.Q2),
+v3 = Math.floor(x.Q3),
+v4 = Math.floor(x.Q4);
+// add more variables if your csv file has more columns
 
-  console.log('v1', v1)
+console.log('v1', v1)
 
 var rowMax = Math.max(v1, Math.max(v2, Math.max(v3,v4)));
 var rowMin = Math.min(v1, Math.min(v2, Math.min(v3,v4)));
@@ -65,7 +65,7 @@ data[0][1].push(v1);
 data[1][1].push(v2);
 data[2][1].push(v3);
 data[3][1].push(v4);
-  // add more rows if your csv file has more columns
+// add more rows if your csv file has more columns
 
 if (rowMax > max) max = rowMax;
 if (rowMin < min) min = rowMin;
