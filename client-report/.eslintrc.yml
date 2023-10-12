@@ -15,10 +15,10 @@ ignorePatterns:
   - dist
 overrides:
   - files:
-    - dev-server.js
-    - gulpfile.js
-    - webpack.config.js
-    - webpack.config.dev.js
+      - dev-server.js
+      - gulpfile.js
+      - webpack.config.js
+      - webpack.config.dev.js
     env:
       browser: false
       node: true

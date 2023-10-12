@@ -30,50 +30,50 @@ const drawBoxPlot = (dataset) => {
 
     /*
 
-  var data = [];
-  data[0] = [];
-  data[1] = [];
-  data[2] = [];
-  data[3] = [];
-  // add more rows if your csv file has more columns
+var data = [];
+data[0] = [];
+data[1] = [];
+data[2] = [];
+data[3] = [];
+// add more rows if your csv file has more columns
 
-  // add here the header of the csv file
-  data[0][0] = "Q1";
-  data[1][0] = "Q2";
-  data[2][0] = "Q3";
-  data[3][0] = "Q4";
-  // add more rows if your csv file has more columns
+// add here the header of the csv file
+data[0][0] = "Q1";
+data[1][0] = "Q2";
+data[2][0] = "Q3";
+data[3][0] = "Q4";
+// add more rows if your csv file has more columns
 
-  data[0][1] = [];
-  data[1][1] = [];
-  data[2][1] = [];
-  data[3][1] = [];
+data[0][1] = [];
+data[1][1] = [];
+data[2][1] = [];
+data[3][1] = [];
 
-  csv.forEach(function(x) {
-    var v1 = Math.floor(x.Q1),
-      v2 = Math.floor(x.Q2),
-      v3 = Math.floor(x.Q3),
-      v4 = Math.floor(x.Q4);
-      // add more variables if your csv file has more columns
+csv.forEach(function(x) {
+  var v1 = Math.floor(x.Q1),
+    v2 = Math.floor(x.Q2),
+    v3 = Math.floor(x.Q3),
+    v4 = Math.floor(x.Q4);
+    // add more variables if your csv file has more columns
 
-      console.log('v1', v1)
+    console.log('v1', v1)
 
-    var rowMax = Math.max(v1, Math.max(v2, Math.max(v3,v4)));
-    var rowMin = Math.min(v1, Math.min(v2, Math.min(v3,v4)));
+  var rowMax = Math.max(v1, Math.max(v2, Math.max(v3,v4)));
+  var rowMin = Math.min(v1, Math.min(v2, Math.min(v3,v4)));
 
-    data[0][1].push(v1);
-    data[1][1].push(v2);
-    data[2][1].push(v3);
-    data[3][1].push(v4);
-      // add more rows if your csv file has more columns
+  data[0][1].push(v1);
+  data[1][1].push(v2);
+  data[2][1].push(v3);
+  data[3][1].push(v4);
+    // add more rows if your csv file has more columns
 
-    if (rowMax > max) max = rowMax;
-    if (rowMin < min) min = rowMin;
-  });
+  if (rowMax > max) max = rowMax;
+  if (rowMin < min) min = rowMin;
+});
 
-  console.log('parsed looks like ', data)
+console.log('parsed looks like ', data)
 
-  */
+*/
 
     var chart = d3.box().whiskers(iqr(1.5)).height(height).domain([0, 100]).showLabels(labels)
 
