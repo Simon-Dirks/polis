@@ -517,15 +517,6 @@ class App extends React.Component {
             <p style={globals.primaryHeading}>Consensus</p>
             <p style={globals.primaryHeading}>Inclusive Majority</p>
           */}
-                    <MajorityStrict
-                        math={this.state.math}
-                        conversation={this.state.conversation}
-                        ptptCount={this.state.ptptCount}
-                        comments={this.state.comments}
-                        formatTid={this.state.formatTid}
-                        consensus={this.state.consensus}
-                        voteColors={this.state.voteColors}
-                    />
                     <ParticipantGroups
                         comments={this.state.comments}
                         conversation={this.state.conversation}

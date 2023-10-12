@@ -206,16 +206,6 @@ class Beeswarm extends React.Component {
     render() {
         return (
             <div style={{ width: this.svgWidth }}>
-                <p style={globals.primaryHeading}> How divisive was the conversation? </p>
-                <p style={globals.paragraph}>
-                    Statements (here as little circles) to the left were voted on the same
-                    way—either everyone agreed or everyone disagreed. Statements to the right were
-                    divisive—participants were split between agreement and disagreement.
-                </p>
-                <p style={globals.paragraph}>
-                    <strong>How to use this:</strong> Hover to see the statement text. Start on the
-                    far right to find out what the most divisive statement was.
-                </p>
                 <svg width={this.svgWidth} height={this.svgHeight}>
                     <g
                         id="beeswarmAxisAttachPointD3"
