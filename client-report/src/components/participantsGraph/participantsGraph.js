@@ -82,9 +82,9 @@ class ParticipantsGraph extends React.Component {
             selectedComment: null,
             showContour: false,
             showGroupLabels: true,
-            showParticipants: true,
+            showParticipants: props.showParticipants,
             showGroupOutline: true,
-            showComments: false,
+            showComments: props.showComments,
             showAxes: false,
             showRadialAxes: false,
         }
@@ -137,9 +137,11 @@ class ParticipantsGraph extends React.Component {
 
         return (
             <div style={{ position: 'relative' }}>
-                <div>
-                    <h1>Participants overview</h1>
-                </div>
+                {/*{this.props.renderHeading && (*/}
+                {/*    <div>*/}
+                {/*        <h1>Participants overview</h1>*/}
+                {/*    </div>*/}
+                {/*)}*/}
                 <div className={'hidden'}>
                     {
                         // <button
