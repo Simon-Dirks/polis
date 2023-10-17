@@ -100,11 +100,11 @@ export const shouldColorizeTidsByRepfulness = true
 
 export const groupColor = (gid) => {
     if (gid === 0) {
-        return '#7f63b8'
+        return '#9C00EA'
     } else if (gid === 1) {
-        return '#86a542'
+        return '#00C5FF'
     } else if (gid === 2) {
-        return '#b84c7d'
+        return '#FF7000'
     } else if (gid === 3) {
         return '#50b47b'
     } else if (gid === 4) {

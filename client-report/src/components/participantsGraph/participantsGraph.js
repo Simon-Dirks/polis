@@ -34,21 +34,24 @@ const Participants = ({ points, math }) => {
                 return (
                     <g key={i}>
                         <circle
-                            r={Math.sqrt(math['base-clusters'].count[pt.id]) * 3}
+                            r={8}
                             fill={globals.groupColor(pt.gid)}
-                            fillOpacity=".3"
+                            fillOpacity="1"
                             cx={pt.x}
                             cy={pt.y}
                         />
-                        <text
-                            fill={globals.groupColor(pt.gid)}
-                            fillOpacity=".8"
-                            x={pt.x - 5}
-                            y={pt.y + 5}
-                        >
-                            {' '}
-                            {globals.groupSymbols[pt.gid]}
-                        </text>
+                        {/*r={Math.sqrt(math['base-clusters'].count[pt.id]) * 8}*/}
+
+                        {/*<text*/}
+                        {/*    fill={globals.groupColor(pt.gid)}*/}
+                        {/*    fillOpacity=".5"*/}
+                        {/*    x={pt.x - 5}*/}
+                        {/*    y={pt.y + 5}*/}
+                        {/*>*/}
+                        {/*    {' '}*/}
+                        {/*    {pt.id}*/}
+                        {/*    /!*{globals.groupSymbols[pt.gid]}*!/*/}
+                        {/*</text>*/}
                     </g>
                 )
                 // return (<text
@@ -79,11 +82,11 @@ class ParticipantsGraph extends React.Component {
             selectedComment: null,
             showContour: false,
             showGroupLabels: true,
-            showParticipants: false,
-            showGroupOutline: false,
-            showComments: true,
-            showAxes: true,
-            showRadialAxes: true,
+            showParticipants: true,
+            showGroupOutline: true,
+            showComments: false,
+            showAxes: false,
+            showRadialAxes: false,
         }
     }
 
@@ -135,20 +138,9 @@ class ParticipantsGraph extends React.Component {
         return (
             <div style={{ position: 'relative' }}>
                 <div>
-                    <p style={globals.primaryHeading}> Graph </p>
-                    <p style={globals.paragraph}>
-                        Which statements were voted on similarly? How do participants relate to each
-                        other?
-                    </p>
-                    <p style={globals.paragraph}>
-                        In this graph, statements are positioned more closely to statements which
-                        were voted on similarly. Participants, in turn, are positioned more closely
-                        to statements on which they agreed, and further from statements on which
-                        they disagreed. This means participants who voted similarly are closer
-                        together.
-                    </p>
+                    <h1>Participants overview</h1>
                 </div>
-                <div>
+                <div className={'hidden'}>
                     {
                         // <button
                         //   style={{
@@ -306,33 +298,31 @@ class ParticipantsGraph extends React.Component {
                             voteColors={this.props.voteColors}
                         />
                     ) : (
-                        <p>
-                            Click a statement, identified by its number, to explore regions of the
-                            graph.
-                        </p>
+                        <></>
                     )}
                 </div>
 
-                {this.state.showParticipants ? (
-                    <p style={globals.paragraph}>
-                        {hulls.map((h, i) => {
-                            return (
-                                <span style={{ marginRight: 40 }} key={i}>
-                                    {`${globals.groupSymbols[i]}`}
-                                    <span
-                                        style={{
-                                            fontFamily:
-                                                '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
-                                        }}
-                                    >
-                                        {' '}
-                                        {`${globals.groupLabels[i]}`}{' '}
-                                    </span>
-                                </span>
-                            )
-                        })}
-                    </p>
-                ) : null}
+                {this.state.showParticipants
+                    ? null
+                    : // <p style={globals.paragraph}>
+                      //     {hulls.map((h, i) => {
+                      //         return (
+                      //             <span style={{ marginRight: 40 }} key={i}>
+                      //                 {`${globals.groupSymbols[i]}`}
+                      //                 <span
+                      //                     style={{
+                      //                         fontFamily:
+                      //                             '"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif',
+                      //                     }}
+                      //                 >
+                      //                     {' '}
+                      //                     {`${globals.groupLabels[i]}`}{' '}
+                      //                 </span>
+                      //             </span>
+                      //         )
+                      //     })}
+                      // </p>
+                      null}
                 <svg
                     className="shrink-for-print-70 move-left-20-for-print"
                     width={this.props.height ? this.props.height : globals.side}
@@ -362,40 +352,40 @@ class ParticipantsGraph extends React.Component {
                             r={globals.side / 2.3}
                         ></circle>
                     </defs>
-                    {this.state.showRadialAxes ? (
-                        <g>
-                            <circle
-                                strokeWidth={1}
-                                stroke={'rgb(230,230,230)'}
-                                fill={'rgb(248,248,248)'}
-                                cx={xCenter}
-                                cy={yCenter}
-                                r={globals.side / 2.3}
-                            />
-                            <circle
-                                strokeWidth={1}
-                                stroke={'rgb(230,230,230)'}
-                                fill={'rgb(245,245,245)'}
-                                cx={xCenter}
-                                cy={yCenter}
-                                r={globals.side / 4}
-                            />
-                            <circle
-                                strokeWidth={1}
-                                stroke={'rgb(230,230,230)'}
-                                fill={'rgb(248,248,248)'}
-                                cx={xCenter}
-                                cy={yCenter}
-                                r={globals.side / 8}
-                            />
-                        </g>
-                    ) : null}
+                    {/*{this.state.showRadialAxes ? (*/}
+                    {/*    <g>*/}
+                    {/*        <circle*/}
+                    {/*            strokeWidth={1}*/}
+                    {/*            stroke={'rgb(230,230,230)'}*/}
+                    {/*            fill={'rgb(248,248,248)'}*/}
+                    {/*            cx={xCenter}*/}
+                    {/*            cy={yCenter}*/}
+                    {/*            r={globals.side / 2.3}*/}
+                    {/*        />*/}
+                    {/*        <circle*/}
+                    {/*            strokeWidth={1}*/}
+                    {/*            stroke={'rgb(230,230,230)'}*/}
+                    {/*            fill={'rgb(245,245,245)'}*/}
+                    {/*            cx={xCenter}*/}
+                    {/*            cy={yCenter}*/}
+                    {/*            r={globals.side / 4}*/}
+                    {/*        />*/}
+                    {/*        <circle*/}
+                    {/*            strokeWidth={1}*/}
+                    {/*            stroke={'rgb(230,230,230)'}*/}
+                    {/*            fill={'rgb(248,248,248)'}*/}
+                    {/*            cx={xCenter}*/}
+                    {/*            cy={yCenter}*/}
+                    {/*            r={globals.side / 8}*/}
+                    {/*        />*/}
+                    {/*    </g>*/}
+                    {/*) : null}*/}
                     {this.state.showContour
                         ? contours.map((contour, i) => <Contour key={i} contour={contour} />)
                         : null}
-                    {this.state.showAxes ? (
-                        <Axes xCenter={xCenter} yCenter={yCenter} report={this.props.report} />
-                    ) : null}
+                    {/*{this.state.showAxes ? (*/}
+                    {/*    <Axes xCenter={xCenter} yCenter={yCenter} report={this.props.report} />*/}
+                    {/*) : null}*/}
                     {this.state.showGroupOutline
                         ? hulls.map((hull) => {
                               let gid = hull.group[0].gid
@@ -404,7 +394,7 @@ class ParticipantsGraph extends React.Component {
                                       return ''
                                   }
                               }
-                              return <Hull key={gid} hull={hull} />
+                              return <Hull key={gid} hull={hull} gid={gid} />
                           })
                         : null}
                     {this.state.showParticipants ? (

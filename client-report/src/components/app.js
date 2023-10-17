@@ -577,18 +577,18 @@ class App extends React.Component {
             ptptCount={this.state.ptptCount}
             voteColors={this.state.voteColors}/> : ""} */}
 
-                    {/*<ParticipantsGraph*/}
-                    {/*    comments={this.state.comments}*/}
-                    {/*    groupNames={this.state.groupNames}*/}
-                    {/*    badTids={this.state.badTids}*/}
-                    {/*    colorBlindMode={this.state.colorBlindMode}*/}
-                    {/*    formatTid={this.state.formatTid}*/}
-                    {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
-                    {/*    math={this.state.math}*/}
-                    {/*    renderHeading={true}*/}
-                    {/*    report={this.state.report}*/}
-                    {/*    voteColors={this.state.voteColors}*/}
-                    {/*/>*/}
+                    <ParticipantsGraph
+                        comments={this.state.comments}
+                        groupNames={this.state.groupNames}
+                        badTids={this.state.badTids}
+                        colorBlindMode={this.state.colorBlindMode}
+                        formatTid={this.state.formatTid}
+                        repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
+                        math={this.state.math}
+                        renderHeading={true}
+                        report={this.state.report}
+                        voteColors={this.state.voteColors}
+                    />
 
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
 
