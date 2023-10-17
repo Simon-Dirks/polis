@@ -30,6 +30,7 @@ import $ from 'jquery'
 import BoxPlot from './boxPlot/boxPlot'
 import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 import AllCommentsForGroup from './lists/allCommentsForGroup'
+import StackedBarChart from './stackedBarChart/stackedBarChart'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -515,6 +516,24 @@ class App extends React.Component {
                     {/* This may eventually need to go back in below */}
                     {/* stats={this.state.conversationStats} */}
 
+                    {/*<StackedBarChart*/}
+                    {/*    conversation={this.state.conversation}*/}
+                    {/*    extremity={this.state.extremity}*/}
+                    {/*    math={this.state.math}*/}
+                    {/*    comments={this.state.comments}*/}
+                    {/*    voteColors={this.state.voteColors}*/}
+                    {/*/>*/}
+
+                    <Beeswarm
+                        conversation={this.state.conversation}
+                        extremity={this.state.extremity}
+                        math={this.state.math}
+                        comments={this.state.comments}
+                        probabilities={this.state.filteredCorrelationMatrix}
+                        probabilitiesTids={this.state.filteredCorrelationTids}
+                        voteColors={this.state.voteColors}
+                    />
+
                     <div className={''}>
                         <Overview
                             computedStats={this.state.computedStats}
@@ -524,16 +543,6 @@ class App extends React.Component {
                             ptptCountTotal={this.state.ptptCountTotal}
                             demographics={this.state.demographics}
                             conversation={this.state.conversation}
-                            voteColors={this.state.voteColors}
-                        />
-
-                        <Beeswarm
-                            conversation={this.state.conversation}
-                            extremity={this.state.extremity}
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            probabilities={this.state.filteredCorrelationMatrix}
-                            probabilitiesTids={this.state.filteredCorrelationTids}
                             voteColors={this.state.voteColors}
                         />
 
@@ -601,6 +610,36 @@ class App extends React.Component {
                             comments={this.state.comments}
                             conversation={this.state.conversation}
                         />
+
+                        <AllCommentsForGroup
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                            gid={0}
+                            ptptCount={this.state.ptptCount}
+                            formatTid={this.state.formatTid}
+                            voteColors={this.state.voteColors}
+                        />
+
+                        <AllCommentsForGroup
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                            gid={1}
+                            ptptCount={this.state.ptptCount}
+                            formatTid={this.state.formatTid}
+                            voteColors={this.state.voteColors}
+                        />
+
+                        <AllCommentsForGroup
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                            gid={2}
+                            ptptCount={this.state.ptptCount}
+                            formatTid={this.state.formatTid}
+                            voteColors={this.state.voteColors}
+                        />
                     </div>
 
                     {/*<Uncertainty*/}
@@ -632,36 +671,6 @@ class App extends React.Component {
             voteColors={this.state.voteColors}/> : ""} */}
 
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
-
-                    <AllCommentsForGroup
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        conversation={this.state.conversation}
-                        gid={0}
-                        ptptCount={this.state.ptptCount}
-                        formatTid={this.state.formatTid}
-                        voteColors={this.state.voteColors}
-                    />
-
-                    <AllCommentsForGroup
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        conversation={this.state.conversation}
-                        gid={1}
-                        ptptCount={this.state.ptptCount}
-                        formatTid={this.state.formatTid}
-                        voteColors={this.state.voteColors}
-                    />
-
-                    <AllCommentsForGroup
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        conversation={this.state.conversation}
-                        gid={2}
-                        ptptCount={this.state.ptptCount}
-                        formatTid={this.state.formatTid}
-                        voteColors={this.state.voteColors}
-                    />
 
                     {/*<Footer />*/}
                 </div>
