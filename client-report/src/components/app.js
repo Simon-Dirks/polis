@@ -29,6 +29,7 @@ import net from '../util/net'
 import $ from 'jquery'
 import BoxPlot from './boxPlot/boxPlot'
 import AllCommentsForParticipant from './lists/allCommentsForParticipant'
+import AllCommentsForGroup from './lists/allCommentsForGroup'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -514,41 +515,93 @@ class App extends React.Component {
                     {/* This may eventually need to go back in below */}
                     {/* stats={this.state.conversationStats} */}
 
-                    <Overview
-                        computedStats={this.state.computedStats}
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        ptptCount={this.state.ptptCount}
-                        ptptCountTotal={this.state.ptptCountTotal}
-                        demographics={this.state.demographics}
-                        conversation={this.state.conversation}
-                        voteColors={this.state.voteColors}
-                    />
+                    <div className={''}>
+                        <Overview
+                            computedStats={this.state.computedStats}
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            ptptCount={this.state.ptptCount}
+                            ptptCountTotal={this.state.ptptCountTotal}
+                            demographics={this.state.demographics}
+                            conversation={this.state.conversation}
+                            voteColors={this.state.voteColors}
+                        />
 
-                    <Beeswarm
-                        conversation={this.state.conversation}
-                        extremity={this.state.extremity}
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        probabilities={this.state.filteredCorrelationMatrix}
-                        probabilitiesTids={this.state.filteredCorrelationTids}
-                        voteColors={this.state.voteColors}
-                    />
+                        <Beeswarm
+                            conversation={this.state.conversation}
+                            extremity={this.state.extremity}
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            probabilities={this.state.filteredCorrelationMatrix}
+                            probabilitiesTids={this.state.filteredCorrelationTids}
+                            voteColors={this.state.voteColors}
+                        />
 
-                    <ParticipantGroups
-                        comments={this.state.comments}
-                        conversation={this.state.conversation}
-                        demographics={this.state.demographics}
-                        ptptCount={this.state.ptptCount}
-                        groupNames={this.state.groupNames}
-                        formatTid={this.state.formatTid}
-                        math={this.state.math}
-                        badTids={this.state.badTids}
-                        repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                        repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
-                        report={this.state.report}
-                        voteColors={this.state.voteColors}
-                    />
+                        <ParticipantGroups
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                            demographics={this.state.demographics}
+                            ptptCount={this.state.ptptCount}
+                            groupNames={this.state.groupNames}
+                            formatTid={this.state.formatTid}
+                            math={this.state.math}
+                            badTids={this.state.badTids}
+                            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
+                            repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
+                            report={this.state.report}
+                            voteColors={this.state.voteColors}
+                        />
+
+                        <h1>Participants graph</h1>
+                        <ParticipantsGraph
+                            comments={this.state.comments}
+                            participants={this.state.participants}
+                            groupNames={this.state.groupNames}
+                            badTids={this.state.badTids}
+                            colorBlindMode={this.state.colorBlindMode}
+                            formatTid={this.state.formatTid}
+                            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
+                            math={this.state.math}
+                            renderHeading={false}
+                            report={this.state.report}
+                            voteColors={this.state.voteColors}
+                            showParticipants={true}
+                            showComments={false}
+                        />
+
+                        {/*<h1>Statements graph</h1>*/}
+
+                        {/*<ParticipantsGraph*/}
+                        {/*    comments={this.state.comments}*/}
+                        {/*    participants={this.state.participants}*/}
+                        {/*    groupNames={this.state.groupNames}*/}
+                        {/*    badTids={this.state.badTids}*/}
+                        {/*    colorBlindMode={this.state.colorBlindMode}*/}
+                        {/*    formatTid={this.state.formatTid}*/}
+                        {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
+                        {/*    math={this.state.math}*/}
+                        {/*    renderHeading={false}*/}
+                        {/*    report={this.state.report}*/}
+                        {/*    voteColors={this.state.voteColors}*/}
+                        {/*    showParticipants={false}*/}
+                        {/*    showComments={true}*/}
+                        {/*/>*/}
+
+                        <AllCommentsModeratedIn
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                            ptptCount={this.state.ptptCount}
+                            formatTid={this.state.formatTid}
+                            voteColors={this.state.voteColors}
+                        />
+
+                        <AllCommentsForParticipant
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                        />
+                    </div>
 
                     {/*<Uncertainty*/}
                     {/*    math={this.state.math}*/}
@@ -578,56 +631,33 @@ class App extends React.Component {
             ptptCount={this.state.ptptCount}
             voteColors={this.state.voteColors}/> : ""} */}
 
-                    <h1>Participants graph</h1>
-                    <ParticipantsGraph
-                        comments={this.state.comments}
-                        participants={this.state.participants}
-                        groupNames={this.state.groupNames}
-                        badTids={this.state.badTids}
-                        colorBlindMode={this.state.colorBlindMode}
-                        formatTid={this.state.formatTid}
-                        repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                        math={this.state.math}
-                        renderHeading={false}
-                        report={this.state.report}
-                        voteColors={this.state.voteColors}
-                        showParticipants={true}
-                        showComments={false}
-                    />
-
-                    {/*<h1>Statements graph</h1>*/}
-
-                    {/*<ParticipantsGraph*/}
-                    {/*    comments={this.state.comments}*/}
-                    {/*    participants={this.state.participants}*/}
-                    {/*    groupNames={this.state.groupNames}*/}
-                    {/*    badTids={this.state.badTids}*/}
-                    {/*    colorBlindMode={this.state.colorBlindMode}*/}
-                    {/*    formatTid={this.state.formatTid}*/}
-                    {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
-                    {/*    math={this.state.math}*/}
-                    {/*    renderHeading={false}*/}
-                    {/*    report={this.state.report}*/}
-                    {/*    voteColors={this.state.voteColors}*/}
-                    {/*    showParticipants={false}*/}
-                    {/*    showComments={true}*/}
-                    {/*/>*/}
-
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
 
-                    <AllCommentsModeratedIn
+                    <AllCommentsForGroup
                         math={this.state.math}
                         comments={this.state.comments}
                         conversation={this.state.conversation}
+                        gid={0}
                         ptptCount={this.state.ptptCount}
                         formatTid={this.state.formatTid}
                         voteColors={this.state.voteColors}
                     />
 
-                    <AllCommentsForParticipant
+                    <AllCommentsForGroup
                         math={this.state.math}
                         comments={this.state.comments}
                         conversation={this.state.conversation}
+                        gid={1}
+                        ptptCount={this.state.ptptCount}
+                        formatTid={this.state.formatTid}
+                        voteColors={this.state.voteColors}
+                    />
+
+                    <AllCommentsForGroup
+                        math={this.state.math}
+                        comments={this.state.comments}
+                        conversation={this.state.conversation}
+                        gid={2}
                         ptptCount={this.state.ptptCount}
                         formatTid={this.state.formatTid}
                         voteColors={this.state.voteColors}
