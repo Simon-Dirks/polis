@@ -36,22 +36,22 @@ const Participants = ({ points, math }) => {
                         <circle
                             r={8}
                             fill={globals.groupColor(pt.gid)}
-                            fillOpacity="1"
+                            fillOpacity="0.5"
                             cx={pt.x}
                             cy={pt.y}
                         />
                         {/*r={Math.sqrt(math['base-clusters'].count[pt.id]) * 8}*/}
 
-                        {/*<text*/}
-                        {/*    fill={globals.groupColor(pt.gid)}*/}
-                        {/*    fillOpacity=".5"*/}
-                        {/*    x={pt.x - 5}*/}
-                        {/*    y={pt.y + 5}*/}
-                        {/*>*/}
-                        {/*    {' '}*/}
-                        {/*    {pt.id}*/}
-                        {/*    /!*{globals.groupSymbols[pt.gid]}*!/*/}
-                        {/*</text>*/}
+                        <text
+                            fill={globals.groupColor(pt.gid)}
+                            fillOpacity=".5"
+                            x={pt.x - 5}
+                            y={pt.y + 5}
+                        >
+                            {' '}
+                            {pt.id}
+                            {/*{globals.groupSymbols[pt.gid]}*/}
+                        </text>
                     </g>
                 )
                 // return (<text
