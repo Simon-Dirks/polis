@@ -594,23 +594,23 @@ class App extends React.Component {
                         showComments={false}
                     />
 
-                    <h1>Statements graph</h1>
+                    {/*<h1>Statements graph</h1>*/}
 
-                    <ParticipantsGraph
-                        comments={this.state.comments}
-                        participants={this.state.participants}
-                        groupNames={this.state.groupNames}
-                        badTids={this.state.badTids}
-                        colorBlindMode={this.state.colorBlindMode}
-                        formatTid={this.state.formatTid}
-                        repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                        math={this.state.math}
-                        renderHeading={false}
-                        report={this.state.report}
-                        voteColors={this.state.voteColors}
-                        showParticipants={false}
-                        showComments={true}
-                    />
+                    {/*<ParticipantsGraph*/}
+                    {/*    comments={this.state.comments}*/}
+                    {/*    participants={this.state.participants}*/}
+                    {/*    groupNames={this.state.groupNames}*/}
+                    {/*    badTids={this.state.badTids}*/}
+                    {/*    colorBlindMode={this.state.colorBlindMode}*/}
+                    {/*    formatTid={this.state.formatTid}*/}
+                    {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
+                    {/*    math={this.state.math}*/}
+                    {/*    renderHeading={false}*/}
+                    {/*    report={this.state.report}*/}
+                    {/*    voteColors={this.state.voteColors}*/}
+                    {/*    showParticipants={false}*/}
+                    {/*    showComments={true}*/}
+                    {/*/>*/}
 
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
 
