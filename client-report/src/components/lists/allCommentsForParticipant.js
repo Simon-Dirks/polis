@@ -11,10 +11,10 @@ class allCommentsForParticipant extends React.Component {
             participantGroupId: 0,
             participantVotes: null,
         }
+    }
 
-        setTimeout(() => {
-            this.onParticipantIdChanged({ target: { value: 0 } })
-        })
+    componentDidMount() {
+        this.onParticipantIdChanged({ target: { value: 0 } })
     }
 
     onParticipantIdChanged(event) {
@@ -41,10 +41,6 @@ class allCommentsForParticipant extends React.Component {
     }
 
     getVotes(conversation_id, pid) {
-        console.log(
-            `Retrieving votes for participant ${pid} (conversation ${conversation_id})`,
-            this.props.math
-        )
         return net.polisGet('/api/v3/votes', {
             conversation_id: conversation_id,
             pid: pid,
@@ -55,6 +51,8 @@ class allCommentsForParticipant extends React.Component {
         if (!this.props.conversation) {
             return
         }
+        this.setState({ participantVotes: null })
+        // TODO: Set / show loading state
         const conversationId = this.props.conversation?.conversation_id
         const participantVotes = await this.getVotes(conversationId, pid)
         this.setState({ participantVotes: participantVotes })
@@ -62,7 +60,7 @@ class allCommentsForParticipant extends React.Component {
 
     getParticipantComments() {
         if (!this.props.comments || !this.state.participantVotes) {
-            return []
+            return null
         }
         return this.state.participantVotes
             .map((vote) => {
@@ -79,13 +77,17 @@ class allCommentsForParticipant extends React.Component {
 
         return (
             <div className={'mt-8'}>
-                <h2>
-                    Deelnemer {this.state.participantId} is onderdeel van groep{' '}
-                    {this.state.participantGroupId}
-                </h2>
+                {this.state.participantGroupId > 0 && (
+                    <h2>
+                        Deelnemer {this.state.participantId} is onderdeel van groep{' '}
+                        {this.state.participantGroupId}
+                    </h2>
+                )}
+
                 <h1>
-                    Alle stellingen ({this.getParticipantComments().length}) waarop deelnemer{' '}
-                    {this.state.participantId} gestemd heeft
+                    Alle stellingen{' '}
+                    {this.getParticipantComments() && `(${this.getParticipantComments().length})`}{' '}
+                    waarop deelnemer {this.state.participantId} gestemd heeft
                 </h1>
                 <input
                     type="number"
@@ -93,16 +95,17 @@ class allCommentsForParticipant extends React.Component {
                     onChange={this.onParticipantIdChanged.bind(this)}
                     className={'mb-4'}
                 />
-                {this.getParticipantComments().map((comment) => {
-                    return (
-                        <div key={comment.tid}>
-                            <p>
-                                {comment.txt} (tid: {comment.tid}, gestemd: {comment.vote})
-                            </p>
-                            <hr />
-                        </div>
-                    )
-                })}
+                {this.getParticipantComments() &&
+                    this.getParticipantComments().map((comment) => {
+                        return (
+                            <div key={comment.tid}>
+                                <p>
+                                    {comment.txt} (tid: {comment.tid}, gestemd: {comment.vote})
+                                </p>
+                                <hr />
+                            </div>
+                        )
+                    })}
             </div>
         )
     }
