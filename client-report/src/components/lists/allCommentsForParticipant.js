@@ -33,7 +33,7 @@ class allCommentsForParticipant extends React.Component {
             return null
         }
 
-        // TODO: Make sure members in group-clusters are zero-indexed (it seems that participant 0 does not belong to a group now, is that correct?)
+        // TODO: Make sure members in group-clusters are zero-indexed (it seems that participant 0 does not belong to a group now, is that correct? The other participant groups seem to match the visualization)
         const participantGroupIdx = this.props.math['group-clusters'].findIndex((cluster) => {
             return cluster.members.includes(pid)
         })
