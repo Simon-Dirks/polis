@@ -28,6 +28,7 @@ import net from '../util/net'
 
 import $ from 'jquery'
 import BoxPlot from './boxPlot/boxPlot'
+import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -615,6 +616,15 @@ class App extends React.Component {
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
 
                     <AllCommentsModeratedIn
+                        math={this.state.math}
+                        comments={this.state.comments}
+                        conversation={this.state.conversation}
+                        ptptCount={this.state.ptptCount}
+                        formatTid={this.state.formatTid}
+                        voteColors={this.state.voteColors}
+                    />
+
+                    <AllCommentsForParticipant
                         math={this.state.math}
                         comments={this.state.comments}
                         conversation={this.state.conversation}
