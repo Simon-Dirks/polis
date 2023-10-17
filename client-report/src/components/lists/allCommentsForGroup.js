@@ -11,7 +11,7 @@ class allCommentsForGroup extends React.Component {
         this.state = {
             numParticipantsGroup: null,
             groupVoteColors: this.props.voteColors,
-            commentsWithVotesOfGroup: null,
+            groupVotesForAllComments: null,
         }
     }
 
@@ -28,7 +28,7 @@ class allCommentsForGroup extends React.Component {
     onGroupIdUpdate() {
         this.updateNumParticipantsOfGroup()
         this.updateGroupVoteColors()
-        this.updateCommentsWithVotesOfGroup()
+        this.updateGroupVotesForAllComments()
     }
 
     updateNumParticipantsOfGroup() {
@@ -40,17 +40,34 @@ class allCommentsForGroup extends React.Component {
     }
 
     updateGroupVoteColors() {
-        if (this.props.gid === undefined) {
+        if (this.props.gid === undefined || this.props.gid >= globals.brandColors.groups.length) {
             return
         }
 
-        if (this.props.gid < globals.brandColors.groups.length) {
-            this.setState({ groupVoteColors: globals.brandColors.groups[this.props.gid] })
-        }
+        this.setState({ groupVoteColors: globals.brandColors.groups[this.props.gid] })
     }
 
-    updateCommentsWithVotesOfGroup() {
-        // TODO
+    updateGroupVotesForAllComments() {
+        if (!this.props.math || this.props.gid === undefined || !this.props.comments) {
+            return
+        }
+        const groupVotesForAllComments = []
+        const groupVotes = this.props.math['group-votes'][this.props.gid]['votes']
+        for (const [tid, votes] of Object.entries(groupVotes)) {
+            const comment = this.props.comments.find((c) => c.tid === parseInt(tid))
+            if (!comment) {
+                // Some comments might have been voted on by participant, but are not part of the conversation (yet)
+                continue
+            }
+
+            groupVotesForAllComments.push({
+                tid: tid,
+                txt: comment?.txt,
+                votes: votes,
+            })
+        }
+
+        this.setState({ groupVotesForAllComments: groupVotesForAllComments })
     }
 
     render() {
@@ -62,20 +79,37 @@ class allCommentsForGroup extends React.Component {
             <div className={'mt-8'}>
                 <h1>
                     Stemgedrag groep {globals.groupLabels[this.props.gid]} (
-                    {this.updateNumParticipantsOfGroup()}) op alle stellingen (...)
+                    {this.updateNumParticipantsOfGroup()}) op alle stellingen
+                    {this.state.groupVotesForAllComments && (
+                        <span> ({this.state.groupVotesForAllComments.length})</span>
+                    )}
                 </h1>
 
-                <div>
-                    {/*<CommentList*/}
-                    {/*    conversation={this.props.conversation}*/}
-                    {/*    ptptCount={this.props.ptptCount}*/}
-                    {/*    math={this.props.math}*/}
-                    {/*    formatTid={this.props.formatTid}*/}
-                    {/*    tidsToRender={this.props.comments.map((c) => c.tid)}*/}
-                    {/*    comments={this.props.comments}*/}
-                    {/*    voteColors={this.state.groupVoteColors}*/}
-                    {/*/>*/}
-                </div>
+                {this.state.groupVotesForAllComments && (
+                    <div>
+                        {this.state.groupVotesForAllComments.map((votesForComment) => {
+                            return (
+                                <div key={votesForComment.tid}>
+                                    <p>
+                                        {`${votesForComment.tid}.
+                                        ${votesForComment.txt}, votes:
+                                        ${JSON.stringify(votesForComment.votes)}`}
+                                    </p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}
+
+                {/*<CommentList*/}
+                {/*    conversation={this.props.conversation}*/}
+                {/*    ptptCount={this.props.ptptCount}*/}
+                {/*    math={this.props.math}*/}
+                {/*    formatTid={this.props.formatTid}*/}
+                {/*    tidsToRender={this.props.comments.map((c) => c.tid)}*/}
+                {/*    comments={this.props.comments}*/}
+                {/*    voteColors={this.state.groupVoteColors}*/}
+                {/*/>*/}
             </div>
         )
     }
