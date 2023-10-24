@@ -23,9 +23,27 @@ const Contour = ({ contour }) => (
     <path fill={color(contour.value * colorScaleDownFactor)} d={geoPath(contour)} />
 )
 
-const Participants = ({ points, math }) => {
+const Participants = ({ points, math, selfPid }) => {
     if (!points) {
         return null
+    }
+
+    const isClusterHighlighted = (clusterId) => {
+        const clusterMembers = math['base-clusters'].members[clusterId]
+        if (!clusterMembers || !selfPid) {
+            return false
+        }
+
+        const selfBelongsToThisCluster = clusterMembers.includes(selfPid)
+        return selfBelongsToThisCluster
+    }
+
+    const getClusterRadius = (clusterId) => {
+        const clusterRadius = Math.sqrt(math['base-clusters'].count[clusterId]) * 8
+        if (!clusterId || isNaN(clusterRadius)) {
+            return 8
+        }
+        return clusterRadius
     }
 
     return (
@@ -34,13 +52,14 @@ const Participants = ({ points, math }) => {
                 return (
                     <g key={i}>
                         <circle
-                            r={8}
+                            r={getClusterRadius(pt.id)}
                             fill={globals.groupColor(pt.gid)}
                             fillOpacity="0.5"
                             cx={pt.x}
                             cy={pt.y}
+                            stroke={'black'}
+                            strokeWidth={isClusterHighlighted(pt.id) ? 3 : 0}
                         />
-                        {/*r={Math.sqrt(math['base-clusters'].count[pt.id]) * 8}*/}
 
                         <text
                             fill={globals.groupColor(pt.gid)}
@@ -49,7 +68,13 @@ const Participants = ({ points, math }) => {
                             y={pt.y + 5}
                         >
                             {' '}
-                            {pt.id}
+                            {/*{pt.id} */}
+                            {'ID:' +
+                                pt.id +
+                                ' PARTICIPANTS: ' +
+                                math['base-clusters'].count[pt.id] +
+                                ' || IDs: ' +
+                                math['base-clusters'].members[pt.id]}
                             {/*{globals.groupSymbols[pt.gid]}*/}
                         </text>
                     </g>
@@ -87,7 +112,28 @@ class ParticipantsGraph extends React.Component {
             showComments: props.showComments,
             showAxes: false,
             showRadialAxes: false,
+            selfPid: null,
         }
+    }
+
+    componentDidMount() {
+        window.addEventListener('message', this.handleMessage)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('message', this.handleMessage)
+    }
+
+    handleMessage = (event) => {
+        if (!event.data) {
+            return
+        }
+        const ptptoisProjected = event.data.ptptoisProjected
+        const selfPtpt = ptptoisProjected.find((ptpt) => ptpt.isSelf)
+        if (!selfPtpt) {
+            return
+        }
+        this.setState({ selfPid: selfPtpt?.pid })
     }
 
     handleCommentClick(selectedComment) {
@@ -400,7 +446,11 @@ class ParticipantsGraph extends React.Component {
                           })
                         : null}
                     {this.state.showParticipants ? (
-                        <Participants math={this.props.math} points={baseClustersScaled} />
+                        <Participants
+                            math={this.props.math}
+                            points={baseClustersScaled}
+                            selfPid={this.state.selfPid}
+                        />
                     ) : null}
                     {this.state.showComments ? (
                         <Comments

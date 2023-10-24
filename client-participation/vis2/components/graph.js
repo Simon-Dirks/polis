@@ -19,11 +19,13 @@ class Graph extends React.Component {
     super(props);
     this.hullElems = [];
     this.Viewer = null;
+    this.iframeRef = React.createRef();
 
     this.state = {
       selectedComment: null,
       selectedTidCuration: null,
-      browserDimensions: window.innerWidth
+      browserDimensions: window.innerWidth,
+      iframeIsLoaded: false
     };
   }
 
@@ -93,6 +95,14 @@ class Graph extends React.Component {
       tidCarouselComments
     })
 
+    const iframe = this.iframeRef.current;
+
+    // console.log("Posting to report embed...", ptptoisProjected);
+    if (iframe && this.state.iframeIsLoaded) {
+      iframe.contentWindow.postMessage({ptptoisProjected: ptptoisProjected}, '*');
+    } else {
+      console.warn("Report embed is not yet loaded");
+    }
   }
 
   handleCommentHover(selectedComment) {
@@ -135,6 +145,10 @@ class Graph extends React.Component {
     }
   }
 
+  onIframeLoaded = () => {
+      this.setState({iframeIsLoaded: true})
+  }
+
   render() {
 
     let ww = parseInt(getComputedStyle(document.getElementById('visualization_parent_div')).width, 10);
@@ -153,95 +167,98 @@ class Graph extends React.Component {
 
     return (
       <div>
-        <svg width={globals.sideWithPadding} height={globals.svgHeightWithPadding} style={{
-          transform: "scale("+svgScale+")",
-          transformOrigin: "0% 0%",
-          marginBottom: svgNegativeMargin}
-        }>
-          <filter id="grayscale">
-             <feColorMatrix type="saturate" values="0"/>
-          </filter>
-          <g transform={`translate(${globals.padding}, ${globals.padding})`}>
-            {/* Comment https://bl.ocks.org/mbostock/7555321 */}
-            <g transform={`translate(${globals.side / 2}, ${15})`}>
-              <text
-                style={{
-                  fontFamily: "Georgia",
-                  fontSize: 14,
-                  fontStyle: "italic"
-                }}
-                textAnchor="middle">
+          {/*TODO: Set iframe URL based on current conversation (or cookies?)*/}
+          <iframe src={"http://localhost:5010/report/r3nhxkbm9ftminxubhu2m"} style={{border: 0, width: '100%', height: '500px'}} ref={this.iframeRef} onLoad={this.onIframeLoaded}>
+          </iframe>
+        {/*<svg width={globals.sideWithPadding} height={globals.svgHeightWithPadding} style={{*/}
+        {/*  transform: "scale("+svgScale+")",*/}
+        {/*  transformOrigin: "0% 0%",*/}
+        {/*  marginBottom: svgNegativeMargin}*/}
+        {/*}>*/}
+        {/*  <filter id="grayscale">*/}
+        {/*     <feColorMatrix type="saturate" values="0"/>*/}
+        {/*  </filter>*/}
+        {/*  <g transform={`translate(${globals.padding}, ${globals.padding})`}>*/}
+        {/*    /!* Comment https://bl.ocks.org/mbostock/7555321 *!/*/}
+        {/*    <g transform={`translate(${globals.side / 2}, ${15})`}>*/}
+        {/*      <text*/}
+        {/*        style={{*/}
+        {/*          fontFamily: "Georgia",*/}
+        {/*          fontSize: 14,*/}
+        {/*          fontStyle: "italic"*/}
+        {/*        }}*/}
+        {/*        textAnchor="middle">*/}
 
-              </text>
-            </g>
-            <Axes
-              xCenter={this.state.xCenter}
-              yCenter={this.state.yCenter}
-              report={this.props.report}/>
-            <Hulls
-              handleClick={this.handleCurateButtonClick.bind(this)}
-              selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}
-              getHullElems={this.getHullElems.bind(this)}
-              hulls={this.state.hulls} />
-            <Participants
-              selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}
-              points={this.state.baseClustersScaled}
-              ptptois={this.state.ptptoisProjected}/>
-            <HullLabels
-              handleClick={this.handleCurateButtonClick.bind(this)}
-              selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}
-              groups={this.props.math["group-votes"] || window.preload.firstMath["group-votes"] /* for labels */}
-              centroids={this.state.groupCentroids}
-              />
-            {/*<Comments
-              commentsPoints={this.state.commentsPoints}
-              selectedComment={this.state.selectedComment}
-              handleCommentHover={this.handleCommentHover.bind(this)}
-              points={this.state.commentsPoints}
-              repfulAgreeTidsByGroup={this.props.repfulAgreeTidsByGroup}
-              repfulDisageeTidsByGroup={this.props.repfulDisageeTidsByGroup}
-              formatTid={this.props.formatTid}/>*/}
-            <BarChartsForGroupVotes
-              hullElems={this.hullElems}
-              selectedComment={this.state.selectedComment}
-              allComments={this.props.comments}
-              groups={this.props.math["group-votes"] || window.preload.firstMath["group-votes"]}
-              groupCornerAssignments={this.state.groupCornerAssignments}
-              />
-          </g>
-        </svg>
-        <div style={{
-            display: "flex",
-            alignItems: "baseline",
-            flexWrap: "wrap",
-            width: "100%",
-            justifyContent: "center",
-            margin: "20px 0px",
-          }}>
-          <Curate
-            handleCurateButtonClick={this.handleCurateButtonClick.bind(this)}
-            math={this.props.math}
-            selectedTidCuration={this.state.selectedTidCuration}
-            Strings={this.props.Strings}
-            />
-          <TidCarousel
-            selectedTidCuration={this.state.selectedTidCuration}
-            commentsToShow={this.state.tidCarouselComments}
-            handleCommentClick={this.handleCommentClick.bind(this)}
-            selectedComment={this.state.selectedComment}
-            Strings={this.props.Strings}
-            />
-        </div>
-        <ExploreTid
-          browserDimensions={this.state.browserDimensions}
-          handleReturnToVoteClicked={this.handleReturnToVoteClicked.bind(this)}
-          selectedComment={this.state.selectedComment}
-          votesByMe={this.props.votesByMe}
-          selectedTidCuration={this.state.selectedTidCuration}
-          math={this.props.math || window.preload.firstMath}
-          onVoteClicked={this.props.onVoteClicked}
-          Strings={this.props.Strings}
-          comments={this.props.comment}/>
+        {/*      </text>*/}
+        {/*    </g>*/}
+        {/*    <Axes*/}
+        {/*      xCenter={this.state.xCenter}*/}
+        {/*      yCenter={this.state.yCenter}*/}
+        {/*      report={this.props.report}/>*/}
+        {/*    <Hulls*/}
+        {/*      handleClick={this.handleCurateButtonClick.bind(this)}*/}
+        {/*      selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}*/}
+        {/*      getHullElems={this.getHullElems.bind(this)}*/}
+        {/*      hulls={this.state.hulls} />*/}
+        {/*    <Participants*/}
+        {/*      selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}*/}
+        {/*      points={this.state.baseClustersScaled}*/}
+        {/*      ptptois={this.state.ptptoisProjected}/>*/}
+        {/*    <HullLabels*/}
+        {/*      handleClick={this.handleCurateButtonClick.bind(this)}*/}
+        {/*      selectedGroup={_.isNumber(this.state.selectedTidCuration) ? this.state.selectedTidCuration : null}*/}
+        {/*      groups={this.props.math["group-votes"] || window.preload.firstMath["group-votes"] /* for labels *!/*/}
+        {/*      centroids={this.state.groupCentroids}*/}
+        {/*      />*/}
+        {/*    /!*<Comments*/}
+        {/*      commentsPoints={this.state.commentsPoints}*/}
+        {/*      selectedComment={this.state.selectedComment}*/}
+        {/*      handleCommentHover={this.handleCommentHover.bind(this)}*/}
+        {/*      points={this.state.commentsPoints}*/}
+        {/*      repfulAgreeTidsByGroup={this.props.repfulAgreeTidsByGroup}*/}
+        {/*      repfulDisageeTidsByGroup={this.props.repfulDisageeTidsByGroup}*/}
+        {/*      formatTid={this.props.formatTid}/>*!/*/}
+        {/*    <BarChartsForGroupVotes*/}
+        {/*      hullElems={this.hullElems}*/}
+        {/*      selectedComment={this.state.selectedComment}*/}
+        {/*      allComments={this.props.comments}*/}
+        {/*      groups={this.props.math["group-votes"] || window.preload.firstMath["group-votes"]}*/}
+        {/*      groupCornerAssignments={this.state.groupCornerAssignments}*/}
+        {/*      />*/}
+        {/*  </g>*/}
+        {/*</svg>*/}
+        {/*<div style={{*/}
+        {/*    display: "flex",*/}
+        {/*    alignItems: "baseline",*/}
+        {/*    flexWrap: "wrap",*/}
+        {/*    width: "100%",*/}
+        {/*    justifyContent: "center",*/}
+        {/*    margin: "20px 0px",*/}
+        {/*  }}>*/}
+        {/*  <Curate*/}
+        {/*    handleCurateButtonClick={this.handleCurateButtonClick.bind(this)}*/}
+        {/*    math={this.props.math}*/}
+        {/*    selectedTidCuration={this.state.selectedTidCuration}*/}
+        {/*    Strings={this.props.Strings}*/}
+        {/*    />*/}
+        {/*  <TidCarousel*/}
+        {/*    selectedTidCuration={this.state.selectedTidCuration}*/}
+        {/*    commentsToShow={this.state.tidCarouselComments}*/}
+        {/*    handleCommentClick={this.handleCommentClick.bind(this)}*/}
+        {/*    selectedComment={this.state.selectedComment}*/}
+        {/*    Strings={this.props.Strings}*/}
+        {/*    />*/}
+        {/*</div>*/}
+        {/*<ExploreTid*/}
+        {/*  browserDimensions={this.state.browserDimensions}*/}
+        {/*  handleReturnToVoteClicked={this.handleReturnToVoteClicked.bind(this)}*/}
+        {/*  selectedComment={this.state.selectedComment}*/}
+        {/*  votesByMe={this.props.votesByMe}*/}
+        {/*  selectedTidCuration={this.state.selectedTidCuration}*/}
+        {/*  math={this.props.math || window.preload.firstMath}*/}
+        {/*  onVoteClicked={this.props.onVoteClicked}*/}
+        {/*  Strings={this.props.Strings}*/}
+        {/*  comments={this.props.comment}/>*/}
       </div>
     );
   }
