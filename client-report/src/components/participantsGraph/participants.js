@@ -3,9 +3,9 @@ import { ViewState } from '../../models/viewState'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateViewState } from '../../store/actions'
+import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
 
-const Participants = ({ points, math, selfPid, updateViewState }) => {
+const Participants = ({ points, math, selfPid, updateViewState, updateSelectedParticipantId }) => {
     if (!points) {
         return null
     }
@@ -33,6 +33,7 @@ const Participants = ({ points, math, selfPid, updateViewState }) => {
             {points.map((pt, i) => {
                 return (
                     <g key={i}>
+                        {/*TODO: Allow selection of specific participant in cluster (instead of always selecting first member)*/}
                         <circle
                             r={getClusterRadius(pt.id)}
                             fill={globals.groupColor(pt.gid)}
@@ -43,6 +44,7 @@ const Participants = ({ points, math, selfPid, updateViewState }) => {
                             strokeWidth={isClusterHighlighted(pt.id) ? 3 : 0}
                             className={'cursor-pointer'}
                             onClick={() => {
+                                updateSelectedParticipantId(math['base-clusters'].members[pt.id][0])
                                 updateViewState(ViewState.Participant)
                             }}
                         />
@@ -84,4 +86,6 @@ const Participants = ({ points, math, selfPid, updateViewState }) => {
         </g>
     )
 }
-export default connect(mapStateToProps, { updateViewState })(Participants)
+export default connect(mapStateToProps, { updateViewState, updateSelectedParticipantId })(
+    Participants
+)
