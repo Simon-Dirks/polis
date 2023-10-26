@@ -31,6 +31,7 @@ import BoxPlot from './boxPlot/boxPlot'
 import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 import AllCommentsForGroup from './lists/allCommentsForGroup'
 import StackedBarChart from './stackedBarChart/stackedBarChart'
+import { ViewState } from '../models/viewState'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -62,6 +63,7 @@ class App extends React.Component {
                 disagree: globals.brandColors.disagree,
                 pass: globals.brandColors.pass,
             },
+            viewState: ViewState.Participants,
         }
     }
 
@@ -524,17 +526,24 @@ class App extends React.Component {
                     {/*    voteColors={this.state.voteColors}*/}
                     {/*/>*/}
 
-                    <Beeswarm
-                        conversation={this.state.conversation}
-                        extremity={this.state.extremity}
-                        math={this.state.math}
-                        comments={this.state.comments}
-                        probabilities={this.state.filteredCorrelationMatrix}
-                        probabilitiesTids={this.state.filteredCorrelationTids}
-                        voteColors={this.state.voteColors}
-                    />
+                    <div>
+                        <button
+                            onClick={() => {
+                                this.setState({ viewState: ViewState.Participants })
+                            }}
+                        >
+                            Deelnemers
+                        </button>
+                        <br />
+                        <button
+                            onClick={() => {
+                                this.setState({ viewState: ViewState.Statements })
+                            }}
+                            className={'mb-4'}
+                        >
+                            Stellingen
+                        </button>
 
-                    <div className={''}>
                         <Overview
                             computedStats={this.state.computedStats}
                             math={this.state.math}
@@ -545,7 +554,41 @@ class App extends React.Component {
                             conversation={this.state.conversation}
                             voteColors={this.state.voteColors}
                         />
+                    </div>
 
+                    {this.state.viewState === ViewState.Statements && (
+                        <Beeswarm
+                            conversation={this.state.conversation}
+                            extremity={this.state.extremity}
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            probabilities={this.state.filteredCorrelationMatrix}
+                            probabilitiesTids={this.state.filteredCorrelationTids}
+                            voteColors={this.state.voteColors}
+                        />
+                    )}
+
+                    {this.state.viewState === ViewState.Participants && (
+                        <div>
+                            <ParticipantsGraph
+                                comments={this.state.comments}
+                                participants={this.state.participants}
+                                groupNames={this.state.groupNames}
+                                badTids={this.state.badTids}
+                                colorBlindMode={this.state.colorBlindMode}
+                                formatTid={this.state.formatTid}
+                                repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
+                                math={this.state.math}
+                                renderHeading={false}
+                                report={this.state.report}
+                                voteColors={this.state.voteColors}
+                                showParticipants={true}
+                                showComments={false}
+                            />
+                        </div>
+                    )}
+
+                    <div className={'hidden'}>
                         <ParticipantGroups
                             comments={this.state.comments}
                             conversation={this.state.conversation}
@@ -559,23 +602,6 @@ class App extends React.Component {
                             repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
                             report={this.state.report}
                             voteColors={this.state.voteColors}
-                        />
-
-                        <h1>Participants graph</h1>
-                        <ParticipantsGraph
-                            comments={this.state.comments}
-                            participants={this.state.participants}
-                            groupNames={this.state.groupNames}
-                            badTids={this.state.badTids}
-                            colorBlindMode={this.state.colorBlindMode}
-                            formatTid={this.state.formatTid}
-                            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                            math={this.state.math}
-                            renderHeading={false}
-                            report={this.state.report}
-                            voteColors={this.state.voteColors}
-                            showParticipants={true}
-                            showComments={false}
                         />
 
                         {/*<h1>Statements graph</h1>*/}
