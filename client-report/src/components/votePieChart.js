@@ -9,6 +9,8 @@ const VotePieChart = ({
     sizePx,
     // nMembers,
     voteColors,
+    heading,
+    subscript,
 }) => {
     if (!comment) return null
 
@@ -135,6 +137,9 @@ const VotePieChart = ({
                         ></canvas>
                     </div>
                 )}
+
+                {heading && <p className={'font-bold'}>{heading}</p>}
+                {subscript && <p>{subscript}</p>}
             </>
         </div>
     )
