@@ -34,6 +34,7 @@ import StackedBarChart from './stackedBarChart/stackedBarChart'
 import { ViewState } from '../models/viewState'
 import { updateViewState } from '../store/actions/viewStateActions'
 import { connect } from 'react-redux'
+import { mapStateToProps } from '../store/mapStateToProps'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -532,11 +533,11 @@ class App extends React.Component {
                         {/*Refactor buttons into component?*/}
                         <button
                             onClick={() => {
-                                this.props.updateViewState(ViewState.Participants)
+                                this.props.updateViewState(ViewState.ParticipantsGraph)
                             }}
                             style={{
                                 fontWeight:
-                                    this.props.viewState === ViewState.Participants
+                                    this.props.viewState === ViewState.ParticipantsGraph
                                         ? 'bold'
                                         : 'normal',
                             }}
@@ -593,7 +594,7 @@ class App extends React.Component {
                         />
                     )}
 
-                    {this.props.viewState === ViewState.Participants && (
+                    {this.props.viewState === ViewState.ParticipantsGraph && (
                         <div>
                             <ParticipantsGraph
                                 comments={this.state.comments}
@@ -611,6 +612,14 @@ class App extends React.Component {
                                 showComments={false}
                             />
                         </div>
+                    )}
+
+                    {this.props.viewState === ViewState.Participant && (
+                        <AllCommentsForParticipant
+                            math={this.state.math}
+                            comments={this.state.comments}
+                            conversation={this.state.conversation}
+                        />
                     )}
 
                     <div className={'hidden'}>
@@ -654,12 +663,6 @@ class App extends React.Component {
                             ptptCount={this.state.ptptCount}
                             formatTid={this.state.formatTid}
                             voteColors={this.state.voteColors}
-                        />
-
-                        <AllCommentsForParticipant
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
                         />
 
                         <AllCommentsForGroup
@@ -730,9 +733,6 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    viewState: state.viewState,
-})
 export default connect(mapStateToProps, { updateViewState })(App)
 
 window.$ = $

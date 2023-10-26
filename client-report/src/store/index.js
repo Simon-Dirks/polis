@@ -8,7 +8,7 @@ import { ViewState } from '../models/viewState'
 import { UPDATE_VIEW_STATE } from './actions/viewStateActions'
 
 const initialState = {
-    viewState: ViewState.Participants,
+    viewState: ViewState.ParticipantsGraph,
 }
 
 const rootReducer = (state = initialState, action) => {
