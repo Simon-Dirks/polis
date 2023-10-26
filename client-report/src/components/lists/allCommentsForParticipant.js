@@ -5,7 +5,12 @@ import net from '../../util/net'
 import * as globals from '../globals'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedParticipantId } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedParticipantId,
+    updateViewState,
+} from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -83,7 +88,13 @@ class allCommentsForParticipant extends React.Component {
                 {this.state.participantGroupId > 0 && (
                     <h2>
                         Deelnemer {this.props.selectedParticipantId} is onderdeel van{' '}
-                        <button className={'underline'}>
+                        <button
+                            className={'underline'}
+                            onClick={() => {
+                                this.props.updateSelectedGroupId(this.state.participantGroupId)
+                                this.props.updateViewState(ViewState.Group)
+                            }}
+                        >
                             Groep {globals.groupLabels[this.state.participantGroupId]}
                         </button>
                     </h2>
@@ -127,4 +138,8 @@ class allCommentsForParticipant extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { updateSelectedParticipantId })(allCommentsForParticipant)
+export default connect(mapStateToProps, {
+    updateSelectedParticipantId,
+    updateSelectedGroupId,
+    updateViewState,
+})(allCommentsForParticipant)

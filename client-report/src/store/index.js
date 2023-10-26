@@ -5,11 +5,16 @@ import thunk from 'redux-thunk'
 
 // import rootReducer from '../reducers'
 import { ViewState } from '../models/viewState'
-import { UPDATE_SELECTED_PARTICIPANT_ID, UPDATE_VIEW_STATE } from './actions'
+import {
+    UPDATE_SELECTED_GROUP_ID,
+    UPDATE_SELECTED_PARTICIPANT_ID,
+    UPDATE_VIEW_STATE,
+} from './actions'
 
 const initialState = {
     viewState: ViewState.ParticipantsGraph,
     selectedParticipantId: 0,
+    selectedGroupId: 0,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -23,6 +28,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedParticipantId: action.payload,
+            }
+        case UPDATE_SELECTED_GROUP_ID:
+            return {
+                ...state,
+                selectedGroupId: action.payload,
             }
         default:
             return state

@@ -622,22 +622,36 @@ class App extends React.Component {
                         />
                     )}
 
-                    <div className={'hidden'}>
-                        <ParticipantGroups
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            demographics={this.state.demographics}
-                            ptptCount={this.state.ptptCount}
-                            groupNames={this.state.groupNames}
-                            formatTid={this.state.formatTid}
-                            math={this.state.math}
-                            badTids={this.state.badTids}
-                            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                            repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
-                            report={this.state.report}
-                            voteColors={this.state.voteColors}
-                        />
+                    {this.props.viewState === ViewState.Group && (
+                        <>
+                            <AllCommentsForGroup
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                conversation={this.state.conversation}
+                                gid={this.props.selectedGroupId ?? 0}
+                                ptptCount={this.state.ptptCount}
+                                formatTid={this.state.formatTid}
+                                voteColors={this.state.voteColors}
+                            />
+                            <ParticipantGroups
+                                comments={this.state.comments}
+                                conversation={this.state.conversation}
+                                demographics={this.state.demographics}
+                                ptptCount={this.state.ptptCount}
+                                groupNames={this.state.groupNames}
+                                formatTid={this.state.formatTid}
+                                math={this.state.math}
+                                badTids={this.state.badTids}
+                                repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
+                                repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
+                                report={this.state.report}
+                                voteColors={this.state.voteColors}
+                                showGids={[this.props.selectedGroupId ?? 0]}
+                            />
+                        </>
+                    )}
 
+                    <div className={'hidden'}>
                         {/*<h1>Statements graph</h1>*/}
 
                         {/*<ParticipantsGraph*/}
@@ -660,36 +674,6 @@ class App extends React.Component {
                             math={this.state.math}
                             comments={this.state.comments}
                             conversation={this.state.conversation}
-                            ptptCount={this.state.ptptCount}
-                            formatTid={this.state.formatTid}
-                            voteColors={this.state.voteColors}
-                        />
-
-                        <AllCommentsForGroup
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            gid={0}
-                            ptptCount={this.state.ptptCount}
-                            formatTid={this.state.formatTid}
-                            voteColors={this.state.voteColors}
-                        />
-
-                        <AllCommentsForGroup
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            gid={1}
-                            ptptCount={this.state.ptptCount}
-                            formatTid={this.state.formatTid}
-                            voteColors={this.state.voteColors}
-                        />
-
-                        <AllCommentsForGroup
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            gid={2}
                             ptptCount={this.state.ptptCount}
                             formatTid={this.state.formatTid}
                             voteColors={this.state.voteColors}
