@@ -583,15 +583,25 @@ class App extends React.Component {
                     </div>
 
                     {this.props.viewState === ViewState.Statements && (
-                        <Beeswarm
-                            conversation={this.state.conversation}
-                            extremity={this.state.extremity}
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            probabilities={this.state.filteredCorrelationMatrix}
-                            probabilitiesTids={this.state.filteredCorrelationTids}
-                            voteColors={this.state.voteColors}
-                        />
+                        <>
+                            <Beeswarm
+                                conversation={this.state.conversation}
+                                extremity={this.state.extremity}
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                probabilities={this.state.filteredCorrelationMatrix}
+                                probabilitiesTids={this.state.filteredCorrelationTids}
+                                voteColors={this.state.voteColors}
+                            />
+                            <AllCommentsModeratedIn
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                conversation={this.state.conversation}
+                                ptptCount={this.state.ptptCount}
+                                formatTid={this.state.formatTid}
+                                voteColors={this.state.voteColors}
+                            />
+                        </>
                     )}
 
                     {this.props.viewState === ViewState.ParticipantsGraph && (
@@ -669,15 +679,6 @@ class App extends React.Component {
                         {/*    showParticipants={false}*/}
                         {/*    showComments={true}*/}
                         {/*/>*/}
-
-                        <AllCommentsModeratedIn
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            ptptCount={this.state.ptptCount}
-                            formatTid={this.state.formatTid}
-                            voteColors={this.state.voteColors}
-                        />
                     </div>
 
                     {/*<Uncertainty*/}
