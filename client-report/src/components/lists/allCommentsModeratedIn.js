@@ -7,6 +7,7 @@ import * as globals from '../globals'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 
 function sortByTid(comments) {
     return _.map(comments, (comment) => comment.tid).sort((a, b) => a - b)
@@ -109,8 +110,16 @@ class allCommentsModeratedIn extends React.Component {
         return (
             <div>
                 <h1>
-                    Stemgedrag alle deelnemers ({this.props.ptptCount}) op alle stellingen (
-                    {this.props.comments?.length})
+                    Stemgedrag{' '}
+                    <button
+                        onClick={() => {
+                            this.props.updateViewState(ViewState.ParticipantsGraph)
+                        }}
+                        className={'underline'}
+                    >
+                        alle deelnemers
+                    </button>{' '}
+                    ({this.props.ptptCount}) op alle stellingen ({this.props.comments?.length})
                 </h1>
 
                 <label htmlFor="allCommentsSortMode">Sort by: </label>
@@ -143,4 +152,6 @@ class allCommentsModeratedIn extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { updateSelectedParticipantId })(allCommentsModeratedIn)
+export default connect(mapStateToProps, { updateSelectedParticipantId, updateViewState })(
+    allCommentsModeratedIn
+)
