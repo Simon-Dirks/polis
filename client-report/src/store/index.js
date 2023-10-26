@@ -3,7 +3,25 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
-import rootReducer from '../reducers'
+// import rootReducer from '../reducers'
+import { ViewState } from '../models/viewState'
+import { UPDATE_VIEW_STATE } from './actions/viewStateActions'
+
+const initialState = {
+    viewState: ViewState.Participants,
+}
+
+const rootReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case UPDATE_VIEW_STATE:
+            return {
+                ...state,
+                viewState: action.payload,
+            }
+        default:
+            return state
+    }
+}
 
 const middleware = [thunk]
 
@@ -18,7 +36,7 @@ if (process.env.NODE_ENV === 'production') {
     )(createStore)
 }
 
-const configureStore = function (initialState) {
+const configureStore = function (initialState = initialState) {
     return finalCreateStore(rootReducer, initialState)
 }
 

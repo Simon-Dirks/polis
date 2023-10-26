@@ -11,6 +11,8 @@ import * as d3chromatic from 'd3-scale-chromatic'
 import Comments from '../commentsGraph/comments'
 import Hull from './hull'
 import CommentList from '../lists/commentList'
+import { updateViewState } from '../../store/actions/viewStateActions'
+import { ViewState } from '../../models/viewState'
 
 const pointsPerSquarePixelMax = 0.0017 /* choose dynamically ? */
 const contourBandwidth = 20
@@ -59,6 +61,10 @@ const Participants = ({ points, math, selfPid }) => {
                             cy={pt.y}
                             stroke={'black'}
                             strokeWidth={isClusterHighlighted(pt.id) ? 3 : 0}
+                            className={'cursor-pointer'}
+                            onClick={() => {
+                                updateViewState(ViewState.Statements)
+                            }}
                         />
 
                         <text
@@ -129,6 +135,9 @@ class ParticipantsGraph extends React.Component {
             return
         }
         const ptptoisProjected = event.data.ptptoisProjected
+        if (ptptoisProjected === undefined) {
+            return
+        }
         const selfPtpt = ptptoisProjected.find((ptpt) => ptpt.isSelf)
         if (!selfPtpt) {
             return

@@ -8,16 +8,20 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
 import App from './components/app'
 import './index.css'
+import configureStore from './store'
+import { Provider } from 'react-redux'
 
 ChartJS.register(ArcElement, Legend)
 
-// const store = configureStore();
+const store = configureStore()
 
 class Root extends React.Component {
     render() {
         return (
             <div>
-                <App />
+                <Provider store={store}>
+                    <App />
+                </Provider>
             </div>
         )
     }

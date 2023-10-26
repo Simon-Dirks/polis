@@ -32,6 +32,8 @@ import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 import AllCommentsForGroup from './lists/allCommentsForGroup'
 import StackedBarChart from './stackedBarChart/stackedBarChart'
 import { ViewState } from '../models/viewState'
+import { updateViewState } from '../store/actions/viewStateActions'
+import { connect } from 'react-redux'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -63,7 +65,6 @@ class App extends React.Component {
                 disagree: globals.brandColors.disagree,
                 pass: globals.brandColors.pass,
             },
-            viewState: ViewState.Participants,
         }
     }
 
@@ -531,11 +532,11 @@ class App extends React.Component {
                         {/*Refactor buttons into component?*/}
                         <button
                             onClick={() => {
-                                this.setState({ viewState: ViewState.Participants })
+                                this.props.updateViewState(ViewState.Participants)
                             }}
                             style={{
                                 fontWeight:
-                                    this.state.viewState === ViewState.Participants
+                                    this.props.viewState === ViewState.Participants
                                         ? 'bold'
                                         : 'normal',
                             }}
@@ -545,12 +546,12 @@ class App extends React.Component {
                         <br />
                         <button
                             onClick={() => {
-                                this.setState({ viewState: ViewState.Statements })
+                                this.props.updateViewState(ViewState.Statements)
                             }}
                             className={'mb-4'}
                             style={{
                                 fontWeight:
-                                    this.state.viewState === ViewState.Statements
+                                    this.props.viewState === ViewState.Statements
                                         ? 'bold'
                                         : 'normal',
                             }}
@@ -580,7 +581,7 @@ class App extends React.Component {
                         </div>
                     </div>
 
-                    {this.state.viewState === ViewState.Statements && (
+                    {this.props.viewState === ViewState.Statements && (
                         <Beeswarm
                             conversation={this.state.conversation}
                             extremity={this.state.extremity}
@@ -592,7 +593,7 @@ class App extends React.Component {
                         />
                     )}
 
-                    {this.state.viewState === ViewState.Participants && (
+                    {this.props.viewState === ViewState.Participants && (
                         <div>
                             <ParticipantsGraph
                                 comments={this.state.comments}
@@ -729,6 +730,9 @@ class App extends React.Component {
     }
 }
 
-export default App
+const mapStateToProps = (state) => ({
+    viewState: state.viewState,
+})
+export default connect(mapStateToProps, { updateViewState })(App)
 
 window.$ = $
