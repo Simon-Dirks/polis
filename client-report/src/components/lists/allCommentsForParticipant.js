@@ -3,29 +3,31 @@
 import React from 'react'
 import net from '../../util/net'
 import * as globals from '../globals'
+import { connect } from 'react-redux'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import { updateSelectedParticipantId } from '../../store/actions'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            participantId: 0,
             participantGroupId: 0,
             participantVotes: null,
         }
     }
 
     componentDidMount() {
-        this.onParticipantIdChanged({ target: { value: 0 } })
+        const selectedParticipantId = this.props.selectedParticipantId
+        void this.updateParticipantVotes(selectedParticipantId)
+        void this.updateParticipantGroup(selectedParticipantId)
     }
 
-    onParticipantIdChanged(event) {
-        const pid = parseInt(event.target.value)
-        this.setState({
-            participantId: pid,
-        })
-
-        void this.updateParticipantVotes(pid)
-        void this.updateParticipantGroup(pid)
+    componentDidUpdate(prevProps) {
+        const selectedParticipantId = this.props.selectedParticipantId
+        if (selectedParticipantId !== prevProps.selectedParticipantId) {
+            void this.updateParticipantVotes(selectedParticipantId)
+            void this.updateParticipantGroup(selectedParticipantId)
+        }
     }
 
     updateParticipantGroup(pid) {
@@ -80,22 +82,35 @@ class allCommentsForParticipant extends React.Component {
             <div className={'mt-8'}>
                 {this.state.participantGroupId > 0 && (
                     <h2>
-                        Deelnemer {this.state.participantId} is onderdeel van groep{' '}
-                        {globals.groupLabels[this.state.participantGroupId]}
+                        Deelnemer {this.props.selectedParticipantId} is onderdeel van{' '}
+                        <button className={'underline'}>
+                            Groep {globals.groupLabels[this.state.participantGroupId]}
+                        </button>
                     </h2>
                 )}
 
                 <h1>
                     Alle stellingen{' '}
                     {this.getParticipantComments() && `(${this.getParticipantComments().length})`}{' '}
-                    waarop deelnemer {this.state.participantId} gestemd heeft
+                    waarop deelnemer {this.props.selectedParticipantId} gestemd heeft
                 </h1>
-                <input
-                    type="number"
-                    value={this.state.participantId}
-                    onChange={this.onParticipantIdChanged.bind(this)}
-                    className={'mb-4'}
-                />
+
+                <button
+                    onClick={() => {
+                        this.props.updateSelectedParticipantId(this.props.selectedParticipantId - 1)
+                    }}
+                >
+                    ← vorige participant
+                </button>
+                <button
+                    onClick={() => {
+                        this.props.updateSelectedParticipantId(this.props.selectedParticipantId + 1)
+                    }}
+                    className={'ml-4 mb-4'}
+                >
+                    volgende participant →
+                </button>
+
                 {this.getParticipantComments() &&
                     this.getParticipantComments().map((comment) => {
                         return (
@@ -112,4 +127,4 @@ class allCommentsForParticipant extends React.Component {
     }
 }
 
-export default allCommentsForParticipant
+export default connect(mapStateToProps, { updateSelectedParticipantId })(allCommentsForParticipant)

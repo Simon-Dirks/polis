@@ -11,10 +11,6 @@ import * as d3chromatic from 'd3-scale-chromatic'
 import Comments from '../commentsGraph/comments'
 import Hull from './hull'
 import CommentList from '../lists/commentList'
-import { updateViewState } from '../../store/actions/viewStateActions'
-import { ViewState } from '../../models/viewState'
-import { connect } from 'react-redux'
-import { mapStateToProps } from '../../store/mapStateToProps'
 import Participants from './participants'
 
 const pointsPerSquarePixelMax = 0.0017 /* choose dynamically ? */

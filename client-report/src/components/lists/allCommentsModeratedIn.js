@@ -4,6 +4,9 @@ import React from 'react'
 import _ from 'lodash'
 import CommentList from './commentList'
 import * as globals from '../globals'
+import { connect } from 'react-redux'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
 
 function sortByTid(comments) {
     return _.map(comments, (comment) => comment.tid).sort((a, b) => a - b)
@@ -140,4 +143,4 @@ class allCommentsModeratedIn extends React.Component {
     }
 }
 
-export default allCommentsModeratedIn
+export default connect(mapStateToProps, { updateSelectedParticipantId })(allCommentsModeratedIn)

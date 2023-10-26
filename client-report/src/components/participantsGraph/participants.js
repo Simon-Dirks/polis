@@ -3,7 +3,7 @@ import { ViewState } from '../../models/viewState'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateViewState } from '../../store/actions/viewStateActions'
+import { updateViewState } from '../../store/actions'
 
 const Participants = ({ points, math, selfPid, updateViewState }) => {
     if (!points) {

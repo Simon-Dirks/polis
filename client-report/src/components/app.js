@@ -32,9 +32,9 @@ import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 import AllCommentsForGroup from './lists/allCommentsForGroup'
 import StackedBarChart from './stackedBarChart/stackedBarChart'
 import { ViewState } from '../models/viewState'
-import { updateViewState } from '../store/actions/viewStateActions'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
+import { updateViewState } from '../store/actions'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]

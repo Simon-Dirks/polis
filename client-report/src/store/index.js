@@ -5,20 +5,31 @@ import thunk from 'redux-thunk'
 
 // import rootReducer from '../reducers'
 import { ViewState } from '../models/viewState'
-import { UPDATE_VIEW_STATE } from './actions/viewStateActions'
+import { UPDATE_SELECTED_PARTICIPANT_ID, UPDATE_VIEW_STATE } from './actions'
 
 const initialState = {
     viewState: ViewState.ParticipantsGraph,
+    selectedParticipantId: 0,
 }
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_VIEW_STATE:
+            console.log('JFDLKS')
+
             return {
                 ...state,
                 viewState: action.payload,
             }
+        case UPDATE_SELECTED_PARTICIPANT_ID:
+            console.log('JFDLKS')
+
+            return {
+                ...state,
+                selectedParticipantId: action.payload,
+            }
         default:
+            console.log('JFDLKS')
             return state
     }
 }
