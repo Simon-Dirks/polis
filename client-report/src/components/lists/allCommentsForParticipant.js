@@ -2,6 +2,7 @@
 
 import React from 'react'
 import net from '../../util/net'
+import * as globals from '../globals'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -80,7 +81,7 @@ class allCommentsForParticipant extends React.Component {
                 {this.state.participantGroupId > 0 && (
                     <h2>
                         Deelnemer {this.state.participantId} is onderdeel van groep{' '}
-                        {this.state.participantGroupId}
+                        {globals.groupLabels[this.state.participantGroupId]}
                     </h2>
                 )}
 
