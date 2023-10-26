@@ -528,59 +528,88 @@ class App extends React.Component {
                     {/*    voteColors={this.state.voteColors}*/}
                     {/*/>*/}
 
-                    {/*TODO: Make absolute for participant graph view?*/}
-                    <div className={' w-full z-10'}>
-                        {/*Refactor buttons into component?*/}
-                        <button
-                            onClick={() => {
-                                this.props.updateViewState(ViewState.ParticipantsGraph)
-                            }}
+                    {/**/}
+                    {(this.props.viewState === ViewState.Statements ||
+                        this.props.viewState === ViewState.ParticipantsGraph) && (
+                        <div
+                            className={'w-full z-10'}
                             style={{
-                                fontWeight:
+                                position:
                                     this.props.viewState === ViewState.ParticipantsGraph
-                                        ? 'bold'
-                                        : 'normal',
+                                        ? 'absolute'
+                                        : 'initial',
                             }}
                         >
-                            Deelnemers
-                        </button>
-                        <br />
-                        <button
-                            onClick={() => {
-                                this.props.updateViewState(ViewState.Statements)
-                            }}
-                            className={'mb-4'}
-                            style={{
-                                fontWeight:
-                                    this.props.viewState === ViewState.Statements
-                                        ? 'bold'
-                                        : 'normal',
-                            }}
-                        >
-                            Stellingen
-                        </button>
+                            {/*TODO: Refactor buttons into component?*/}
 
-                        <Overview
-                            computedStats={this.state.computedStats}
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            ptptCount={this.state.ptptCount}
-                            ptptCountTotal={this.state.ptptCountTotal}
-                            demographics={this.state.demographics}
-                            conversation={this.state.conversation}
-                            voteColors={this.state.voteColors}
-                        />
-                        <div className={'absolute right-8 top-8'}>
-                            <a
-                                className={'underline'}
-                                href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
-                                target={'_blank'}
-                                rel={'noreferrer'}
-                            >
-                                Stem mee
-                            </a>
+                            <div>
+                                <button
+                                    onClick={() => {
+                                        this.props.updateViewState(ViewState.ParticipantsGraph)
+                                    }}
+                                    style={{
+                                        fontWeight:
+                                            this.props.viewState === ViewState.ParticipantsGraph
+                                                ? 'bold'
+                                                : 'normal',
+                                    }}
+                                >
+                                    Deelnemers
+                                </button>
+                                <br />
+                                <button
+                                    onClick={() => {
+                                        this.props.updateViewState(ViewState.Statements)
+                                    }}
+                                    className={'mb-4'}
+                                    style={{
+                                        fontWeight:
+                                            this.props.viewState === ViewState.Statements
+                                                ? 'bold'
+                                                : 'normal',
+                                    }}
+                                >
+                                    Stellingen
+                                </button>
+
+                                <div
+                                    className={'absolute'}
+                                    style={{
+                                        right:
+                                            this.props.viewState === ViewState.ParticipantsGraph
+                                                ? '4rem'
+                                                : '2rem',
+                                        top:
+                                            this.props.viewState === ViewState.ParticipantsGraph
+                                                ? '0rem'
+                                                : '2rem',
+                                    }}
+                                >
+                                    <a
+                                        className={'underline'}
+                                        href={
+                                            'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'
+                                        }
+                                        target={'_blank'}
+                                        rel={'noreferrer'}
+                                    >
+                                        Stem mee
+                                    </a>
+                                </div>
+                            </div>
+
+                            <Overview
+                                computedStats={this.state.computedStats}
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                ptptCount={this.state.ptptCount}
+                                ptptCountTotal={this.state.ptptCountTotal}
+                                demographics={this.state.demographics}
+                                conversation={this.state.conversation}
+                                voteColors={this.state.voteColors}
+                            />
                         </div>
-                    </div>
+                    )}
 
                     {this.props.viewState === ViewState.Statements && (
                         <>
