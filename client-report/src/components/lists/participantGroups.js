@@ -38,7 +38,10 @@ class ParticipantGroups extends React.Component {
                     {this.props.math && this.props.comments
                         ? _.map(this.props.math['repness'], (groupComments, gid) => {
                               gid = Number(gid)
-                              if (this.props.showGids && !this.props.showGids.includes(gid)) {
+                              if (
+                                  this.props.gidsToRender &&
+                                  !this.props.gidsToRender.includes(gid)
+                              ) {
                                   return
                               }
 

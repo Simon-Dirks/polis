@@ -685,7 +685,7 @@ class App extends React.Component {
                                 repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
                                 report={this.state.report}
                                 voteColors={this.state.voteColors}
-                                showGids={[this.props.selectedGroupId ?? 0]}
+                                gidsToRender={[this.props.selectedGroupId ?? 0]}
                             />
                         </>
                     )}
