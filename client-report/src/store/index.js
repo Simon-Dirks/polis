@@ -15,21 +15,16 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_VIEW_STATE:
-            console.log('JFDLKS')
-
             return {
                 ...state,
                 viewState: action.payload,
             }
         case UPDATE_SELECTED_PARTICIPANT_ID:
-            console.log('JFDLKS')
-
             return {
                 ...state,
                 selectedParticipantId: action.payload,
             }
         default:
-            console.log('JFDLKS')
             return state
     }
 }
