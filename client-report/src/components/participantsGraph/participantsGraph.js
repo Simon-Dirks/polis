@@ -69,12 +69,12 @@ const Participants = ({ points, math, selfPid }) => {
                         >
                             {' '}
                             {/*{pt.id} */}
-                            {'ID:' +
-                                pt.id +
-                                ' PARTICIPANTS: ' +
-                                math['base-clusters'].count[pt.id] +
-                                ' || IDs: ' +
-                                math['base-clusters'].members[pt.id]}
+                            {/*{'ID:' +*/}
+                            {/*    pt.id +*/}
+                            {/*    ' PARTICIPANTS: ' +*/}
+                            {/*    math['base-clusters'].count[pt.id] +*/}
+                            {/*    ' || IDs: ' +*/}
+                            {/*    math['base-clusters'].members[pt.id]}*/}
                             {/*{globals.groupSymbols[pt.gid]}*/}
                         </text>
                     </g>

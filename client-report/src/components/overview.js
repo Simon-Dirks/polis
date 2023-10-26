@@ -30,9 +30,17 @@ const Overview = ({
 }) => {
     return (
         <div>
-            <p>{ptptCount} Deelnemers</p>
-            <p>{computeVoteTotal(math['user-vote-counts'])} stemmen</p>
-            <p>{math['n-cmts']} stellingen</p>
+            <div>
+                <p className={'font-bold'}>{ptptCount}</p> <p>Deelnemers</p>
+            </div>
+            <div className={'mt-2'}>
+                <p className={'font-bold'}>{computeVoteTotal(math['user-vote-counts'])}</p>
+                <p>Stemmen</p>
+            </div>
+            <div className={'mt-2'}>
+                <p className={'font-bold'}>{math['n-cmts']}</p>
+                <p>Stellingen</p>
+            </div>
         </div>
     )
 }
