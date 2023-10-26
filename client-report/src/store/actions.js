@@ -15,3 +15,9 @@ export const updateSelectedGroupId = (newGroupId) => ({
     type: UPDATE_SELECTED_GROUP_ID,
     payload: newGroupId,
 })
+
+export const UPDATE_SELECTED_STATEMENT_ID = 'UPDATE_SELECTED_STATEMENT_ID'
+export const updateSelectedStatementId = (newStatementId) => ({
+    type: UPDATE_SELECTED_STATEMENT_ID,
+    payload: newStatementId,
+})

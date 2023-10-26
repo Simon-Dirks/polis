@@ -8,6 +8,7 @@ import { ViewState } from '../models/viewState'
 import {
     UPDATE_SELECTED_GROUP_ID,
     UPDATE_SELECTED_PARTICIPANT_ID,
+    UPDATE_SELECTED_STATEMENT_ID,
     UPDATE_VIEW_STATE,
 } from './actions'
 
@@ -15,6 +16,7 @@ const initialState = {
     viewState: ViewState.ParticipantsGraph,
     selectedParticipantId: 0,
     selectedGroupId: 0,
+    selectedStatementId: 0,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedGroupId: action.payload,
+            }
+        case UPDATE_SELECTED_STATEMENT_ID:
+            return {
+                ...state,
+                selectedStatementId: action.payload,
             }
         default:
             return state

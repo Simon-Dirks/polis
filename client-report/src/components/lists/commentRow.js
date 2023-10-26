@@ -1,8 +1,22 @@
 import _ from 'lodash'
 import VotePieChart from '../votePieChart'
 import React from 'react'
+import { connect } from 'react-redux'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import {
+    updateSelectedParticipantId,
+    updateSelectedStatementId,
+    updateViewState,
+} from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 
-const CommentRow = ({ comment, groups, voteColors }) => {
+const CommentRow = ({
+    comment,
+    groups,
+    voteColors,
+    updateSelectedStatementId,
+    updateViewState,
+}) => {
     if (!comment) {
         console.error('No comment passed')
         return null
@@ -31,7 +45,15 @@ const CommentRow = ({ comment, groups, voteColors }) => {
                     />
                 </div>
                 <div>
-                    <p className={'text-sm'}>Stelling {comment.tid}</p>
+                    <button
+                        className={'text-sm underline'}
+                        onClick={() => {
+                            updateSelectedStatementId(comment.tid)
+                            updateViewState(ViewState.Statement)
+                        }}
+                    >
+                        Stelling {comment.tid}
+                    </button>
                     <p className={'text-lg'}>{comment.txt}</p>
                 </div>
             </div>
@@ -39,4 +61,5 @@ const CommentRow = ({ comment, groups, voteColors }) => {
         </>
     )
 }
-export default CommentRow
+
+export default connect(mapStateToProps, { updateViewState, updateSelectedStatementId })(CommentRow)

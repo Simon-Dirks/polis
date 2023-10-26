@@ -35,6 +35,7 @@ import { ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import { updateViewState } from '../store/actions'
+import CommentVotesPerGroup from './commentVotesPerGroup'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -687,6 +688,17 @@ class App extends React.Component {
                                 voteColors={this.state.voteColors}
                                 gidsToRender={[this.props.selectedGroupId ?? 0]}
                             />
+                        </>
+                    )}
+
+                    {this.props.viewState === ViewState.Statement && (
+                        <>
+                            <CommentVotesPerGroup
+                                voteColors={this.state.voteColors}
+                                groupVotes={this.state.math['group-votes']}
+                                comments={this.state.comments}
+                                commentTid={this.props.selectedStatementId}
+                            ></CommentVotesPerGroup>
                         </>
                     )}
 
