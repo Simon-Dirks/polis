@@ -4,6 +4,10 @@ import React from 'react'
 import net from '../../util/net'
 import * as globals from '../globals'
 import CommentList from './commentList'
+import { connect } from 'react-redux'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 
 class allCommentsForGroup extends React.Component {
     constructor(props) {
@@ -78,8 +82,16 @@ class allCommentsForGroup extends React.Component {
         return (
             <div className={'mt-8'}>
                 <h1>
-                    Stemgedrag groep {globals.groupLabels[this.props.gid]} (
-                    {this.updateNumParticipantsOfGroup()}) op alle stellingen
+                    Stemgedrag Groep {globals.groupLabels[this.props.gid]} (
+                    {this.updateNumParticipantsOfGroup()}) op{' '}
+                    <button
+                        className={'underline'}
+                        onClick={() => {
+                            this.props.updateViewState(ViewState.Statements)
+                        }}
+                    >
+                        alle stellingen
+                    </button>
                     {this.state.groupVotesForAllComments && (
                         <span> ({this.state.groupVotesForAllComments.length})</span>
                     )}
@@ -115,4 +127,4 @@ class allCommentsForGroup extends React.Component {
     }
 }
 
-export default allCommentsForGroup
+export default connect(mapStateToProps, { updateViewState })(allCommentsForGroup)
