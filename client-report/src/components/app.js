@@ -526,10 +526,18 @@ class App extends React.Component {
                     {/*    voteColors={this.state.voteColors}*/}
                     {/*/>*/}
 
-                    <div>
+                    {/*TODO: Make absolute for participant graph view?*/}
+                    <div className={' w-full z-10'}>
+                        {/*Refactor buttons into component?*/}
                         <button
                             onClick={() => {
                                 this.setState({ viewState: ViewState.Participants })
+                            }}
+                            style={{
+                                fontWeight:
+                                    this.state.viewState === ViewState.Participants
+                                        ? 'bold'
+                                        : 'normal',
                             }}
                         >
                             Deelnemers
@@ -540,6 +548,12 @@ class App extends React.Component {
                                 this.setState({ viewState: ViewState.Statements })
                             }}
                             className={'mb-4'}
+                            style={{
+                                fontWeight:
+                                    this.state.viewState === ViewState.Statements
+                                        ? 'bold'
+                                        : 'normal',
+                            }}
                         >
                             Stellingen
                         </button>
@@ -554,6 +568,16 @@ class App extends React.Component {
                             conversation={this.state.conversation}
                             voteColors={this.state.voteColors}
                         />
+                        <div className={'absolute right-8 top-8'}>
+                            <a
+                                className={'underline'}
+                                href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
+                                target={'_blank'}
+                                rel={'noreferrer'}
+                            >
+                                Stem mee
+                            </a>
+                        </div>
                     </div>
 
                     {this.state.viewState === ViewState.Statements && (
