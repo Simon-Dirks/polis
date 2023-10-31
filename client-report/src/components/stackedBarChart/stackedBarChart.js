@@ -12,6 +12,7 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import _ from 'lodash'
+import CommentList from '../lists/commentList'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -21,6 +22,8 @@ class StackedBarChart extends React.Component {
         this.state = {
             commentsWithExtremity: null,
             data: null,
+            hoveredComment: null,
+            selectedComment: null,
             options: {
                 plugins: {
                     title: {
@@ -51,31 +54,30 @@ class StackedBarChart extends React.Component {
                         max: 375, // TODO: Calculate and adjust dynamically to maintain square cells
                     },
                 },
-                onHover: (event, elements) => {
-                    if (elements.length > 0) {
-                        const datasetIndex = elements[0].datasetIndex
-                        const slotIndex = elements[0].index
-
-                        const isValidIndex =
-                            datasetIndex >= 0 &&
-                            datasetIndex < this.state.data.datasets.length &&
-                            slotIndex >= 0 &&
-                            slotIndex < this.state.data.datasets[datasetIndex].data.length
-
-                        if (isValidIndex) {
-                            const comment =
-                                this.state.data.datasets[datasetIndex].comments[slotIndex]
-
-                            console.log(
-                                this.getGroupIdsForComment(comment.tid),
-                                comment.tid,
-                                comment.txt
-                            )
-                        }
-                    }
-                },
+                onHover: (event, elements) => this.onCommentHover(this, event, elements),
             },
         }
+    }
+
+    onCommentHover(that, event, elements) {
+        let hoveredComment = null
+        if (elements.length > 0) {
+            const datasetIndex = elements[0].datasetIndex
+            const slotIndex = elements[0].index
+
+            const isValidIndex =
+                datasetIndex >= 0 &&
+                datasetIndex < that.state.data.datasets.length &&
+                slotIndex >= 0 &&
+                slotIndex < that.state.data.datasets[datasetIndex].data.length
+
+            if (isValidIndex) {
+                const comment = that.state.data.datasets[datasetIndex].comments[slotIndex]
+                hoveredComment = comment
+                // console.log(that.getGroupIdsForComment(comment.tid), comment.tid, comment.txt)
+            }
+        }
+        this.setState({ hoveredComment: hoveredComment })
     }
 
     getGroupIdsForComment(commentId) {
@@ -192,9 +194,25 @@ class StackedBarChart extends React.Component {
 
     render() {
         return (
-            <div className={'w-[960px]'}>
-                {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
-            </div>
+            <>
+                <div className={'w-[960px]'}>
+                    {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
+                </div>
+
+                <div style={{ minHeight: '140px', paddingTop: '20px' }}>
+                    {this.state.hoveredComment && (
+                        <CommentList
+                            conversation={this.props.conversation}
+                            ptptCount={this.props.ptptCount}
+                            math={this.props.math}
+                            formatTid={this.props.formatTid}
+                            tidsToRender={[this.state.hoveredComment.tid]}
+                            comments={this.props.comments}
+                            voteColors={this.props.voteColors}
+                        />
+                    )}
+                </div>
+            </>
         )
     }
 }
