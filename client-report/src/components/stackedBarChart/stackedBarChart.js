@@ -54,30 +54,35 @@ class StackedBarChart extends React.Component {
                         max: 375, // TODO: Calculate and adjust dynamically to maintain square cells
                     },
                 },
-                onHover: (event, elements) => this.onCommentHover(this, event, elements),
+                onHover: (event, elements) =>
+                    this.setState({ hoveredComment: this.getInteractedComment(event, elements) }),
+                onClick: (event, elements) => {
+                    const test = this.getInteractedComment(event, elements)
+                    console.log(test)
+                    this.setState({ selectedComment: test })
+                },
             },
         }
     }
 
-    onCommentHover(that, event, elements) {
-        let hoveredComment = null
+    getInteractedComment(event, elements) {
+        let interactedComment = null
         if (elements.length > 0) {
             const datasetIndex = elements[0].datasetIndex
             const slotIndex = elements[0].index
 
             const isValidIndex =
                 datasetIndex >= 0 &&
-                datasetIndex < that.state.data.datasets.length &&
+                datasetIndex < this.state.data.datasets.length &&
                 slotIndex >= 0 &&
-                slotIndex < that.state.data.datasets[datasetIndex].data.length
+                slotIndex < this.state.data.datasets[datasetIndex].data.length
 
             if (isValidIndex) {
-                const comment = that.state.data.datasets[datasetIndex].comments[slotIndex]
-                hoveredComment = comment
-                // console.log(that.getGroupIdsForComment(comment.tid), comment.tid, comment.txt)
+                interactedComment = this.state.data.datasets[datasetIndex].comments[slotIndex]
             }
         }
-        this.setState({ hoveredComment: hoveredComment })
+
+        return interactedComment
     }
 
     getGroupIdsForComment(commentId) {
@@ -195,6 +200,20 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <>
+                <div style={{ minHeight: '140px' }}>
+                    {this.state.selectedComment && (
+                        <CommentList
+                            conversation={this.props.conversation}
+                            ptptCount={this.props.ptptCount}
+                            math={this.props.math}
+                            formatTid={this.props.formatTid}
+                            tidsToRender={[this.state.selectedComment.tid]}
+                            comments={this.props.comments}
+                            voteColors={this.props.voteColors}
+                        />
+                    )}
+                </div>
+
                 <div className={'w-[960px]'}>
                     {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
                 </div>
