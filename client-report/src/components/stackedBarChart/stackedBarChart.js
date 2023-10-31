@@ -58,9 +58,10 @@ class StackedBarChart extends React.Component {
                 onHover: (event, elements) =>
                     this.setState({ hoveredComment: this.getInteractedComment(event, elements) }),
                 onClick: (event, elements) => {
-                    const test = this.getInteractedComment(event, elements)
-                    console.log(test)
-                    this.setState({ selectedComment: test })
+                    const interactedComment = this.getInteractedComment(event, elements)
+                    if (interactedComment) {
+                        this.setState({ selectedComment: interactedComment })
+                    }
                 },
             },
         }
@@ -84,6 +85,22 @@ class StackedBarChart extends React.Component {
         }
 
         return interactedComment
+    }
+
+    getTidsToRender() {
+        if (this.state.hoveredComment) {
+            return [this.state.hoveredComment.tid]
+        } else if (this.state.selectedComment) {
+            return [this.state.selectedComment.tid]
+        }
+        return []
+    }
+
+    getPreviewCommentOpacity() {
+        const hasHoveredComment = this.state.hoveredComment
+        const hoveredCommentIsSelected =
+            this.state.hoveredComment?.tid === this.state.selectedComment?.tid
+        return !hasHoveredComment || hoveredCommentIsSelected ? 1 : 1
     }
 
     componentDidMount() {
@@ -192,14 +209,19 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <>
-                <div style={{ minHeight: '140px' }}>
-                    {this.state.selectedComment && (
+                <div
+                    style={{
+                        minHeight: '140px',
+                        opacity: this.getPreviewCommentOpacity(),
+                    }}
+                >
+                    {(this.state.selectedComment || this.state.hoveredComment) && (
                         <CommentList
                             conversation={this.props.conversation}
                             ptptCount={this.props.ptptCount}
                             math={this.props.math}
                             formatTid={this.props.formatTid}
-                            tidsToRender={[this.state.selectedComment.tid]}
+                            tidsToRender={this.getTidsToRender()}
                             comments={this.props.comments}
                             voteColors={this.props.voteColors}
                         />
@@ -212,20 +234,6 @@ class StackedBarChart extends React.Component {
                 <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-gray-700'}>
                     <p className={'text-left'}>Stellingen met consensus (meerderheidsmening)</p>
                     <p className={'text-right'}>Stellingen met verdeeldheid</p>
-                </div>
-
-                <div style={{ minHeight: '140px', paddingTop: '20px' }}>
-                    {this.state.hoveredComment && (
-                        <CommentList
-                            conversation={this.props.conversation}
-                            ptptCount={this.props.ptptCount}
-                            math={this.props.math}
-                            formatTid={this.props.formatTid}
-                            tidsToRender={[this.state.hoveredComment.tid]}
-                            comments={this.props.comments}
-                            voteColors={this.props.voteColors}
-                        />
-                    )}
                 </div>
             </>
         )
