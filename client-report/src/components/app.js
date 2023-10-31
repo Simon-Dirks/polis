@@ -673,6 +673,7 @@ class App extends React.Component {
                             math={this.state.math}
                             comments={this.state.comments}
                             conversation={this.state.conversation}
+                            voteColors={this.state.voteColors}
                         />
                     )}
 

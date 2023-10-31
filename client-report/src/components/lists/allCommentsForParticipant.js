@@ -11,6 +11,7 @@ import {
     updateViewState,
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
+import CommentList from './commentList'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -66,16 +67,36 @@ class allCommentsForParticipant extends React.Component {
         this.setState({ participantVotes: participantVotes })
     }
 
-    getParticipantComments() {
+    getParticipantCommentVotes() {
         if (!this.props.comments || !this.state.participantVotes) {
             return null
         }
-        return this.state.participantVotes
+
+        const participantCommentVotes = this.state.participantVotes
             .map((vote) => {
+                let agreed = 0
+                let disagreed = 0
+                const saw = 1
+
+                if (vote.vote === -1) {
+                    agreed = 1
+                } else if (vote.vote === 1) {
+                    disagreed = 1
+                }
+
                 const comment = this.props.comments.find((comment) => comment.tid === vote.tid)
-                return comment ? { txt: comment.txt, tid: vote.tid, vote: vote.vote } : null
+                return comment
+                    ? {
+                          txt: comment.txt,
+                          tid: vote.tid,
+                          agreed: agreed,
+                          disagreed: disagreed,
+                          saw: saw,
+                      }
+                    : null
             })
             .filter((item) => item !== null)
+        return participantCommentVotes
     }
 
     render() {
@@ -102,7 +123,8 @@ class allCommentsForParticipant extends React.Component {
 
                 <h1>
                     Alle stellingen{' '}
-                    {this.getParticipantComments() && `(${this.getParticipantComments().length})`}{' '}
+                    {this.getParticipantCommentVotes() &&
+                        `(${this.getParticipantCommentVotes().length})`}{' '}
                     waarop deelnemer {this.props.selectedParticipantId} gestemd heeft
                 </h1>
 
@@ -122,17 +144,15 @@ class allCommentsForParticipant extends React.Component {
                     volgende participant →
                 </button>
 
-                {this.getParticipantComments() &&
-                    this.getParticipantComments().map((comment) => {
-                        return (
-                            <div key={comment.tid}>
-                                <p>
-                                    {comment.txt} (tid: {comment.tid}, gestemd: {comment.vote})
-                                </p>
-                                <hr />
-                            </div>
-                        )
-                    })}
+                {this.getParticipantCommentVotes() && (
+                    <CommentList
+                        conversation={this.props.conversation}
+                        math={this.props.math}
+                        tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
+                        comments={this.getParticipantCommentVotes()}
+                        voteColors={this.props.voteColors}
+                    />
+                )}
             </div>
         )
     }
