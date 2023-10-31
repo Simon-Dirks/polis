@@ -117,7 +117,8 @@ class StackedBarChart extends React.Component {
         })
 
         let datasets = []
-        const maxSlotComments = 3 // TODO: Calculate max number of comments in a single slot
+        const maxSlotComments = _.max(slots.map((slot) => slot.length)) || 0
+
         for (let slotIndex = 0; slotIndex < numSlots; slotIndex++) {
             const slotComments = slots[slotIndex]
 
