@@ -606,15 +606,15 @@ class App extends React.Component {
 
                     {this.props.viewState === ViewState.Statements && (
                         <>
-                            <Beeswarm
-                                conversation={this.state.conversation}
-                                extremity={this.state.extremity}
-                                math={this.state.math}
-                                comments={this.state.comments}
-                                probabilities={this.state.filteredCorrelationMatrix}
-                                probabilitiesTids={this.state.filteredCorrelationTids}
-                                voteColors={this.state.voteColors}
-                            />
+                            {/*<Beeswarm*/}
+                            {/*    conversation={this.state.conversation}*/}
+                            {/*    extremity={this.state.extremity}*/}
+                            {/*    math={this.state.math}*/}
+                            {/*    comments={this.state.comments}*/}
+                            {/*    probabilities={this.state.filteredCorrelationMatrix}*/}
+                            {/*    probabilitiesTids={this.state.filteredCorrelationTids}*/}
+                            {/*    voteColors={this.state.voteColors}*/}
+                            {/*/>*/}
 
                             <StackedBarChart
                                 conversation={this.state.conversation}
