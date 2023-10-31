@@ -10,8 +10,12 @@ const Participants = ({ points, math, selfPid, updateViewState, updateSelectedPa
         return null
     }
 
+    const getClusterIdx = (clusterId) => {
+        return math['base-clusters'].id.findIndex((cId) => cId === clusterId)
+    }
     const isClusterHighlighted = (clusterId) => {
-        const clusterMembers = math['base-clusters'].members[clusterId]
+        const clusterIdx = getClusterIdx(clusterId)
+        const clusterMembers = math['base-clusters'].members[clusterIdx]
         if (!clusterMembers || !selfPid) {
             return false
         }
@@ -21,7 +25,9 @@ const Participants = ({ points, math, selfPid, updateViewState, updateSelectedPa
     }
 
     const getClusterRadius = (clusterId) => {
-        const clusterRadius = Math.sqrt(math['base-clusters'].count[clusterId]) * 8
+        const clusterIdx = getClusterIdx(clusterId)
+
+        const clusterRadius = Math.sqrt(math['base-clusters'].count[clusterIdx]) * 8
         if (!clusterId || isNaN(clusterRadius)) {
             return 8
         }
@@ -30,30 +36,33 @@ const Participants = ({ points, math, selfPid, updateViewState, updateSelectedPa
 
     return (
         <g>
-            {points.map((pt, i) => {
+            {points.map((clusterPoint, i) => {
                 return (
                     <g key={i}>
                         {/*TODO: Allow selection of specific participant in cluster (instead of always selecting first member)*/}
                         <circle
-                            r={getClusterRadius(pt.id)}
-                            fill={globals.groupColor(pt.gid)}
+                            r={getClusterRadius(clusterPoint.id)}
+                            fill={globals.groupColor(clusterPoint.gid)}
                             fillOpacity="0.5"
-                            cx={pt.x}
-                            cy={pt.y}
+                            cx={clusterPoint.x}
+                            cy={clusterPoint.y}
                             stroke={'black'}
-                            strokeWidth={isClusterHighlighted(pt.id) ? 3 : 0}
+                            strokeWidth={isClusterHighlighted(clusterPoint.id) ? 3 : 0}
                             className={'cursor-pointer'}
                             onClick={() => {
-                                updateSelectedParticipantId(math['base-clusters'].members[pt.id][0])
+                                const clusterIdx = getClusterIdx(clusterPoint.id)
+                                updateSelectedParticipantId(
+                                    math['base-clusters'].members[clusterIdx][0]
+                                )
                                 updateViewState(ViewState.Participant)
                             }}
                         />
 
                         <text
-                            fill={globals.groupColor(pt.gid)}
+                            fill={globals.groupColor(clusterPoint.gid)}
                             fillOpacity=".5"
-                            x={pt.x - 5}
-                            y={pt.y + 5}
+                            x={clusterPoint.x - 5}
+                            y={clusterPoint.y + 5}
                         >
                             {' '}
                             {/*{pt.id} */}
