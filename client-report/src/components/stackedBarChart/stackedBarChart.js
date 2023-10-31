@@ -147,6 +147,8 @@ class StackedBarChart extends React.Component {
                 data: layerBarSizes,
                 comments: layerComments,
                 backgroundColor: 'purple',
+                borderColor: 'white',
+                borderWidth: 2,
             }
         })
 
