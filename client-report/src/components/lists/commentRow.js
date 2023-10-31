@@ -38,6 +38,7 @@ const CommentRow = ({
                         nMembers={totalMembers}
                         voteColors={voteColors}
                         sizePx={50}
+                        showLabels={false}
                     />
                 </div>
                 <div>

@@ -45,6 +45,7 @@
     },
     "dependencies": {
         "chart.js": "^4.4.0",
+        "chartjs-plugin-datalabels": "^2.2.0",
         "color": "~4.2.3",
         "css-loader": "^6.8.1",
         "d3": "~4.6.0",

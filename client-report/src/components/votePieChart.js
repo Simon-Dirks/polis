@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 // import { Pie } from 'react-chartjs-2'
 import { brandColors } from './globals'
 import { Chart } from 'chart.js/auto'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 
 const VotePieChart = ({
     comment,
@@ -11,6 +12,7 @@ const VotePieChart = ({
     voteColors,
     heading,
     subscript,
+    showLabels,
 }) => {
     if (!comment) return null
 
@@ -33,6 +35,28 @@ const VotePieChart = ({
                 tooltip: {
                     enabled: false,
                 },
+                datalabels: {
+                    formatter: (value, context) => {
+                        let voteType = 'Eens'
+                        if (context.dataIndex === 1) {
+                            voteType = 'Oneens'
+                        } else if (context.dataIndex === 2) {
+                            voteType = 'Overslaan'
+                        }
+                        const roundedValue = Math.round(value)
+                        if (roundedValue === 0) {
+                            return ''
+                        }
+                        return `${roundedValue}%\n${voteType}`
+                    },
+                    align: 'start',
+                    textAlign: 'center',
+                    clamp: true,
+                    anchor: 'end',
+                    color: 'white',
+                    offset: 40,
+                    display: showLabels,
+                },
             },
             events: [],
             responsive: false,
@@ -41,6 +65,7 @@ const VotePieChart = ({
 
         setChart(
             new Chart(ctx, {
+                plugins: [ChartDataLabels],
                 type: 'pie',
                 options: options,
             })
