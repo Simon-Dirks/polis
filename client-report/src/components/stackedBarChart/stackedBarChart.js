@@ -64,12 +64,29 @@ class StackedBarChart extends React.Component {
                         if (isValidIndex) {
                             const comment =
                                 this.state.data.datasets[datasetIndex].comments[slotIndex]
-                            console.log(comment)
+
+                            console.log(
+                                this.getGroupIdsForComment(comment.tid),
+                                comment.tid,
+                                comment.txt
+                            )
                         }
                     }
                 },
             },
         }
+    }
+
+    getGroupIdsForComment(commentId) {
+        const groupIds = []
+        for (const [gid, comments] of Object.entries(this.props.math['repness'])) {
+            const commentRepresentsGroup = comments.some((c) => c.tid === commentId)
+            if (commentRepresentsGroup) {
+                groupIds.push(gid)
+            }
+        }
+
+        return groupIds
     }
 
     componentDidMount() {
@@ -128,7 +145,19 @@ class StackedBarChart extends React.Component {
                 }
 
                 const barSize = slotComment === undefined ? 0 : 50
-                datasets[slotCommentIdx].push({ barSize: barSize, comment: slotComment })
+
+                let barColor = '#929292'
+                const commentGroupIds = this.getGroupIdsForComment(slotComment?.tid)
+                // TODO: Handle comments being in multiple groups (now only showing a single color if a comment is in one group)
+                if (commentGroupIds.length > 0) {
+                    barColor = '#9C00EA'
+                }
+
+                datasets[slotCommentIdx].push({
+                    barSize: barSize,
+                    comment: slotComment,
+                    barColor: barColor,
+                })
             }
 
             // console.log(slotIndex, slotComments)
@@ -137,15 +166,14 @@ class StackedBarChart extends React.Component {
         datasets = datasets.map((layerSlotsData, layerIdx) => {
             const layerBarSizes = layerSlotsData.map((d) => d.barSize)
             const layerComments = layerSlotsData.map((d) => d.comment)
-
-            // TODO: Retrieve what group this statement belongs to, use that to edit background color
+            const layerBgColors = layerSlotsData.map((d) => d.barColor)
 
             // Start at bottom layer, then second stacked layer on top of that, then next layer, etc.
             return {
                 label: 'Layer ' + layerIdx,
                 data: layerBarSizes,
                 comments: layerComments,
-                backgroundColor: 'purple',
+                backgroundColor: layerBgColors,
                 borderColor: 'white',
                 borderWidth: 2,
             }
