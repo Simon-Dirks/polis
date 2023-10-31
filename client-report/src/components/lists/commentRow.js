@@ -18,12 +18,6 @@ const CommentRow = ({
         return null
     }
 
-    let totalMembers = 0
-    _.forEach(groups, (g) => {
-        let nMembers = g['n-members']
-        totalMembers += nMembers
-    })
-
     return (
         <>
             <div className={'flex flex-row py-4'}>
@@ -35,7 +29,6 @@ const CommentRow = ({
                             D: comment.disagreed,
                             S: comment.saw,
                         }}
-                        nMembers={totalMembers}
                         voteColors={voteColors}
                         sizePx={50}
                         showLabels={false}

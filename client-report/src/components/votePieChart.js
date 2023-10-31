@@ -8,7 +8,6 @@ const VotePieChart = ({
     comment,
     voteCounts,
     sizePx,
-    // nMembers,
     voteColors,
     heading,
     subscript,
