@@ -1,7 +1,9 @@
 export const ViewState = {
-    Statements: 'statements',
+    AllStatements: 'allStatements',
+    StatementsGraph: 'statements',
     Statement: 'statement',
     ParticipantsGraph: 'participants',
     Participant: 'participant',
-    Group: 'group',
+    GroupRepresentativeComments: 'group',
+    AllGroupVotes: 'allGroupVotes',
 }

@@ -13,6 +13,7 @@ import {
 import { Bar } from 'react-chartjs-2'
 import _ from 'lodash'
 import CommentList from '../lists/commentList'
+import DataUtils from '../../util/dataUtils'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -85,18 +86,6 @@ class StackedBarChart extends React.Component {
         return interactedComment
     }
 
-    getGroupIdsForComment(commentId) {
-        const groupIds = []
-        for (const [gid, comments] of Object.entries(this.props.math['repness'])) {
-            const commentRepresentsGroup = comments.some((c) => c.tid === commentId)
-            if (commentRepresentsGroup) {
-                groupIds.push(gid)
-            }
-        }
-
-        return groupIds
-    }
-
     componentDidMount() {
         if (
             this.props.comments &&
@@ -155,7 +144,10 @@ class StackedBarChart extends React.Component {
                 const barSize = slotComment === undefined ? 0 : 50
 
                 let barColor = '#929292'
-                const commentGroupIds = this.getGroupIdsForComment(slotComment?.tid)
+                const commentGroupIds = DataUtils.getGroupIdsForComment(
+                    slotComment?.tid,
+                    this.props.math
+                )
                 // TODO: Handle comments being in multiple groups (now only showing a single color if a comment is in one group)
                 if (commentGroupIds.length > 0) {
                     barColor = '#9C00EA'

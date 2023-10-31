@@ -1,8 +1,18 @@
 import _ from 'lodash'
 import VotePieChart from '../votePieChart'
 import React from 'react'
+import { connect } from 'react-redux'
+import { updateSelectedStatementId, updateViewState } from '../../store/actions'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import { ViewState } from '../../models/viewState'
 
-const CommentTile = ({ comment, groups, voteColors }) => {
+const CommentTile = ({
+    comment,
+    groups,
+    voteColors,
+    updateSelectedStatementId,
+    updateViewState,
+}) => {
     if (!comment) {
         console.error('No comment passed')
         return null
@@ -28,10 +38,20 @@ const CommentTile = ({ comment, groups, voteColors }) => {
                 sizePx={150}
             />
             <div>
-                <p className={'text-sm mt-2'}>Stelling {comment.tid}</p>
+                <p className={'text-sm mt-2'}>
+                    <button
+                        className={'underline'}
+                        onClick={() => {
+                            updateSelectedStatementId(comment.tid)
+                            updateViewState(ViewState.Statement)
+                        }}
+                    >
+                        Stelling {comment.tid}
+                    </button>
+                </p>
                 <p className={'text-lg'}>{comment.txt}</p>
             </div>
         </div>
     )
 }
-export default CommentTile
+export default connect(mapStateToProps, { updateViewState, updateSelectedStatementId })(CommentTile)

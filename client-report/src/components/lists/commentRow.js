@@ -3,11 +3,7 @@ import VotePieChart from '../votePieChart'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedParticipantId,
-    updateSelectedStatementId,
-    updateViewState,
-} from '../../store/actions'
+import { updateSelectedStatementId, updateViewState } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 
 const CommentRow = ({

@@ -92,7 +92,7 @@ class allCommentsForParticipant extends React.Component {
                             className={'underline'}
                             onClick={() => {
                                 this.props.updateSelectedGroupId(this.state.participantGroupId)
-                                this.props.updateViewState(ViewState.Group)
+                                this.props.updateViewState(ViewState.GroupRepresentativeComments)
                             }}
                         >
                             Groep {globals.groupLabels[this.state.participantGroupId]}

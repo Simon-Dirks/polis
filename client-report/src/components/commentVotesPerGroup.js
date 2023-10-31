@@ -2,10 +2,11 @@ import _ from 'lodash'
 import React from 'react'
 import VotePieChart from './votePieChart'
 import { brandColors, groupLabels } from './globals'
-import { updateViewState } from '../store/actions'
+import { updateSelectedGroupId, updateViewState } from '../store/actions'
 import { ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
+import DataUtils from '../util/dataUtils'
 
 const CommentVotesPerGroup = ({
     comments,
@@ -13,6 +14,8 @@ const CommentVotesPerGroup = ({
     voteColors,
     commentTid,
     updateViewState,
+    math,
+    updateSelectedGroupId,
 }) => {
     if (!comments) {
         console.error('No comments passed')
@@ -28,15 +31,37 @@ const CommentVotesPerGroup = ({
     const commentsByTid = _.keyBy(comments, 'tid')
     const comment = commentsByTid[commentTid]
 
+    const groupIdsForComment = DataUtils.getGroupIdsForComment(commentTid, math)
     return (
         <div>
             <div className={'mb-4'}>
-                <p className={'text-sm mt-2'}>Stelling {comment.tid}</p>
+                <p className={'text-sm mt-2'}>
+                    Stelling {comment.tid}
+                    {groupIdsForComment.length > 0 && (
+                        <span>
+                            {' '}
+                            is typerend voor Groep:{' '}
+                            {groupIdsForComment.map((gid) => (
+                                <button
+                                    key={gid}
+                                    className={'underline mr-1'}
+                                    onClick={() => {
+                                        updateSelectedGroupId(Number(gid))
+                                        updateViewState(ViewState.GroupRepresentativeComments)
+                                    }}
+                                >
+                                    {groupLabels[gid]}{' '}
+                                </button>
+                            ))}
+                            <button></button>
+                        </span>
+                    )}
+                </p>
                 <p className={'text-lg'}>{comment.txt}</p>
                 <button
                     className={'underline'}
                     onClick={() => {
-                        updateViewState(ViewState.Statements)
+                        updateViewState(ViewState.AllStatements)
                     }}
                 >
                     Bekijk alle stellingen
@@ -80,4 +105,6 @@ const CommentVotesPerGroup = ({
         </div>
     )
 }
-export default connect(mapStateToProps, { updateViewState })(CommentVotesPerGroup)
+export default connect(mapStateToProps, { updateViewState, updateSelectedGroupId })(
+    CommentVotesPerGroup
+)

@@ -87,7 +87,7 @@ class allCommentsForGroup extends React.Component {
                     <button
                         className={'underline'}
                         onClick={() => {
-                            this.props.updateViewState(ViewState.Statements)
+                            this.props.updateViewState(ViewState.StatementsGraph)
                         }}
                     >
                         alle stellingen

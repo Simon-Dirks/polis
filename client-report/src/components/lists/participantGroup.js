@@ -6,6 +6,14 @@ import * as globals from '../globals'
 // import style from "../../util/style";
 import CommentList from './commentList'
 import CommentGrid from './commentGrid'
+import { connect } from 'react-redux'
+import { mapStateToProps } from '../../store/mapStateToProps'
+import {
+    updateSelectedGroupId,
+    updateSelectedStatementId,
+    updateViewState,
+} from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 
 const ParticipantGroup = ({
     gid,
@@ -21,6 +29,8 @@ const ParticipantGroup = ({
     // groupNames,
     math,
     voteColors,
+    updateViewState,
+    updateSelectedGroupId,
 }) => {
     let groupLabel = groupName
     if (typeof groupLabel === 'undefined') {
@@ -34,10 +44,21 @@ const ParticipantGroup = ({
 
     return (
         <div className={'pb-8'}>
-            <h1 className={'mb-8'}>
+            <h1>
                 Deze stellingen zijn typerend voor {groupLabel} (
                 {groupVotesForThisGroup['n-members']} deelnemers)
             </h1>
+            <p className={'mb-8'}>
+                <button
+                    className={'underline'}
+                    onClick={() => {
+                        updateSelectedGroupId(gid)
+                        updateViewState(ViewState.AllGroupVotes)
+                    }}
+                >
+                    Bekijk het stemgedrag van groep {groupLabel} op alle stellingen
+                </button>
+            </p>
             <CommentGrid
                 conversation={conversation}
                 ptptCount={ptptCount}
@@ -50,5 +71,6 @@ const ParticipantGroup = ({
         </div>
     )
 }
-
-export default ParticipantGroup
+export default connect(mapStateToProps, { updateViewState, updateSelectedGroupId })(
+    ParticipantGroup
+)

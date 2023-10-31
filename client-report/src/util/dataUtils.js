@@ -21,7 +21,20 @@ function getVoteTotals(math_main) {
     return x
 }
 
+function getGroupIdsForComment(commentId, math) {
+    const groupIds = []
+    for (const [gid, comments] of Object.entries(math['repness'])) {
+        const commentRepresentsGroup = comments.some((c) => c.tid === commentId)
+        if (commentRepresentsGroup) {
+            groupIds.push(gid)
+        }
+    }
+
+    return groupIds
+}
+
 const dataUtils = {
     getVoteTotals: getVoteTotals,
+    getGroupIdsForComment: getGroupIdsForComment,
 }
 export default dataUtils

@@ -522,7 +522,7 @@ class App extends React.Component {
                     {/* stats={this.state.conversationStats} */}
 
                     {/**/}
-                    {(this.props.viewState === ViewState.Statements ||
+                    {(this.props.viewState === ViewState.StatementsGraph ||
                         this.props.viewState === ViewState.ParticipantsGraph) && (
                         <div
                             className={'w-full z-10'}
@@ -552,12 +552,12 @@ class App extends React.Component {
                                 <br />
                                 <button
                                     onClick={() => {
-                                        this.props.updateViewState(ViewState.Statements)
+                                        this.props.updateViewState(ViewState.StatementsGraph)
                                     }}
                                     className={'mb-4'}
                                     style={{
                                         fontWeight:
-                                            this.props.viewState === ViewState.Statements
+                                            this.props.viewState === ViewState.StatementsGraph
                                                 ? 'bold'
                                                 : 'normal',
                                     }}
@@ -604,7 +604,7 @@ class App extends React.Component {
                         </div>
                     )}
 
-                    {this.props.viewState === ViewState.Statements && (
+                    {this.props.viewState === ViewState.StatementsGraph && (
                         <>
                             {/*<Beeswarm*/}
                             {/*    conversation={this.state.conversation}*/}
@@ -632,6 +632,19 @@ class App extends React.Component {
                             {/*    formatTid={this.state.formatTid}*/}
                             {/*    voteColors={this.state.voteColors}*/}
                             {/*/>*/}
+                        </>
+                    )}
+
+                    {this.props.viewState === ViewState.AllStatements && (
+                        <>
+                            <AllCommentsModeratedIn
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                conversation={this.state.conversation}
+                                ptptCount={this.state.ptptCount}
+                                formatTid={this.state.formatTid}
+                                voteColors={this.state.voteColors}
+                            />
                         </>
                     )}
 
@@ -663,17 +676,8 @@ class App extends React.Component {
                         />
                     )}
 
-                    {this.props.viewState === ViewState.Group && (
+                    {this.props.viewState === ViewState.GroupRepresentativeComments && (
                         <>
-                            <AllCommentsForGroup
-                                math={this.state.math}
-                                comments={this.state.comments}
-                                conversation={this.state.conversation}
-                                gid={this.props.selectedGroupId ?? 0}
-                                ptptCount={this.state.ptptCount}
-                                formatTid={this.state.formatTid}
-                                voteColors={this.state.voteColors}
-                            />
                             <ParticipantGroups
                                 comments={this.state.comments}
                                 conversation={this.state.conversation}
@@ -692,9 +696,24 @@ class App extends React.Component {
                         </>
                     )}
 
+                    {this.props.viewState === ViewState.AllGroupVotes && (
+                        <>
+                            <AllCommentsForGroup
+                                math={this.state.math}
+                                comments={this.state.comments}
+                                conversation={this.state.conversation}
+                                gid={this.props.selectedGroupId ?? 0}
+                                ptptCount={this.state.ptptCount}
+                                formatTid={this.state.formatTid}
+                                voteColors={this.state.voteColors}
+                            />
+                        </>
+                    )}
+
                     {this.props.viewState === ViewState.Statement && (
                         <>
                             <CommentVotesPerGroup
+                                math={this.state.math}
                                 voteColors={this.state.voteColors}
                                 groupVotes={this.state.math['group-votes']}
                                 comments={this.state.comments}
