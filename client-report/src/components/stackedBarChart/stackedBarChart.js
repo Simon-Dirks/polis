@@ -110,7 +110,6 @@ class StackedBarChart extends React.Component {
                     Math.floor((extremity - minExtremity) / slotWidth),
                     numSlots - 1
                 )
-                // TODO: Save additional comment data here, and use it later on
                 // console.log(comment)
                 slots[slotIndex].push(comment)
             }
