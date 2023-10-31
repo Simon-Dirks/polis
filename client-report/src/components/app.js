@@ -521,14 +521,6 @@ class App extends React.Component {
                     {/* This may eventually need to go back in below */}
                     {/* stats={this.state.conversationStats} */}
 
-                    {/*<StackedBarChart*/}
-                    {/*    conversation={this.state.conversation}*/}
-                    {/*    extremity={this.state.extremity}*/}
-                    {/*    math={this.state.math}*/}
-                    {/*    comments={this.state.comments}*/}
-                    {/*    voteColors={this.state.voteColors}*/}
-                    {/*/>*/}
-
                     {/**/}
                     {(this.props.viewState === ViewState.Statements ||
                         this.props.viewState === ViewState.ParticipantsGraph) && (
@@ -623,14 +615,23 @@ class App extends React.Component {
                                 probabilitiesTids={this.state.filteredCorrelationTids}
                                 voteColors={this.state.voteColors}
                             />
-                            <AllCommentsModeratedIn
+
+                            <StackedBarChart
+                                conversation={this.state.conversation}
+                                extremity={this.state.extremity}
                                 math={this.state.math}
                                 comments={this.state.comments}
-                                conversation={this.state.conversation}
-                                ptptCount={this.state.ptptCount}
-                                formatTid={this.state.formatTid}
                                 voteColors={this.state.voteColors}
                             />
+
+                            {/*<AllCommentsModeratedIn*/}
+                            {/*    math={this.state.math}*/}
+                            {/*    comments={this.state.comments}*/}
+                            {/*    conversation={this.state.conversation}*/}
+                            {/*    ptptCount={this.state.ptptCount}*/}
+                            {/*    formatTid={this.state.formatTid}*/}
+                            {/*    voteColors={this.state.voteColors}*/}
+                            {/*/>*/}
                         </>
                     )}
 

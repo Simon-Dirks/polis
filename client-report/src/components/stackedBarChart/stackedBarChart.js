@@ -15,43 +15,60 @@ import _ from 'lodash'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const options = {
-    plugins: {
-        title: {
-            display: false,
-        },
-        legend: {
-            display: false,
-        },
-        tooltip: {
-            enabled: true,
-        },
-    },
-    responsive: true,
-    scales: {
-        x: {
-            stacked: true,
-            grid: {
-                display: false,
-            },
-            display: false,
-        },
-        y: {
-            stacked: true,
-            grid: {
-                display: false,
-            },
-            display: false,
-        },
-    },
-}
-
 class StackedBarChart extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             commentsWithExtremity: null,
             data: null,
+            options: {
+                plugins: {
+                    title: {
+                        display: false,
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        enabled: false,
+                    },
+                },
+                responsive: true,
+                scales: {
+                    x: {
+                        stacked: true,
+                        grid: {
+                            display: false,
+                        },
+                        display: false,
+                    },
+                    y: {
+                        stacked: true,
+                        grid: {
+                            display: false,
+                        },
+                        display: false,
+                    },
+                },
+                onHover: (event, elements) => {
+                    if (elements.length > 0) {
+                        const datasetIndex = elements[0].datasetIndex
+                        const slotIndex = elements[0].index
+
+                        const isValidIndex =
+                            datasetIndex >= 0 &&
+                            datasetIndex < this.state.data.datasets.length &&
+                            slotIndex >= 0 &&
+                            slotIndex < this.state.data.datasets[datasetIndex].data.length
+
+                        if (isValidIndex) {
+                            const comment =
+                                this.state.data.datasets[datasetIndex].comments[slotIndex]
+                            console.log(comment)
+                        }
+                    }
+                },
+            },
         }
     }
 
@@ -80,7 +97,7 @@ class StackedBarChart extends React.Component {
         const maxExtremity = _.maxBy(commentsWithExtremity, 'extremity').extremity
 
         // TODO: Configure based on design
-        const numSlots = 50
+        const numSlots = 10
 
         const slotWidth = (maxExtremity - minExtremity) / numSlots
 
@@ -94,7 +111,8 @@ class StackedBarChart extends React.Component {
                     numSlots - 1
                 )
                 // TODO: Save additional comment data here, and use it later on
-                slots[slotIndex].push(comment.txt)
+                // console.log(comment)
+                slots[slotIndex].push(comment)
             }
         })
 
@@ -110,12 +128,25 @@ class StackedBarChart extends React.Component {
                 }
 
                 const barSize = slotComment === undefined ? 0 : 50
-                datasets[slotCommentIdx].push(barSize)
+                datasets[slotCommentIdx].push({ barSize: barSize, comment: slotComment })
             }
+
+            // console.log(slotIndex, slotComments)
         }
 
-        datasets = datasets.map((d, i) => {
-            return { label: `DATA ${i}`, data: d, backgroundColor: 'purple' }
+        datasets = datasets.map((layerSlotsData, layerIdx) => {
+            const layerBarSizes = layerSlotsData.map((d) => d.barSize)
+            const layerComments = layerSlotsData.map((d) => d.comment)
+
+            // TODO: Retrieve what group this statement belongs to, use that to edit background color
+
+            // Start at bottom layer, then second stacked layer on top of that, then next layer, etc.
+            return {
+                label: 'Layer ' + layerIdx,
+                data: layerBarSizes,
+                comments: layerComments,
+                backgroundColor: 'purple',
+            }
         })
 
         // console.log('DATASETS', datasets)
@@ -131,7 +162,7 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <div className={'w-[960px]'}>
-                {this.state.data && <Bar options={options} data={this.state.data} />}
+                {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
             </div>
         )
     }
