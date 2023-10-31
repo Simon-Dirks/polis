@@ -48,6 +48,7 @@ class StackedBarChart extends React.Component {
                             display: false,
                         },
                         display: false,
+                        max: 375, // TODO: Calculate and adjust dynamically to maintain square cells
                     },
                 },
                 onHover: (event, elements) => {
