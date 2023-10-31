@@ -217,6 +217,10 @@ class StackedBarChart extends React.Component {
                 <div className={'w-[960px]'}>
                     {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
                 </div>
+                <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-gray-700'}>
+                    <p className={'text-left'}>Stellingen met consensus (meerderheidsmening)</p>
+                    <p className={'text-right'}>Stellingen met verdeeldheid</p>
+                </div>
 
                 <div style={{ minHeight: '140px', paddingTop: '20px' }}>
                     {this.state.hoveredComment && (
