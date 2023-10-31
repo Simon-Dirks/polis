@@ -12,6 +12,7 @@ const CommentRow = ({
     voteColors,
     updateSelectedStatementId,
     updateViewState,
+    isRounded,
 }) => {
     if (!comment) {
         console.error('No comment passed')
@@ -32,6 +33,7 @@ const CommentRow = ({
                         voteColors={voteColors}
                         sizePx={50}
                         showLabels={false}
+                        isRounded={isRounded}
                     />
                 </div>
                 <div>

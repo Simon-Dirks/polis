@@ -19,6 +19,7 @@ class CommentList extends React.Component {
                             groups={this.props.math['group-votes']}
                             comment={comments[tid]}
                             voteColors={this.props.voteColors}
+                            isRounded={this.props.isRounded}
                         />
                     )
                 })}

@@ -12,6 +12,7 @@ const VotePieChart = ({
     heading,
     subscript,
     showLabels,
+    isRounded,
 }) => {
     if (!comment) return null
 
@@ -152,6 +153,7 @@ const VotePieChart = ({
                         style={{
                             height: sizePx + 'px',
                             width: sizePx + 'px',
+                            borderRadius: isRounded !== undefined ? '100%' : 'initial',
                         }}
                     >
                         <canvas

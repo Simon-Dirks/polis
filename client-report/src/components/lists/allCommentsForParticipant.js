@@ -151,6 +151,7 @@ class allCommentsForParticipant extends React.Component {
                         tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
                         comments={this.getParticipantCommentVotes()}
                         voteColors={this.props.voteColors}
+                        isRounded={true}
                     />
                 )}
             </div>
