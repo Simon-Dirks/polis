@@ -42,8 +42,37 @@ const ParticipantGroup = ({
         groupVoteColors = globals.brandColors.groups[gid]
     }
 
+    const getNumberOfGroups = () => {
+        return Object.keys(math['group-votes']).length
+    }
+
     return (
         <div className={'pb-8'}>
+            <div className={'grid grid-cols-2'}>
+                <button
+                    onClick={() => {
+                        const newGid = gid - 1
+                        if (newGid >= 0) {
+                            updateSelectedGroupId(newGid)
+                        }
+                    }}
+                    className={'text-left'}
+                >
+                    ← Vorige
+                </button>
+
+                <button
+                    onClick={() => {
+                        const newGid = gid + 1
+                        if (newGid < getNumberOfGroups()) {
+                            updateSelectedGroupId(newGid)
+                        }
+                    }}
+                    className={'text-right'}
+                >
+                    → Volgende
+                </button>
+            </div>
             <h1>
                 Deze stellingen zijn typerend voor {groupLabel} (
                 {groupVotesForThisGroup['n-members']} deelnemers)
