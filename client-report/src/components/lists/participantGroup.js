@@ -47,56 +47,67 @@ const ParticipantGroup = ({
     }
 
     return (
-        <div className={'pb-8'}>
-            <div className={'grid grid-cols-2'}>
-                <button
-                    onClick={() => {
-                        const newGid = gid - 1
-                        if (newGid >= 0) {
-                            updateSelectedGroupId(newGid)
-                        }
-                    }}
-                    className={'text-left'}
-                >
-                    ← Vorige
-                </button>
-
-                <button
-                    onClick={() => {
-                        const newGid = gid + 1
-                        if (newGid < getNumberOfGroups()) {
-                            updateSelectedGroupId(newGid)
-                        }
-                    }}
-                    className={'text-right'}
-                >
-                    → Volgende
-                </button>
+        <div>
+            <div className={'w-3/4 mx-auto'}>
+                <p>
+                    {groupLabel} bestaat uit {groupVotesForThisGroup['n-members']} deelnemers
+                </p>
+                <h1>Deze stellingen zijn typerend voor {groupLabel}</h1>
+                <p className={'mb-8'}>
+                    <button
+                        className={'underline'}
+                        onClick={() => {
+                            updateSelectedGroupId(gid)
+                            updateViewState(ViewState.AllGroupVotes)
+                        }}
+                    >
+                        Bekijk het stemgedrag van {groupLabel} op alle stellingen
+                    </button>
+                </p>
             </div>
-            <h1>
-                Deze stellingen zijn typerend voor {groupLabel} (
-                {groupVotesForThisGroup['n-members']} deelnemers)
-            </h1>
-            <p className={'mb-8'}>
-                <button
-                    className={'underline'}
-                    onClick={() => {
-                        updateSelectedGroupId(gid)
-                        updateViewState(ViewState.AllGroupVotes)
-                    }}
-                >
-                    Bekijk het stemgedrag van groep {groupLabel} op alle stellingen
-                </button>
-            </p>
-            <CommentGrid
-                conversation={conversation}
-                ptptCount={ptptCount}
-                math={math}
-                formatTid={formatTid}
-                tidsToRender={_.map(groupComments, 'tid') /* uncertainTids would be funnier */}
-                comments={comments}
-                voteColors={groupVoteColors}
-            />
+
+            <div className={'grid grid-cols-12'}>
+                <div className={'col-span-1 flex'}>
+                    {/*TODO: Set button disabled state*/}
+                    <button
+                        onClick={() => {
+                            updateSelectedGroupId(gid - 1)
+                        }}
+                        className={'text-left text-3xl'}
+                        disabled={gid - 1 < 0}
+                        style={{ opacity: gid - 1 < 0 ? '40%' : 'initial' }}
+                    >
+                        ←
+                    </button>
+                </div>
+
+                <div className={'col-span-10'}>
+                    <CommentGrid
+                        conversation={conversation}
+                        ptptCount={ptptCount}
+                        math={math}
+                        formatTid={formatTid}
+                        tidsToRender={
+                            _.map(groupComments, 'tid') /* uncertainTids would be funnier */
+                        }
+                        comments={comments}
+                        voteColors={groupVoteColors}
+                    />
+                </div>
+
+                <div className={'col-span-1 flex'}>
+                    <button
+                        onClick={() => {
+                            updateSelectedGroupId(gid + 1)
+                        }}
+                        className={'text-right text-3xl'}
+                        disabled={gid + 1 >= getNumberOfGroups()}
+                        style={{ opacity: gid + 1 >= getNumberOfGroups() ? '40%' : 'initial' }}
+                    >
+                        →
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }

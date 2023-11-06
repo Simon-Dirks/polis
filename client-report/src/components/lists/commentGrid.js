@@ -11,7 +11,7 @@ class CommentGrid extends React.Component {
         const comments = _.keyBy(this.props.comments, 'tid')
 
         return (
-            <div className={'grid grid-cols-2 lg:grid-cols-4'}>
+            <div className={'grid grid-cols-2 lg:grid-cols-4 gap-4'}>
                 {this.props.tidsToRender.map((tid, i) => {
                     if (!comments[tid]) {
                         return null

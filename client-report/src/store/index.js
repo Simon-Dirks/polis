@@ -13,7 +13,7 @@ import {
 } from './actions'
 
 const initialState = {
-    viewState: ViewState.ParticipantsGraph,
+    viewState: ViewState.GroupRepresentativeComments,
     selectedParticipantId: 0,
     selectedGroupId: 0,
     selectedStatementId: 0,

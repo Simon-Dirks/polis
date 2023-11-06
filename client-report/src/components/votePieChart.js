@@ -153,7 +153,7 @@ const VotePieChart = ({
                         style={{
                             height: sizePx + 'px',
                             width: sizePx + 'px',
-                            borderRadius: isRounded !== undefined ? '100%' : 'initial',
+                            borderRadius: isRounded ? '100%' : 'initial',
                         }}
                     >
                         <canvas
