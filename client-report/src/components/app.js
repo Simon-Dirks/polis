@@ -541,28 +541,42 @@ class App extends React.Component {
                                         this.props.updateViewState(ViewState.ParticipantsGraph)
                                     }}
                                     style={{
-                                        fontWeight:
+                                        opacity:
                                             this.props.viewState === ViewState.ParticipantsGraph
-                                                ? 'bold'
-                                                : 'normal',
+                                                ? '100%'
+                                                : '40%',
                                     }}
                                 >
-                                    Deelnemers
+                                    <svg
+                                        height="20"
+                                        width="20"
+                                        className={'inline bottom-[2px] relative mr-4'}
+                                    >
+                                        <circle cx="10" cy="10" r="10" fill="#929292" />
+                                    </svg>
+                                    <span>Deelnemers</span>
                                 </button>
                                 <br />
                                 <button
                                     onClick={() => {
                                         this.props.updateViewState(ViewState.StatementsGraph)
                                     }}
-                                    className={'mb-4'}
+                                    className={'mb-4 mt-2'}
                                     style={{
-                                        fontWeight:
+                                        opacity:
                                             this.props.viewState === ViewState.StatementsGraph
-                                                ? 'bold'
-                                                : 'normal',
+                                                ? '100%'
+                                                : '40%',
                                     }}
                                 >
-                                    Stellingen
+                                    <svg
+                                        width="20"
+                                        height="20"
+                                        className={'inline bottom-[2px] relative mr-4'}
+                                    >
+                                        <rect width="20" height="20" fill="#929292" />
+                                    </svg>
+                                    <span>Stellingen</span>
                                 </button>
 
                                 <div
@@ -586,7 +600,7 @@ class App extends React.Component {
                                         target={'_blank'}
                                         rel={'noreferrer'}
                                     >
-                                        Stem mee
+                                        Stem mee &gt;
                                     </a>
                                 </div>
                             </div>
