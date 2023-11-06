@@ -723,6 +723,19 @@ class App extends React.Component {
                         </>
                     )}
 
+                    {this.props.viewState === ViewState.StatementSpecificGroup && (
+                        <>
+                            <CommentVotesPerGroup
+                                math={this.state.math}
+                                voteColors={this.state.voteColors}
+                                groupVotes={this.state.math['group-votes']}
+                                comments={this.state.comments}
+                                commentTid={this.props.selectedStatementId}
+                                highlightGroupIds={[this.props.selectedParticipantId]}
+                            ></CommentVotesPerGroup>
+                        </>
+                    )}
+
                     <div className={'hidden'}>
                         {/*<h1>Statements graph</h1>*/}
 

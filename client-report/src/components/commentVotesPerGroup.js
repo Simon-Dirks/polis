@@ -16,6 +16,7 @@ const CommentVotesPerGroup = ({
     updateViewState,
     math,
     updateSelectedGroupId,
+    highlightGroupIds,
 }) => {
     if (!comments) {
         console.error('No comments passed')
@@ -32,6 +33,8 @@ const CommentVotesPerGroup = ({
     const comment = commentsByTid[commentTid]
 
     const groupIdsForComment = DataUtils.getGroupIdsForComment(commentTid, math)
+
+    const highlightGroupIdsAreSpecified = highlightGroupIds && highlightGroupIds.length >= 0
     return (
         <div>
             <div className={'mb-4'}>
@@ -69,23 +72,32 @@ const CommentVotesPerGroup = ({
             </div>
 
             <div className={'grid grid-flow-col'}>
-                <div>
-                    <VotePieChart
-                        comment={comment}
-                        voteCounts={{
-                            A: comment.agreed,
-                            D: comment.disagreed,
-                            S: comment.saw,
-                        }}
-                        nMembers={totalCommentVoteMembers}
-                        voteColors={voteColors}
-                        sizePx={150}
-                        heading={'Stemgedrag alle deelnemers'}
-                        subscript={'Aantal stemmen: ' + comment.saw}
-                    />
-                </div>
+                {!highlightGroupIdsAreSpecified && (
+                    <div>
+                        <VotePieChart
+                            comment={comment}
+                            voteCounts={{
+                                A: comment.agreed,
+                                D: comment.disagreed,
+                                S: comment.saw,
+                            }}
+                            nMembers={totalCommentVoteMembers}
+                            voteColors={voteColors}
+                            sizePx={150}
+                            heading={'Stemgedrag alle deelnemers'}
+                            subscript={'Aantal stemmen: ' + comment.saw}
+                        />
+                    </div>
+                )}
 
                 {Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
+                    const groupIdNum = Number(groupId)
+                    const shouldRenderGroup =
+                        !highlightGroupIdsAreSpecified || highlightGroupIds.includes(groupIdNum)
+                    if (!shouldRenderGroup) {
+                        return null
+                    }
+
                     return (
                         <div key={groupId}>
                             {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
