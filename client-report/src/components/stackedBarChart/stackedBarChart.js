@@ -128,7 +128,7 @@ class StackedBarChart extends React.Component {
         const maxExtremity = _.maxBy(commentsWithExtremity, 'extremity').extremity
 
         // TODO: Configure based on design
-        const numSlots = 10
+        const numSlots = 50
 
         const slotWidth = (maxExtremity - minExtremity) / numSlots
 
@@ -158,7 +158,7 @@ class StackedBarChart extends React.Component {
                     datasets[slotCommentIdx] = []
                 }
 
-                const barSize = slotComment === undefined ? 0 : 50
+                const barSize = slotComment === undefined ? 0 : 15
 
                 let barColor = '#929292'
                 const commentGroupIds = DataUtils.getGroupIdsForComment(
