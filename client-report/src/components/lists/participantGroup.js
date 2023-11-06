@@ -14,6 +14,7 @@ import {
     updateViewState,
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 
 const ParticipantGroup = ({
     gid,
@@ -68,17 +69,11 @@ const ParticipantGroup = ({
 
             <div className={'grid grid-cols-12'}>
                 <div className={'col-span-1 flex'}>
-                    {/*TODO: Set button disabled state*/}
-                    <button
-                        onClick={() => {
-                            updateSelectedGroupId(gid - 1)
-                        }}
-                        className={'text-left text-3xl'}
+                    <ArrowButton
                         disabled={gid - 1 < 0}
-                        style={{ opacity: gid - 1 < 0 ? '40%' : 'initial' }}
-                    >
-                        ←
-                    </button>
+                        target={ArrowButtonTarget.Group}
+                        direction={ArrowButtonDirection.Previous}
+                    ></ArrowButton>
                 </div>
 
                 <div className={'col-span-10'}>
@@ -96,16 +91,11 @@ const ParticipantGroup = ({
                 </div>
 
                 <div className={'col-span-1 flex'}>
-                    <button
-                        onClick={() => {
-                            updateSelectedGroupId(gid + 1)
-                        }}
-                        className={'text-right text-3xl'}
+                    <ArrowButton
                         disabled={gid + 1 >= getNumberOfGroups()}
-                        style={{ opacity: gid + 1 >= getNumberOfGroups() ? '40%' : 'initial' }}
-                    >
-                        →
-                    </button>
+                        target={ArrowButtonTarget.Group}
+                        direction={ArrowButtonDirection.Next}
+                    ></ArrowButton>
                 </div>
             </div>
         </div>

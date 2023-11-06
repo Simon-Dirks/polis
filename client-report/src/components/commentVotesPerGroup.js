@@ -7,6 +7,7 @@ import { ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import DataUtils from '../util/dataUtils'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from './controls/arrowButton'
 
 const CommentVotesPerGroup = ({
     comments,
@@ -16,6 +17,7 @@ const CommentVotesPerGroup = ({
     updateViewState,
     math,
     updateSelectedGroupId,
+    selectedStatementId,
     highlightGroupIds,
 }) => {
     if (!comments) {
@@ -35,9 +37,12 @@ const CommentVotesPerGroup = ({
     const groupIdsForComment = DataUtils.getGroupIdsForComment(commentTid, math)
 
     const highlightGroupIdsAreSpecified = highlightGroupIds && highlightGroupIds.length >= 0
+    if (!comment) {
+        return null
+    }
     return (
         <div>
-            <div className={'mb-4'}>
+            <div className={'mb-4 w-3/4 mx-auto'}>
                 <p className={'text-sm mt-2'}>
                     Stelling {comment.tid}
                     {groupIdsForComment.length > 0 && (
@@ -60,59 +65,83 @@ const CommentVotesPerGroup = ({
                         </span>
                     )}
                 </p>
-                <p className={'text-lg'}>{comment.txt}</p>
+                <p className={'text-2xl'}>{comment.txt}</p>
                 <button
                     className={'underline'}
                     onClick={() => {
                         updateViewState(ViewState.AllStatements)
                     }}
                 >
-                    Bekijk alle stellingen
+                    Bekijk alle stellingen &gt;
                 </button>
             </div>
 
-            <div className={'grid grid-flow-col'}>
-                {!highlightGroupIdsAreSpecified && (
-                    <div>
-                        <VotePieChart
-                            comment={comment}
-                            voteCounts={{
-                                A: comment.agreed,
-                                D: comment.disagreed,
-                                S: comment.saw,
-                            }}
-                            nMembers={totalCommentVoteMembers}
-                            voteColors={voteColors}
-                            sizePx={150}
-                            heading={'Stemgedrag alle deelnemers'}
-                            subscript={'Aantal stemmen: ' + comment.saw}
-                        />
+            <div className={'grid grid-cols-12'}>
+                <div className={'col-span-1 flex items-center text-3xl'}>
+                    <ArrowButton
+                        disabled={selectedStatementId <= 0}
+                        direction={ArrowButtonDirection.Previous}
+                        target={ArrowButtonTarget.Statement}
+                    ></ArrowButton>
+                </div>
+                <div className={'col-span-10'}>
+                    <div className={'grid grid-flow-col gap-4 '}>
+                        {/*TODO: Center horizontally*/}
+                        {!highlightGroupIdsAreSpecified && (
+                            <div>
+                                <VotePieChart
+                                    comment={comment}
+                                    voteCounts={{
+                                        A: comment.agreed,
+                                        D: comment.disagreed,
+                                        S: comment.saw,
+                                    }}
+                                    nMembers={totalCommentVoteMembers}
+                                    voteColors={voteColors}
+                                    sizePx={150}
+                                    heading={'Stemgedrag alle deelnemers'}
+                                    subscript={'Aantal stemmen: ' + comment.saw}
+                                />
+                            </div>
+                        )}
+
+                        {Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
+                            const groupIdNum = Number(groupId)
+                            const shouldRenderGroup =
+                                !highlightGroupIdsAreSpecified ||
+                                highlightGroupIds.includes(groupIdNum)
+                            if (!shouldRenderGroup) {
+                                return null
+                            }
+
+                            return (
+                                <div key={groupId}>
+                                    {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
+                                    <VotePieChart
+                                        comment={comment}
+                                        voteCounts={groupVoteData?.votes[comment.tid]}
+                                        nMembers={groupVoteData['n-members']}
+                                        voteColors={brandColors.groups[groupId]}
+                                        sizePx={150}
+                                        heading={'Stemgedrag Groep ' + groupLabels[groupId]}
+                                        subscript={
+                                            'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S
+                                        }
+                                    />
+                                </div>
+                            )
+                        })}
                     </div>
-                )}
+                </div>
 
-                {Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
-                    const groupIdNum = Number(groupId)
-                    const shouldRenderGroup =
-                        !highlightGroupIdsAreSpecified || highlightGroupIds.includes(groupIdNum)
-                    if (!shouldRenderGroup) {
-                        return null
-                    }
-
-                    return (
-                        <div key={groupId}>
-                            {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
-                            <VotePieChart
-                                comment={comment}
-                                voteCounts={groupVoteData?.votes[comment.tid]}
-                                nMembers={groupVoteData['n-members']}
-                                voteColors={brandColors.groups[groupId]}
-                                sizePx={150}
-                                heading={'Stemgedrag Groep ' + groupLabels[groupId]}
-                                subscript={'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S}
-                            />
-                        </div>
-                    )
-                })}
+                <div className={'col-span-1 flex items-center text-3xl'}>
+                    {/*TODO: Define / add disabled state here based on number of available comments*/}
+                    <ArrowButton
+                        disabled={false}
+                        direction={ArrowButtonDirection.Next}
+                        target={ArrowButtonTarget.Statement}
+                    ></ArrowButton>
+                </div>
             </div>
         </div>
     )

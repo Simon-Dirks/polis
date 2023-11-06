@@ -12,6 +12,7 @@ import {
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 import CommentList from './commentList'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -128,32 +129,36 @@ class allCommentsForParticipant extends React.Component {
                     waarop deelnemer {this.props.selectedParticipantId} gestemd heeft
                 </h1>
 
-                <button
-                    onClick={() => {
-                        this.props.updateSelectedParticipantId(this.props.selectedParticipantId - 1)
-                    }}
-                >
-                    ← vorige participant
-                </button>
-                <button
-                    onClick={() => {
-                        this.props.updateSelectedParticipantId(this.props.selectedParticipantId + 1)
-                    }}
-                    className={'ml-4 mb-4'}
-                >
-                    volgende participant →
-                </button>
-
-                {this.getParticipantCommentVotes() && (
-                    <CommentList
-                        conversation={this.props.conversation}
-                        math={this.props.math}
-                        tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
-                        comments={this.getParticipantCommentVotes()}
-                        voteColors={this.props.voteColors}
-                        isRounded={true}
-                    />
-                )}
+                <div className={'grid grid-cols-12'}>
+                    <div className={'col-span-1'}>
+                        {/*TODO: Add disabled state*/}
+                        <ArrowButton
+                            direction={ArrowButtonDirection.Previous}
+                            target={ArrowButtonTarget.Participant}
+                            disabled={false}
+                        ></ArrowButton>
+                    </div>
+                    <div className={'col-span-10'}>
+                        {this.getParticipantCommentVotes() && (
+                            <CommentList
+                                conversation={this.props.conversation}
+                                math={this.props.math}
+                                tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
+                                comments={this.getParticipantCommentVotes()}
+                                voteColors={this.props.voteColors}
+                                isRounded={true}
+                            />
+                        )}
+                    </div>
+                    <div className={'col-span-1'}>
+                        {/*TODO: Add disabled state*/}
+                        <ArrowButton
+                            direction={ArrowButtonDirection.Next}
+                            target={ArrowButtonTarget.Participant}
+                            disabled={false}
+                        ></ArrowButton>
+                    </div>
+                </div>
             </div>
         )
     }

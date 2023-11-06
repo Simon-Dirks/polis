@@ -141,32 +141,30 @@ const VotePieChart = ({
     }, [chart, chartData])
 
     return (
-        <div title={title}>
-            <>
-                {missingCounts ? (
-                    <span style={{ fontSize: 12, marginRight: 4, color: 'grey' }}>
-                        Missing vote counts
-                    </span>
-                ) : (
-                    <div
-                        className={'flex justify-center items-center overflow-hidden'}
-                        style={{
-                            height: sizePx + 'px',
-                            width: sizePx + 'px',
-                            borderRadius: isRounded ? '100%' : 'initial',
-                        }}
-                    >
-                        <canvas
-                            ref={chartCanvasRef}
-                            width={sizePx * 1.5}
-                            height={sizePx * 1.5}
-                        ></canvas>
-                    </div>
-                )}
+        <div>
+            {missingCounts ? (
+                <span style={{ fontSize: 12, marginRight: 4, color: 'grey' }}>
+                    Missing vote counts
+                </span>
+            ) : (
+                <div
+                    className={'flex justify-center items-center overflow-hidden'}
+                    style={{
+                        height: sizePx + 'px',
+                        width: sizePx + 'px',
+                        borderRadius: isRounded ? '100%' : 'initial',
+                    }}
+                >
+                    <canvas
+                        ref={chartCanvasRef}
+                        width={sizePx * 1.5}
+                        height={sizePx * 1.5}
+                    ></canvas>
+                </div>
+            )}
 
-                {heading && <p className={'font-bold'}>{heading}</p>}
-                {subscript && <p>{subscript}</p>}
-            </>
+            {heading && <p className={'font-bold'}>{heading}</p>}
+            {subscript && <p>{subscript}</p>}
         </div>
     )
 }
