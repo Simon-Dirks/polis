@@ -36,6 +36,7 @@ import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import { updateViewState } from '../store/actions'
 import CommentVotesPerGroup from './commentVotesPerGroup'
+import CloseButton from './controls/closeButton'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -520,6 +521,13 @@ class App extends React.Component {
 
                     {/* This may eventually need to go back in below */}
                     {/* stats={this.state.conversationStats} */}
+
+                    {this.props.viewState !== ViewState.StatementsGraph &&
+                        this.props.viewState !== ViewState.ParticipantsGraph && (
+                            <div className={'absolute right-8 top-8'}>
+                                <CloseButton></CloseButton>
+                            </div>
+                        )}
 
                     {/**/}
                     {(this.props.viewState === ViewState.StatementsGraph ||

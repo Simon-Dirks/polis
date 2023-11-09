@@ -37,44 +37,46 @@ const CommentVotesPerGroup = ({
     const groupIdsForComment = DataUtils.getGroupIdsForComment(commentTid, math)
 
     const highlightGroupIdsAreSpecified = highlightGroupIds && highlightGroupIds.length >= 0
-    if (!comment) {
-        return null
-    }
+    const shouldHighlightAllVotes = highlightGroupIdsAreSpecified && highlightGroupIds.includes(-1)
+    // if (!comment) {
+    //     return null
+    // }
     return (
         <div>
-            <div className={'mb-4 w-3/4 mx-auto'}>
-                <p className={'text-sm mt-2'}>
-                    Stelling {comment.tid}
-                    {groupIdsForComment.length > 0 && (
-                        <span>
-                            {' '}
-                            is typerend voor Groep:{' '}
-                            {groupIdsForComment.map((gid) => (
-                                <button
-                                    key={gid}
-                                    className={'underline mr-1'}
-                                    onClick={() => {
-                                        updateSelectedGroupId(Number(gid))
-                                        updateViewState(ViewState.GroupRepresentativeComments)
-                                    }}
-                                >
-                                    {groupLabels[gid]}{' '}
-                                </button>
-                            ))}
-                            <button></button>
-                        </span>
-                    )}
-                </p>
-                <p className={'text-2xl'}>{comment.txt}</p>
-                <button
-                    className={'underline'}
-                    onClick={() => {
-                        updateViewState(ViewState.AllStatements)
-                    }}
-                >
-                    Bekijk alle stellingen &gt;
-                </button>
-            </div>
+            {comment && (
+                <div className={'mb-4 w-3/4 mx-auto'}>
+                    <p className={'text-sm mt-2'}>
+                        Stelling {comment.tid}
+                        {groupIdsForComment.length > 0 && (
+                            <span>
+                                {' '}
+                                is typerend voor Groep:{' '}
+                                {groupIdsForComment.map((gid) => (
+                                    <button
+                                        key={gid}
+                                        className={'underline mr-1'}
+                                        onClick={() => {
+                                            updateSelectedGroupId(Number(gid))
+                                            updateViewState(ViewState.GroupRepresentativeComments)
+                                        }}
+                                    >
+                                        {groupLabels[gid]}{' '}
+                                    </button>
+                                ))}
+                            </span>
+                        )}
+                    </p>
+                    <p className={'text-2xl'}>{comment.txt}</p>
+                    <button
+                        className={'underline'}
+                        onClick={() => {
+                            updateViewState(ViewState.AllStatements)
+                        }}
+                    >
+                        Bekijk alle stellingen &gt;
+                    </button>
+                </div>
+            )}
 
             <div className={'grid grid-cols-12'}>
                 <div className={'col-span-1 flex items-center text-3xl'}>
@@ -87,8 +89,13 @@ const CommentVotesPerGroup = ({
                 <div className={'col-span-10'}>
                     <div className={'grid grid-flow-col gap-4 '}>
                         {/*TODO: Center horizontally*/}
-                        {!highlightGroupIdsAreSpecified && (
-                            <div>
+                        {(!highlightGroupIdsAreSpecified || shouldHighlightAllVotes) && comment && (
+                            <div
+                                onClick={() => {
+                                    updateSelectedGroupId(Number(-1))
+                                    updateViewState(ViewState.StatementSpecificGroup)
+                                }}
+                            >
                                 <VotePieChart
                                     comment={comment}
                                     voteCounts={{
@@ -98,47 +105,49 @@ const CommentVotesPerGroup = ({
                                     }}
                                     nMembers={totalCommentVoteMembers}
                                     voteColors={voteColors}
-                                    sizePx={150}
+                                    sizePx={shouldHighlightAllVotes ? 400 : 150}
                                     heading={'Stemgedrag alle deelnemers'}
                                     subscript={'Aantal stemmen: ' + comment.saw}
-                                    styleHeadingAsClickable={false}
+                                    styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
                                 />
                             </div>
                         )}
 
-                        {Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
-                            const groupIdNum = Number(groupId)
-                            const shouldRenderGroup =
-                                !highlightGroupIdsAreSpecified ||
-                                highlightGroupIds.includes(groupIdNum)
-                            if (!shouldRenderGroup) {
-                                return null
-                            }
+                        {comment &&
+                            Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
+                                const groupIdNum = Number(groupId)
+                                const shouldRenderGroup =
+                                    !highlightGroupIdsAreSpecified ||
+                                    highlightGroupIds.includes(groupIdNum)
+                                if (!shouldRenderGroup) {
+                                    return null
+                                }
 
-                            return (
-                                <div
-                                    key={groupId}
-                                    onClick={() => {
-                                        updateSelectedGroupId(Number(groupId))
-                                        updateViewState(ViewState.StatementSpecificGroup)
-                                    }}
-                                >
-                                    {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
-                                    <VotePieChart
-                                        comment={comment}
-                                        voteCounts={groupVoteData?.votes[comment.tid]}
-                                        nMembers={groupVoteData['n-members']}
-                                        voteColors={brandColors.groups[groupId]}
-                                        sizePx={highlightGroupIdsAreSpecified ? 400 : 150}
-                                        heading={'Stemgedrag Groep ' + groupLabels[groupId]}
-                                        subscript={
-                                            'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S
-                                        }
-                                        styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
-                                    />
-                                </div>
-                            )
-                        })}
+                                return (
+                                    <div
+                                        key={groupId}
+                                        onClick={() => {
+                                            updateSelectedGroupId(Number(groupId))
+                                            updateViewState(ViewState.StatementSpecificGroup)
+                                        }}
+                                    >
+                                        {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
+                                        <VotePieChart
+                                            comment={comment}
+                                            voteCounts={groupVoteData?.votes[comment.tid]}
+                                            nMembers={groupVoteData['n-members']}
+                                            voteColors={brandColors.groups[groupId]}
+                                            sizePx={highlightGroupIdsAreSpecified ? 400 : 150}
+                                            heading={'Stemgedrag Groep ' + groupLabels[groupId]}
+                                            subscript={
+                                                'Aantal stemmen: ' +
+                                                groupVoteData?.votes[comment.tid].S
+                                            }
+                                            styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
+                                        />
+                                    </div>
+                                )
+                            })}
                     </div>
                 </div>
 

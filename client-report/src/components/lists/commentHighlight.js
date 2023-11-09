@@ -3,14 +3,29 @@ import VotePieChart from '../votePieChart'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedStatementId, updateViewState } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedStatementId,
+    updateViewState,
+} from '../../store/actions'
 import { ViewState } from '../../models/viewState'
+import DataUtils from '../../util/dataUtils'
+import { groupLabels } from '../globals'
 
-const CommentRow = ({ comment, voteColors, updateSelectedStatementId, updateViewState }) => {
+const CommentHighlight = ({
+    comment,
+    math,
+    voteColors,
+    updateSelectedStatementId,
+    updateSelectedGroupId,
+    updateViewState,
+}) => {
     if (!comment) {
         console.error('No comment passed')
         return null
     }
+
+    const groupIdsForComment = DataUtils.getGroupIdsForComment(comment.tid, math)
 
     return (
         <>
@@ -39,9 +54,23 @@ const CommentRow = ({ comment, voteColors, updateSelectedStatementId, updateView
                         >
                             Stelling {comment.tid}
                         </button>
-                        <span className={'inline-block'}>&nbsp;is typerend voor&nbsp;</span>
-                        {/*  TODO: Add statement group*/}
-                        <button className={'underline inline-block'}>Groep XXX</button>
+                        {groupIdsForComment && groupIdsForComment.length > 0 && (
+                            <span className={'inline-block'}>
+                                &nbsp;is typerend voor&nbsp;Groep{' '}
+                                {groupIdsForComment.map((gid) => (
+                                    <button
+                                        key={gid}
+                                        className={'underline mr-1'}
+                                        onClick={() => {
+                                            updateSelectedGroupId(Number(gid))
+                                            updateViewState(ViewState.GroupRepresentativeComments)
+                                        }}
+                                    >
+                                        {groupLabels[gid]}{' '}
+                                    </button>
+                                ))}
+                            </span>
+                        )}
                     </div>
 
                     <p className={'text-2xl font-bold mt-1'}>{comment.txt}</p>
@@ -59,4 +88,8 @@ const CommentRow = ({ comment, voteColors, updateSelectedStatementId, updateView
     )
 }
 
-export default connect(mapStateToProps, { updateViewState, updateSelectedStatementId })(CommentRow)
+export default connect(mapStateToProps, {
+    updateViewState,
+    updateSelectedStatementId,
+    updateSelectedGroupId,
+})(CommentHighlight)

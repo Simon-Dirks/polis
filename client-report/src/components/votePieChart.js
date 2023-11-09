@@ -55,7 +55,7 @@ const VotePieChart = ({
                     clamp: true,
                     anchor: 'end',
                     color: 'white',
-                    offset: 40,
+                    offset: sizePx / 3.5,
                     display: showLabels,
                 },
             },

@@ -237,6 +237,7 @@ class StackedBarChart extends React.Component {
                             <CommentHighlight
                                 comment={this.getCommentToRender()}
                                 voteColors={this.props.voteColors}
+                                math={this.props.math}
                             ></CommentHighlight>
                         </div>
 
