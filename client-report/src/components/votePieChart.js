@@ -13,6 +13,7 @@ const VotePieChart = ({
     subscript,
     showLabels,
     isRounded,
+    styleHeadingAsClickable,
 }) => {
     if (!comment) return null
 
@@ -163,7 +164,15 @@ const VotePieChart = ({
                 </div>
             )}
 
-            {heading && <p className={'font-bold'}>{heading}</p>}
+            {heading && (
+                <p
+                    className={
+                        'font-bold' + (styleHeadingAsClickable ? ' underline cursor-pointer' : '')
+                    }
+                >
+                    {heading}
+                </p>
+            )}
             {subscript && <p>{subscript}</p>}
         </div>
     )

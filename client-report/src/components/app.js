@@ -745,7 +745,7 @@ class App extends React.Component {
                                 groupVotes={this.state.math['group-votes']}
                                 comments={this.state.comments}
                                 commentTid={this.props.selectedStatementId}
-                                highlightGroupIds={[this.props.selectedParticipantId]}
+                                highlightGroupIds={[this.props.selectedGroupId]}
                             ></CommentVotesPerGroup>
                         </>
                     )}

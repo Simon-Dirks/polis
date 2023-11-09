@@ -101,6 +101,7 @@ const CommentVotesPerGroup = ({
                                     sizePx={150}
                                     heading={'Stemgedrag alle deelnemers'}
                                     subscript={'Aantal stemmen: ' + comment.saw}
+                                    styleHeadingAsClickable={false}
                                 />
                             </div>
                         )}
@@ -115,18 +116,25 @@ const CommentVotesPerGroup = ({
                             }
 
                             return (
-                                <div key={groupId}>
+                                <div
+                                    key={groupId}
+                                    onClick={() => {
+                                        updateSelectedGroupId(Number(groupId))
+                                        updateViewState(ViewState.StatementSpecificGroup)
+                                    }}
+                                >
                                     {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
                                     <VotePieChart
                                         comment={comment}
                                         voteCounts={groupVoteData?.votes[comment.tid]}
                                         nMembers={groupVoteData['n-members']}
                                         voteColors={brandColors.groups[groupId]}
-                                        sizePx={150}
+                                        sizePx={highlightGroupIdsAreSpecified ? 400 : 150}
                                         heading={'Stemgedrag Groep ' + groupLabels[groupId]}
                                         subscript={
                                             'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S
                                         }
+                                        styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
                                     />
                                 </div>
                             )
