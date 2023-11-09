@@ -93,16 +93,18 @@ class StackedBarChart extends React.Component {
     }
 
     getCommentToRender() {
-        let tidToRender = null
+        // let tidToRender = null
         if (this.state.hoveredComment) {
-            tidToRender = this.state.hoveredComment.tid
+            return this.state.hoveredComment
+            // tidToRender = this.state.hoveredComment.tid
         } else if (this.state.selectedComment) {
-            tidToRender = this.state.selectedComment.tid
+            return this.state.selectedComment
+            // tidToRender = this.state.selectedComment.tid
         }
-
-        if (tidToRender in this.props.comments) {
-            return this.props.comments[tidToRender]
-        }
+        //
+        // if (tidToRender in this.props.comments) {
+        //     return this.props.comments[tidToRender]
+        // }
 
         return null
     }
