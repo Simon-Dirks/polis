@@ -9,9 +9,17 @@ import {
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 
-const CloseButton = ({ updateViewState }) => {
+const CloseButton = ({ viewState, updateViewState }) => {
     const onClick = () => {
-        updateViewState(ViewState.ParticipantsGraph)
+        if (
+            viewState === ViewState.Statement ||
+            viewState === ViewState.AllStatements ||
+            viewState === ViewState.StatementSpecificGroup
+        ) {
+            updateViewState(ViewState.StatementsGraph)
+        } else {
+            updateViewState(ViewState.ParticipantsGraph)
+        }
     }
 
     return (
