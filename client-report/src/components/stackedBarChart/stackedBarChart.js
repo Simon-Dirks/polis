@@ -12,12 +12,9 @@ import {
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import _ from 'lodash'
-import CommentList from '../lists/commentList'
 import DataUtils from '../../util/dataUtils'
-import VotePieChart from '../votePieChart'
-import { ViewState } from '../../models/viewState'
 import CommentHighlight from '../lists/commentHighlight'
-import CommentRow from '../lists/commentRow'
+import * as globals from '../globals'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -180,7 +177,8 @@ class StackedBarChart extends React.Component {
                 )
                 // TODO: Handle comments being in multiple groups (now only showing a single color if a comment is in one group)
                 if (commentGroupIds.length > 0) {
-                    barColor = '#9C00EA'
+                    const commentGroupId = commentGroupIds[0]
+                    barColor = globals.groupColor(Number(commentGroupId))
                 }
 
                 datasets[slotCommentIdx].push({
