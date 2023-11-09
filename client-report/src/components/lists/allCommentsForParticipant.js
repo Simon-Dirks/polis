@@ -65,7 +65,13 @@ class allCommentsForParticipant extends React.Component {
         // TODO: Set / show loading state
         const conversationId = this.props.conversation?.conversation_id
         const participantVotes = await this.getVotes(conversationId, pid)
-        this.setState({ participantVotes: participantVotes })
+
+        const sortingOrder = [-1, 1, 0]
+        const sortedParticipantsVotes = participantVotes.sort(
+            (a, b) => sortingOrder.indexOf(a.vote) - sortingOrder.indexOf(b.vote)
+        )
+
+        this.setState({ participantVotes: sortedParticipantsVotes })
     }
 
     getParticipantCommentVotes() {
