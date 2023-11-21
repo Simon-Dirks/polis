@@ -2,9 +2,9 @@ import _ from 'lodash'
 import VotePieChart from '../votePieChart'
 import React from 'react'
 import { connect } from 'react-redux'
-import { updateSelectedStatementId, updateViewState } from '../../store/actions'
+import { updateSelectedStatementId, updateViewCategory, updateViewState } from '../../store/actions'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 const CommentTile = ({
     comment,
@@ -12,6 +12,7 @@ const CommentTile = ({
     voteColors,
     updateSelectedStatementId,
     updateViewState,
+    updateViewCategory,
 }) => {
     if (!comment) {
         console.error('No comment passed')
@@ -43,6 +44,7 @@ const CommentTile = ({
                         className={'underline'}
                         onClick={() => {
                             updateSelectedStatementId(comment.tid)
+                            updateViewCategory(ViewCategory.IndivididualStatements)
                             updateViewState(ViewState.Statement)
                         }}
                     >
@@ -54,4 +56,8 @@ const CommentTile = ({
         </div>
     )
 }
-export default connect(mapStateToProps, { updateViewState, updateSelectedStatementId })(CommentTile)
+export default connect(mapStateToProps, {
+    updateViewState,
+    updateSelectedStatementId,
+    updateViewCategory,
+})(CommentTile)
