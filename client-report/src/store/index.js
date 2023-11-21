@@ -14,8 +14,8 @@ import {
 } from './actions'
 
 const initialState = {
-    viewCategory: ViewCategory.IndivididualStatements,
-    viewState: ViewState.Statement,
+    viewCategory: ViewCategory.Home,
+    viewState: ViewState.StatementsGraph,
     selectedParticipantId: 0,
     selectedGroupId: 0,
     selectedStatementId: 11,

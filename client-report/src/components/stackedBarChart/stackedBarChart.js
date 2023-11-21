@@ -15,6 +15,7 @@ import _ from 'lodash'
 import DataUtils from '../../util/dataUtils'
 import CommentHighlight from '../lists/commentHighlight'
 import * as globals from '../globals'
+import Color from 'color'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -38,6 +39,13 @@ class StackedBarChart extends React.Component {
                         enabled: false,
                     },
                 },
+                colors: {
+                    duration: 200,
+                },
+                // animation: {
+                //     duration: 500,
+                //     easing: 'easeInOutQuart',
+                // },
                 responsive: true,
                 scales: {
                     x: {
@@ -57,11 +65,73 @@ class StackedBarChart extends React.Component {
                     },
                 },
                 onHover: (event, elements) => {
-                    this.setState({ hoveredComment: this.getInteractedComment(event, elements) })
+                    // TODO: Refactor into function(s)
+                    const hoveredComment = this.getInteractedComment(event, elements)
+                    const isHoveringOverComment = elements.length > 0
+                    this.setState({ hoveredComment: hoveredComment })
+
+                    const chart = event.chart
+                    const ctx = chart.ctx
+
+                    ctx.save()
+
+                    const chartDatasets = chart.data.datasets
+                    for (let datasetIdx = 0; datasetIdx < chartDatasets.length; datasetIdx++) {
+                        for (
+                            let bgColorIdx = 0;
+                            bgColorIdx < chartDatasets[datasetIdx].backgroundColor.length;
+                            bgColorIdx++
+                        ) {
+                            const currentBgColor =
+                                chartDatasets[datasetIdx].backgroundColor[bgColorIdx]
+                            const transparentColor = Color(currentBgColor).alpha(0.3)
+                            const opaqueColor = Color(currentBgColor).alpha(1)
+                            const shouldShowTransparent =
+                                isHoveringOverComment || this.state.selectedComment
+                            chart.data.datasets[datasetIdx].backgroundColor[bgColorIdx] =
+                                shouldShowTransparent ? transparentColor.hexa() : opaqueColor.hexa()
+                        }
+                    }
+
+                    const highlightIndices = []
+
+                    if (isHoveringOverComment) {
+                        const hoveredIndices = {
+                            datasetIndex: elements[0].datasetIndex,
+                            index: elements[0].index,
+                            alpha: 0.6,
+                        }
+                        highlightIndices.push(hoveredIndices)
+                    }
+
+                    if (this.state.selectedComment) {
+                        const selectedIndices = {
+                            datasetIndex: this.state.selectedComment.datasetIndex,
+                            index: this.state.selectedComment.index,
+                            alpha: 1,
+                        }
+                        highlightIndices.push(selectedIndices)
+                    }
+
+                    for (const highlight of highlightIndices) {
+                        const highlightColor = Color(
+                            chartDatasets[highlight.datasetIndex].backgroundColor[highlight.index]
+                        ).alpha(highlight.alpha)
+                        chart.data.datasets[highlight.datasetIndex].backgroundColor[
+                            highlight.index
+                        ] = highlightColor.hexa()
+                    }
+
+                    chart.update()
+                    ctx.restore()
+                    // this.setState({ data: data })
                 },
                 onClick: (event, elements) => {
                     const interactedComment = this.getInteractedComment(event, elements)
                     if (interactedComment) {
+                        interactedComment.datasetIndex = elements[0].datasetIndex
+                        interactedComment.index = elements[0].index
+
                         this.setState({ selectedComment: interactedComment })
                     }
                 },
