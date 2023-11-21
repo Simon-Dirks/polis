@@ -44,6 +44,7 @@ const CommentVotesPerGroup = ({
         <div>
             {comment && (
                 <div className={'mb-4 w-3/4 mx-auto'}>
+                    <p className={'text-sm'}>Stelling {comment.tid}</p>
                     <p className={'text-2xl mb-2'}>{comment.txt}</p>
 
                     <Tag>Aantal stemmen: {comment.saw}</Tag>

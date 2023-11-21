@@ -519,6 +519,7 @@ class App extends React.Component {
                     math={this.state.math}
                     ptptCount={this.state.ptptCount}
                     conversation={this.state.conversation}
+                    comments={this.state.comments}
                 ></ViewMenuBar>
                 {/*<Heading conversation={this.state.conversation} />*/}
                 <div className={'p-8 pt-28'}>

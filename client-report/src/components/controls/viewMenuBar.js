@@ -14,6 +14,7 @@ import { groupLabels } from '../globals'
 import ViewStateSelect from './viewStateSelect'
 import GroupSelect from './groupSelect'
 import StatementsGroupSelect from './statementsGroupSelect'
+import StatementSelect from './statementSelect'
 
 const ViewMenuBar = ({
     viewState,
@@ -23,6 +24,7 @@ const ViewMenuBar = ({
     updateSelectedGroupId,
     selectedGroupId,
     math,
+    comments,
 }) => {
     return (
         <div
@@ -87,6 +89,10 @@ const ViewMenuBar = ({
 
                     {viewCategory === ViewCategory.AllStatements && (
                         <StatementsGroupSelect math={math}></StatementsGroupSelect>
+                    )}
+
+                    {viewCategory === ViewCategory.IndivididualStatements && (
+                        <StatementSelect math={math} comments={comments}></StatementSelect>
                     )}
                 </div>
             </div>
