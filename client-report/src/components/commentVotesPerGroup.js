@@ -48,25 +48,24 @@ const CommentVotesPerGroup = ({
 
                     <Tag>Aantal stemmen: {comment.saw}</Tag>
 
-                    <Tag>
-                        {groupIdsForComment.length > 0 && (
-                            <span>
-                                Typerend voor Groep:{' '}
-                                {groupIdsForComment.map((gid) => (
-                                    <button
-                                        key={gid}
-                                        className={'underline mr-1'}
-                                        onClick={() => {
-                                            updateSelectedGroupId(Number(gid))
-                                            updateViewState(ViewState.GroupRepresentativeComments)
-                                        }}
-                                    >
-                                        {groupLabels[gid]}{' '}
-                                    </button>
-                                ))}
-                            </span>
-                        )}
-                    </Tag>
+                    {groupIdsForComment.length > 0 && (
+                        <Tag>
+                            Typerend voor Groep:{' '}
+                            {groupIdsForComment.map((gid) => (
+                                <button
+                                    key={gid}
+                                    className={'underline mr-1'}
+                                    onClick={() => {
+                                        updateSelectedGroupId(Number(gid))
+                                        updateViewCategory(ViewCategory.Groups)
+                                        updateViewState(ViewState.GroupRepresentativeComments)
+                                    }}
+                                >
+                                    {groupLabels[gid]}{' '}
+                                </button>
+                            ))}
+                        </Tag>
+                    )}
                 </div>
             )}
 
