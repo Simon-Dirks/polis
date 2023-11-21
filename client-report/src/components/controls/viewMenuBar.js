@@ -13,6 +13,7 @@ import _ from 'lodash'
 import { groupLabels } from '../globals'
 import ViewStateSelect from './viewStateSelect'
 import GroupSelect from './groupSelect'
+import StatementsGroupSelect from './statementsGroupSelect'
 
 const ViewMenuBar = ({
     viewState,
@@ -53,6 +54,12 @@ const ViewMenuBar = ({
                                 return
                             }
 
+                            if (viewCategory === ViewCategory.AllStatements) {
+                                updateSelectedGroupId(-1)
+                            } else {
+                                updateSelectedGroupId(0)
+                            }
+
                             console.log('Updating view category', viewCategory)
                             updateViewCategory(viewCategory)
                             updateViewState(ViewStatesForCategory[viewCategory][0])
@@ -76,6 +83,10 @@ const ViewMenuBar = ({
 
                     {viewCategory === ViewCategory.Groups && (
                         <GroupSelect math={math}></GroupSelect>
+                    )}
+
+                    {viewCategory === ViewCategory.AllStatements && (
+                        <StatementsGroupSelect math={math}></StatementsGroupSelect>
                     )}
                 </div>
             </div>

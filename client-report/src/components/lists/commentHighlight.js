@@ -77,7 +77,7 @@ const CommentHighlight = ({
                     <button
                         className={'underline mt-2'}
                         onClick={() => {
-                            updateViewState(ViewState.AllStatements)
+                            updateViewState(ViewState.AllStatementVotes)
                         }}
                     >
                         Bekijk alle stellingen &gt;

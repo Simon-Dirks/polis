@@ -13,7 +13,7 @@ const CloseButton = ({ viewState, updateViewState }) => {
     const onClick = () => {
         if (
             viewState === ViewState.Statement ||
-            viewState === ViewState.AllStatements ||
+            viewState === ViewState.AllStatementVotes ||
             viewState === ViewState.StatementSpecificGroup
         ) {
             updateViewState(ViewState.StatementsGraph)

@@ -1,12 +1,12 @@
 export const ViewState = {
-    AllStatements: 'allStatements',
     StatementsGraph: 'Stellingen',
     ParticipantsGraph: 'Deelnemers',
     Statement: 'statement',
     StatementSpecificGroup: 'statementSpecificGroup',
     Participant: 'participant',
     GroupRepresentativeComments: 'group',
-    AllGroupVotes: 'allGroupVotes',
+    AllStatementVotes: 'allStatements',
+    AllStatementVotesSelectedGroup: 'allGroupVotes',
 }
 
 export const ViewCategory = {
@@ -19,6 +19,6 @@ export const ViewCategory = {
 export const ViewStatesForCategory = {
     [ViewCategory.Home]: [ViewState.ParticipantsGraph, ViewState.StatementsGraph],
     [ViewCategory.Groups]: [ViewState.GroupRepresentativeComments],
-    [ViewCategory.AllStatements]: [ViewState.AllStatements],
+    [ViewCategory.AllStatements]: [ViewState.AllStatementVotes],
     [ViewCategory.IndivididualStatements]: [ViewState.Statement],
 }

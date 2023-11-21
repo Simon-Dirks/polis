@@ -70,7 +70,7 @@ const CommentVotesPerGroup = ({
                     <button
                         className={'underline'}
                         onClick={() => {
-                            updateViewState(ViewState.AllStatements)
+                            updateViewState(ViewState.AllStatementVotes)
                         }}
                     >
                         Bekijk alle stellingen &gt;

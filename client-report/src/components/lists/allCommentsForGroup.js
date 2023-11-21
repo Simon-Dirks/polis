@@ -42,7 +42,7 @@ class allCommentsForGroup extends React.Component {
             return null
         }
 
-        console.log(this.props.math)
+        // console.log(this.props.math)
         return this.props.math['group-votes'][this.props.gid]['n-members']
     }
 

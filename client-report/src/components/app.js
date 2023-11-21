@@ -589,7 +589,7 @@ class App extends React.Component {
                         </>
                     )}
 
-                    {this.props.viewState === ViewState.AllStatements && (
+                    {this.props.viewState === ViewState.AllStatementVotes && (
                         <>
                             <AllCommentsModeratedIn
                                 math={this.state.math}
@@ -651,7 +651,7 @@ class App extends React.Component {
                         </>
                     )}
 
-                    {this.props.viewState === ViewState.AllGroupVotes && (
+                    {this.props.viewState === ViewState.AllStatementVotesSelectedGroup && (
                         <>
                             <AllCommentsForGroup
                                 math={this.state.math}

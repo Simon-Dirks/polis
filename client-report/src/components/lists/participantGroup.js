@@ -59,7 +59,7 @@ const ParticipantGroup = ({
                         className={'underline'}
                         onClick={() => {
                             updateSelectedGroupId(gid)
-                            updateViewState(ViewState.AllGroupVotes)
+                            updateViewState(ViewState.AllStatementVotesSelectedGroup)
                         }}
                     >
                         Bekijk het stemgedrag van {groupLabel} op alle stellingen
