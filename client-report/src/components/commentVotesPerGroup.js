@@ -18,7 +18,6 @@ const CommentVotesPerGroup = ({
     math,
     updateSelectedGroupId,
     selectedStatementId,
-    highlightGroupIds,
 }) => {
     if (!comments) {
         console.error('No comments passed')
@@ -36,8 +35,6 @@ const CommentVotesPerGroup = ({
 
     const groupIdsForComment = DataUtils.getGroupIdsForComment(commentTid, math)
 
-    const highlightGroupIdsAreSpecified = highlightGroupIds && highlightGroupIds.length >= 0
-    const shouldHighlightAllVotes = highlightGroupIdsAreSpecified && highlightGroupIds.includes(-1)
     // if (!comment) {
     //     return null
     // }
@@ -89,13 +86,8 @@ const CommentVotesPerGroup = ({
                 <div className={'col-span-10'}>
                     <div className={'grid grid-flow-col gap-4 '}>
                         {/*TODO: Center horizontally*/}
-                        {(!highlightGroupIdsAreSpecified || shouldHighlightAllVotes) && comment && (
-                            <div
-                                onClick={() => {
-                                    updateSelectedGroupId(Number(-1))
-                                    updateViewState(ViewState.StatementSpecificGroup)
-                                }}
-                            >
+                        {comment && (
+                            <div>
                                 <VotePieChart
                                     comment={comment}
                                     voteCounts={{
@@ -105,45 +97,29 @@ const CommentVotesPerGroup = ({
                                     }}
                                     nMembers={totalCommentVoteMembers}
                                     voteColors={voteColors}
-                                    sizePx={shouldHighlightAllVotes ? 400 : 150}
+                                    sizePx={150}
                                     heading={'Stemgedrag alle deelnemers'}
                                     subscript={'Aantal stemmen: ' + comment.saw}
-                                    styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
                                 />
                             </div>
                         )}
 
                         {comment &&
                             Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
-                                const groupIdNum = Number(groupId)
-                                const shouldRenderGroup =
-                                    !highlightGroupIdsAreSpecified ||
-                                    highlightGroupIds.includes(groupIdNum)
-                                if (!shouldRenderGroup) {
-                                    return null
-                                }
-
                                 return (
-                                    <div
-                                        key={groupId}
-                                        onClick={() => {
-                                            updateSelectedGroupId(Number(groupId))
-                                            updateViewState(ViewState.StatementSpecificGroup)
-                                        }}
-                                    >
+                                    <div key={groupId}>
                                         {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
                                         <VotePieChart
                                             comment={comment}
                                             voteCounts={groupVoteData?.votes[comment.tid]}
                                             nMembers={groupVoteData['n-members']}
                                             voteColors={brandColors.groups[groupId]}
-                                            sizePx={highlightGroupIdsAreSpecified ? 400 : 150}
+                                            sizePx={150}
                                             heading={'Stemgedrag Groep ' + groupLabels[groupId]}
                                             subscript={
                                                 'Aantal stemmen: ' +
                                                 groupVoteData?.votes[comment.tid].S
                                             }
-                                            styleHeadingAsClickable={!highlightGroupIdsAreSpecified}
                                         />
                                     </div>
                                 )

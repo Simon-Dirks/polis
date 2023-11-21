@@ -2,7 +2,6 @@ export const ViewState = {
     StatementsGraph: 'Stellingen',
     ParticipantsGraph: 'Deelnemers',
     Statement: 'statement',
-    StatementSpecificGroup: 'statementSpecificGroup',
     Participant: 'participant',
     GroupRepresentativeComments: 'group',
     AllStatementVotes: 'allStatements',
