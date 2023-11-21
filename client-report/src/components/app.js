@@ -37,6 +37,7 @@ import { mapStateToProps } from '../store/mapStateToProps'
 import { updateViewState } from '../store/actions'
 import CommentVotesPerGroup from './commentVotesPerGroup'
 import CloseButton from './controls/closeButton'
+import TitleMenuBar from './controls/titleMenuBar'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -507,9 +508,14 @@ class App extends React.Component {
         }
         console.log('top level app state and props', this.state, this.props)
         return (
-            <div className={'p-8'}>
+            <div>
+                <TitleMenuBar
+                    math={this.state.math}
+                    ptptCount={this.state.ptptCount}
+                    conversation={this.state.conversation}
+                ></TitleMenuBar>
                 {/*<Heading conversation={this.state.conversation} />*/}
-                <div>
+                <div className={'p-8'}>
                     {/*<Controls*/}
                     {/*    onAutoRefreshEnabled={this.onAutoRefreshEnabled.bind(this)}*/}
                     {/*    handleColorblindModeClick={this.handleColorblindModeClick.bind(this)}*/}
@@ -522,109 +528,29 @@ class App extends React.Component {
                     {/* This may eventually need to go back in below */}
                     {/* stats={this.state.conversationStats} */}
 
-                    {this.props.viewState !== ViewState.StatementsGraph &&
-                        this.props.viewState !== ViewState.ParticipantsGraph && (
-                            <div className={'absolute right-8 top-8'}>
-                                <CloseButton></CloseButton>
-                            </div>
-                        )}
-
-                    {/**/}
-                    {(this.props.viewState === ViewState.StatementsGraph ||
-                        this.props.viewState === ViewState.ParticipantsGraph) && (
-                        <div
-                            className={'w-full z-10'}
-                            style={{
-                                position:
-                                    this.props.viewState === ViewState.ParticipantsGraph
-                                        ? 'absolute'
-                                        : 'initial',
-                            }}
-                        >
-                            {/*TODO: Refactor buttons into component?*/}
-
-                            <div>
-                                <button
-                                    onClick={() => {
-                                        this.props.updateViewState(ViewState.ParticipantsGraph)
-                                    }}
-                                    style={{
-                                        opacity:
-                                            this.props.viewState === ViewState.ParticipantsGraph
-                                                ? '100%'
-                                                : '40%',
-                                    }}
-                                >
-                                    <svg
-                                        height="20"
-                                        width="20"
-                                        className={'inline bottom-[2px] relative mr-4'}
-                                    >
-                                        <circle cx="10" cy="10" r="10" fill="#929292" />
-                                    </svg>
-                                    <span>Deelnemers</span>
-                                </button>
-                                <br />
-                                <button
-                                    onClick={() => {
-                                        this.props.updateViewState(ViewState.StatementsGraph)
-                                    }}
-                                    className={'mb-4 mt-2'}
-                                    style={{
-                                        opacity:
-                                            this.props.viewState === ViewState.StatementsGraph
-                                                ? '100%'
-                                                : '40%',
-                                    }}
-                                >
-                                    <svg
-                                        width="20"
-                                        height="20"
-                                        className={'inline bottom-[2px] relative mr-4'}
-                                    >
-                                        <rect width="20" height="20" fill="#929292" />
-                                    </svg>
-                                    <span>Stellingen</span>
-                                </button>
-
-                                <div
-                                    className={'absolute'}
-                                    style={{
-                                        right:
-                                            this.props.viewState === ViewState.ParticipantsGraph
-                                                ? '4rem'
-                                                : '2rem',
-                                        top:
-                                            this.props.viewState === ViewState.ParticipantsGraph
-                                                ? '0rem'
-                                                : '2rem',
-                                    }}
-                                >
-                                    <a
-                                        className={'underline'}
-                                        href={
-                                            'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'
-                                        }
-                                        target={'_blank'}
-                                        rel={'noreferrer'}
-                                    >
-                                        Stem mee &gt;
-                                    </a>
-                                </div>
-                            </div>
-
-                            <Overview
-                                computedStats={this.state.computedStats}
-                                math={this.state.math}
-                                comments={this.state.comments}
-                                ptptCount={this.state.ptptCount}
-                                ptptCountTotal={this.state.ptptCountTotal}
-                                demographics={this.state.demographics}
-                                conversation={this.state.conversation}
-                                voteColors={this.state.voteColors}
-                            />
-                        </div>
-                    )}
+                    {/*{(this.props.viewState === ViewState.StatementsGraph ||*/}
+                    {/*    this.props.viewState === ViewState.ParticipantsGraph) && (*/}
+                    {/*    <div*/}
+                    {/*        className={'w-full z-10'}*/}
+                    {/*        style={{*/}
+                    {/*            position:*/}
+                    {/*                this.props.viewState === ViewState.ParticipantsGraph*/}
+                    {/*                    ? 'absolute'*/}
+                    {/*                    : 'initial',*/}
+                    {/*        }}*/}
+                    {/*    >*/}
+                    {/*        <Overview*/}
+                    {/*            computedStats={this.state.computedStats}*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            ptptCount={this.state.ptptCount}*/}
+                    {/*            ptptCountTotal={this.state.ptptCountTotal}*/}
+                    {/*            demographics={this.state.demographics}*/}
+                    {/*            conversation={this.state.conversation}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
 
                     {this.props.viewState === ViewState.StatementsGraph && (
                         <>
