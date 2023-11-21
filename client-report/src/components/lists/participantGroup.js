@@ -15,6 +15,7 @@ import {
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
+import Tag from '../tag'
 
 const ParticipantGroup = ({
     gid,
@@ -50,21 +51,8 @@ const ParticipantGroup = ({
     return (
         <div>
             <div className={'w-3/4 mx-auto'}>
-                <p>
-                    {groupLabel} bestaat uit {groupVotesForThisGroup['n-members']} deelnemers
-                </p>
-                <h1>Deze stellingen zijn typerend voor {groupLabel}</h1>
-                <p className={'mb-8'}>
-                    <button
-                        className={'underline'}
-                        onClick={() => {
-                            updateSelectedGroupId(gid)
-                            updateViewState(ViewState.AllStatementVotesSelectedGroup)
-                        }}
-                    >
-                        Bekijk het stemgedrag van {groupLabel} op alle stellingen
-                    </button>
-                </p>
+                <h1>De onderstaande stellingen typeren {groupLabel}</h1>
+                <Tag>Aantal deelnemers: {groupVotesForThisGroup['n-members']}</Tag>
             </div>
 
             <div className={'grid grid-cols-12'}>
