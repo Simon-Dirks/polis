@@ -73,9 +73,9 @@ const CommentVotesPerGroup = ({
             <div className={'grid grid-cols-12'}>
                 <div className={'col-span-1 flex items-center text-3xl'}>
                     <ArrowButton
-                        disabled={selectedStatementId <= 0}
                         direction={ArrowButtonDirection.Previous}
                         target={ArrowButtonTarget.Statement}
+                        comments={comments}
                     ></ArrowButton>
                 </div>
                 <div className={'col-span-10'}>
@@ -125,9 +125,9 @@ const CommentVotesPerGroup = ({
                 <div className={'col-span-1 flex items-center text-3xl'}>
                     {/*TODO: Define / add disabled state here based on number of available comments*/}
                     <ArrowButton
-                        disabled={false}
                         direction={ArrowButtonDirection.Next}
                         target={ArrowButtonTarget.Statement}
+                        comments={comments}
                     ></ArrowButton>
                 </div>
             </div>

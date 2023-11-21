@@ -15,7 +15,7 @@ import {
 
 const initialState = {
     viewCategory: ViewCategory.IndivididualStatements,
-    viewState: ViewState.ParticipantsGraph,
+    viewState: ViewState.Statement,
     selectedParticipantId: 0,
     selectedGroupId: 0,
     selectedStatementId: 11,

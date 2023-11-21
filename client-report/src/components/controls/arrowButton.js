@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import {
@@ -7,6 +7,7 @@ import {
     updateSelectedStatementId,
     updateViewState,
 } from '../../store/actions'
+import _ from 'lodash'
 
 export const ArrowButtonTarget = {
     Participant: 'participant',
@@ -27,10 +28,31 @@ const ArrowButton = ({
     updateSelectedGroupId,
     updateSelectedStatementId,
     updateSelectedParticipantId,
-    disabled,
     target,
     direction,
+    comments,
+    overrideDisabled,
 }) => {
+    const [disabled, setDisabled] = useState(false)
+
+    useEffect(() => {
+        if (ArrowButtonTarget.Statement) {
+            const nextTid = getNextCommentTid()
+            setDisabled(!nextTid)
+        }
+    }, [selectedStatementId])
+
+    const getNextCommentTid = () => {
+        const addToId = direction === ArrowButtonDirection.Next ? 1 : -1
+        const sortedComments = _.sortBy(comments, 'tid')
+        const currentIdx = sortedComments.findIndex((c) => c.tid === selectedStatementId)
+        if (currentIdx + addToId in sortedComments) {
+            const nextTid = sortedComments[currentIdx + addToId].tid
+            return nextTid
+        }
+        return undefined
+    }
+
     const onClick = () => {
         const addToId = direction === ArrowButtonDirection.Next ? 1 : -1
 
@@ -41,18 +63,23 @@ const ArrowButton = ({
             case ArrowButtonTarget.Group:
                 updateSelectedGroupId(selectedGroupId + addToId)
                 break
-            case ArrowButtonTarget.Statement:
-                updateSelectedStatementId(selectedStatementId + addToId)
+            case ArrowButtonTarget.Statement: {
+                const nextTid = getNextCommentTid()
+                if (nextTid) {
+                    updateSelectedStatementId(nextTid)
+                }
                 break
+            }
         }
     }
 
+    const isDisabled = overrideDisabled ?? disabled
     return (
         <button
             onClick={onClick}
             className={'text-right text-3xl'}
-            disabled={disabled}
-            style={{ opacity: disabled ? '40%' : 'initial' }}
+            disabled={isDisabled}
+            style={{ opacity: isDisabled ? '40%' : 'initial' }}
         >
             {direction === ArrowButtonDirection.Next ? '→' : '←'}
         </button>

@@ -70,7 +70,7 @@ const ParticipantGroup = ({
             <div className={'grid grid-cols-12'}>
                 <div className={'col-span-1 flex'}>
                     <ArrowButton
-                        disabled={gid - 1 < 0}
+                        overrideDisabled={gid - 1 < 0}
                         target={ArrowButtonTarget.Group}
                         direction={ArrowButtonDirection.Previous}
                     ></ArrowButton>
@@ -92,7 +92,7 @@ const ParticipantGroup = ({
 
                 <div className={'col-span-1 flex'}>
                     <ArrowButton
-                        disabled={gid + 1 >= getNumberOfGroups()}
+                        overrideDisabled={gid + 1 >= getNumberOfGroups()}
                         target={ArrowButtonTarget.Group}
                         direction={ArrowButtonDirection.Next}
                     ></ArrowButton>

@@ -141,7 +141,7 @@ class allCommentsForParticipant extends React.Component {
                         <ArrowButton
                             direction={ArrowButtonDirection.Previous}
                             target={ArrowButtonTarget.Participant}
-                            disabled={false}
+                            // disabled={false}
                         ></ArrowButton>
                     </div>
                     <div className={'col-span-10'}>
@@ -161,7 +161,7 @@ class allCommentsForParticipant extends React.Component {
                         <ArrowButton
                             direction={ArrowButtonDirection.Next}
                             target={ArrowButtonTarget.Participant}
-                            disabled={false}
+                            // disabled={false}
                         ></ArrowButton>
                     </div>
                 </div>
