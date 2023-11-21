@@ -74,15 +74,27 @@ const ArrowButton = ({
     }
 
     const isDisabled = overrideDisabled ?? disabled
+    let label = 'groep'
+    if (target === ArrowButtonTarget.Statement) {
+        label = 'stelling'
+    } else if (target === ArrowButtonTarget.Participant) {
+        label = 'deelnemer'
+    }
     return (
-        <button
-            onClick={onClick}
-            className={'text-right text-3xl'}
-            disabled={isDisabled}
-            style={{ opacity: isDisabled ? '40%' : 'initial' }}
-        >
-            {direction === ArrowButtonDirection.Next ? '→' : '←'}
-        </button>
+        <div className={'text-center'}>
+            <button
+                onClick={onClick}
+                className={'text-3xl text-center m-4'}
+                disabled={isDisabled}
+                style={{ opacity: isDisabled ? '40%' : 'initial' }}
+            >
+                <span>{direction === ArrowButtonDirection.Next ? '→' : '←'}</span>
+
+                <p className={'text-sm'}>
+                    {direction === ArrowButtonDirection.Next ? 'Volgende ' : 'Vorige '} {label}
+                </p>
+            </button>
+        </div>
     )
 }
 export default connect(mapStateToProps, {
