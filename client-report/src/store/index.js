@@ -4,15 +4,17 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 
 // import rootReducer from '../reducers'
-import { ViewState } from '../models/viewState'
+import { ViewCategory, ViewState } from '../models/viewState'
 import {
     UPDATE_SELECTED_GROUP_ID,
     UPDATE_SELECTED_PARTICIPANT_ID,
     UPDATE_SELECTED_STATEMENT_ID,
+    UPDATE_VIEW_CATEGORY,
     UPDATE_VIEW_STATE,
 } from './actions'
 
 const initialState = {
+    viewCategory: ViewCategory.Home,
     viewState: ViewState.ParticipantsGraph,
     selectedParticipantId: 0,
     selectedGroupId: 0,
@@ -25,6 +27,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 viewState: action.payload,
+            }
+        case UPDATE_VIEW_CATEGORY:
+            return {
+                ...state,
+                viewCategory: action.payload,
             }
         case UPDATE_SELECTED_PARTICIPANT_ID:
             return {

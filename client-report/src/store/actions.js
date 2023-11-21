@@ -4,6 +4,12 @@ export const updateViewState = (newViewState) => ({
     payload: newViewState,
 })
 
+export const UPDATE_VIEW_CATEGORY = 'UPDATE_VIEW_CATEGORY'
+export const updateViewCategory = (newViewCategory) => ({
+    type: UPDATE_VIEW_CATEGORY,
+    payload: newViewCategory,
+})
+
 export const UPDATE_SELECTED_PARTICIPANT_ID = 'UPDATE_SELECTED_PARTICIPANT_ID'
 export const updateSelectedParticipantId = (newParticipantId) => ({
     type: UPDATE_SELECTED_PARTICIPANT_ID,

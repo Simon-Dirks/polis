@@ -5,13 +5,13 @@ import {
     updateSelectedGroupId,
     updateSelectedParticipantId,
     updateSelectedStatementId,
+    updateViewCategory,
     updateViewState,
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 import _ from 'lodash'
 
 const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversation }) => {
-    console.log(math)
     const computeVoteTotal = (users) => {
         let voteTotal = 0
 
@@ -45,4 +45,5 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
 }
 export default connect(mapStateToProps, {
     updateViewState,
+    updateViewCategory,
 })(TitleMenuBar)

@@ -38,6 +38,7 @@ import { updateViewState } from '../store/actions'
 import CommentVotesPerGroup from './commentVotesPerGroup'
 import CloseButton from './controls/closeButton'
 import TitleMenuBar from './controls/titleMenuBar'
+import ViewMenuBar from './controls/viewMenuBar'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -514,8 +515,13 @@ class App extends React.Component {
                     ptptCount={this.state.ptptCount}
                     conversation={this.state.conversation}
                 ></TitleMenuBar>
+                <ViewMenuBar
+                    math={this.state.math}
+                    ptptCount={this.state.ptptCount}
+                    conversation={this.state.conversation}
+                ></ViewMenuBar>
                 {/*<Heading conversation={this.state.conversation} />*/}
-                <div className={'p-8'}>
+                <div className={'p-8 pt-28'}>
                     {/*<Controls*/}
                     {/*    onAutoRefreshEnabled={this.onAutoRefreshEnabled.bind(this)}*/}
                     {/*    handleColorblindModeClick={this.handleColorblindModeClick.bind(this)}*/}
