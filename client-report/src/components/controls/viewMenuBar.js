@@ -11,6 +11,8 @@ import {
 import { ViewCategory, ViewState, ViewStatesForCategory } from '../../models/viewState'
 import _ from 'lodash'
 import { groupLabels } from '../globals'
+import ViewStateSelect from './viewStateSelect'
+import GroupSelect from './groupSelect'
 
 const ViewMenuBar = ({
     viewState,
@@ -21,14 +23,6 @@ const ViewMenuBar = ({
     selectedGroupId,
     math,
 }) => {
-    const getNumberOfGroups = () => {
-        return Object.keys(math['group-votes']).length
-    }
-
-    const getGroupIds = () => {
-        return [...Array(getNumberOfGroups()).keys()]
-    }
-
     return (
         <div
             className={
@@ -78,47 +72,10 @@ const ViewMenuBar = ({
                         'ml-4 border-r-2 border-[rgba(0,0,0,0.1)] h-full pr-4 flex items-center'
                     }
                 >
-                    {viewCategory === ViewCategory.Home && (
-                        <select
-                            name="viewstate-select"
-                            id="viewstate-select"
-                            value={viewState}
-                            onChange={(e) => {
-                                console.log('Updating view state', e.target.value)
-                                updateViewState(e.target.value)
-                            }}
-                        >
-                            {ViewStatesForCategory[viewCategory].map((viewState) => {
-                                return (
-                                    <option key={viewState} value={viewState}>
-                                        {viewState}
-                                    </option>
-                                )
-                            })}
-                        </select>
-                    )}
+                    {viewCategory === ViewCategory.Home && <ViewStateSelect></ViewStateSelect>}
 
                     {viewCategory === ViewCategory.Groups && (
-                        <div>
-                            <select
-                                name="group-select"
-                                id="group-select"
-                                value={selectedGroupId}
-                                onChange={(e) => {
-                                    const gid = Number(e.target.value)
-                                    console.log('Updating selected group id', gid)
-                                    updateSelectedGroupId(gid)
-                                }}
-                            >
-                                {getGroupIds().map((gid) => {
-                                    return (
-                                        <option key={gid} value={gid}>
-                                            Groep {groupLabels[gid]}
-                                        </option>
-                                    )
-                                })}
-                            </select>
-                        </div>
+                        <GroupSelect math={math}></GroupSelect>
                     )}
                 </div>
             </div>
