@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../../store/actions'
 import { groupColor, groupLabels } from '../globals'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 const GroupColorLegend = ({
     math,
@@ -41,6 +41,7 @@ const GroupColorLegend = ({
                         <button
                             className={'underline'}
                             onClick={() => {
+                                updateViewCategory(ViewCategory.Groups)
                                 updateViewState(ViewState.GroupRepresentativeComments)
                                 updateSelectedGroupId(groupId)
                             }}

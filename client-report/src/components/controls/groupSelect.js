@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedGroupId,
-    updateSelectedParticipantId,
-    updateSelectedStatementId,
-    updateViewCategory,
-    updateViewState,
-} from '../../store/actions'
-import { ViewCategory, ViewState, ViewStatesForCategory } from '../../models/viewState'
-import _ from 'lodash'
+import { updateSelectedGroupId } from '../../store/actions'
 import { groupLabels } from '../globals'
+import DropDown from './dropDown'
 
 const GroupSelect = ({ selectedGroupId, updateSelectedGroupId, math }) => {
     const getNumberOfGroups = () => {
@@ -22,24 +15,22 @@ const GroupSelect = ({ selectedGroupId, updateSelectedGroupId, math }) => {
     }
 
     return (
-        <select
-            name="group-select"
-            id="group-select"
-            value={selectedGroupId}
-            onChange={(e) => {
-                const gid = Number(e.target.value)
-                console.log('Updating selected group id', gid)
-                updateSelectedGroupId(gid)
-            }}
-        >
+        <DropDown buttonLabel={'Groep ' + groupLabels[selectedGroupId]}>
             {getGroupIds().map((gid) => {
                 return (
-                    <option key={gid} value={gid}>
-                        Groep {groupLabels[gid]}
-                    </option>
+                    <li key={gid}>
+                        <a
+                            onClick={() => {
+                                console.log('Updating selected group id', gid)
+                                updateSelectedGroupId(gid)
+                            }}
+                        >
+                            Groep {groupLabels[gid]}
+                        </a>
+                    </li>
                 )
             })}
-        </select>
+        </DropDown>
     )
 }
 export default connect(mapStateToProps, {

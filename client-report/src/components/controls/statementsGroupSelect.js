@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedGroupId,
-    updateSelectedParticipantId,
-    updateSelectedStatementId,
-    updateViewCategory,
-    updateViewState,
-} from '../../store/actions'
-import { ViewCategory, ViewState, ViewStatesForCategory } from '../../models/viewState'
-import _ from 'lodash'
+import { updateSelectedGroupId, updateViewState } from '../../store/actions'
+import { ViewState } from '../../models/viewState'
 import { groupLabels } from '../globals'
-import ViewStateSelect from './viewStateSelect'
+import DropDown from './dropDown'
 
 const StatementsGroupSelect = ({
     selectedGroupId,
@@ -27,36 +20,38 @@ const StatementsGroupSelect = ({
         return [...Array(getNumberOfGroups()).keys()]
     }
 
-    const selectedValue = selectedGroupId === -1 ? ViewState.AllStatementVotes : selectedGroupId
+    const buttonLabel =
+        selectedGroupId === -1 ? 'Alle deelnemers' : `Groep ${groupLabels[selectedGroupId]}`
 
     return (
-        <select
-            name="statements-group-select"
-            id="statements-group-select"
-            value={selectedValue}
-            onChange={(e) => {
-                const selected = e.target.value
-                if (selected === ViewState.AllStatementVotes) {
-                    updateViewState(ViewState.AllStatementVotes)
-                    updateSelectedGroupId(-1)
-                    return
-                }
-                const gid = Number(selected)
-                console.log('Updating selected group id', gid)
-                updateSelectedGroupId(gid)
-                updateViewState(ViewState.AllStatementVotesSelectedGroup)
-            }}
-        >
-            <option value={ViewState.AllStatementVotes}>Alle deelnemers</option>
+        <DropDown buttonLabel={buttonLabel}>
+            <li>
+                <a
+                    onClick={() => {
+                        updateViewState(ViewState.AllStatementVotes)
+                        updateSelectedGroupId(-1)
+                    }}
+                >
+                    Alle deelnemers
+                </a>
+            </li>
 
             {getGroupIds().map((gid) => {
                 return (
-                    <option key={gid} value={gid}>
-                        Groep {groupLabels[gid]}
-                    </option>
+                    <li key={gid}>
+                        <a
+                            onClick={() => {
+                                console.log('Updating selected group id', gid)
+                                updateSelectedGroupId(gid)
+                                updateViewState(ViewState.AllStatementVotesSelectedGroup)
+                            }}
+                        >
+                            Groep {groupLabels[gid]}
+                        </a>
+                    </li>
                 )
             })}
-        </select>
+        </DropDown>
     )
 }
 export default connect(mapStateToProps, {

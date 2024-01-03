@@ -3,33 +3,29 @@ import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import { updateViewState } from '../../store/actions'
 import { ViewStatesForCategory } from '../../models/viewState'
+import DropDown from './dropDown'
 
 const ViewStateSelect = ({ viewState, viewCategory, updateViewState }) => {
     return (
-        <div className="dropdown">
-            <div tabIndex={0} role="button">
-                {viewState}
-            </div>
-            <ul tabIndex={0} className="p-2 menu dropdown-content z-[1] w-52">
-                {ViewStatesForCategory[viewCategory].map((viewStateOption) => {
-                    return (
-                        <li
-                            key={viewStateOption}
-                            className={viewStateOption === viewState ? 'font-semibold' : ''}
+        <DropDown buttonLabel={viewState}>
+            {ViewStatesForCategory[viewCategory].map((viewStateOption) => {
+                return (
+                    <li
+                        key={viewStateOption}
+                        className={viewStateOption === viewState ? 'font-semibold' : ''}
+                    >
+                        <a
+                            onClick={() => {
+                                console.log('Updating view state', viewStateOption)
+                                updateViewState(viewStateOption)
+                            }}
                         >
-                            <a
-                                onClick={() => {
-                                    console.log('Updating view state', viewStateOption)
-                                    updateViewState(viewStateOption)
-                                }}
-                            >
-                                {viewStateOption}
-                            </a>
-                        </li>
-                    )
-                })}
-            </ul>
-        </div>
+                            {viewStateOption}
+                        </a>
+                    </li>
+                )
+            })}
+        </DropDown>
     )
 }
 export default connect(mapStateToProps, {
