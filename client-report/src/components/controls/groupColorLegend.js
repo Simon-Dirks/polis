@@ -29,7 +29,7 @@ const GroupColorLegend = ({
             <p className={'font-bold mb-2'}>Kleuren</p>
             {getGroupIds().map((groupId) => {
                 return (
-                    <p className={'mb-2'}>
+                    <p className={'mb-2'} key={groupId}>
                         <svg
                             viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
