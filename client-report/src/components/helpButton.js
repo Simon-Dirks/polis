@@ -11,6 +11,8 @@ const helpButton = () => {
                 >
                     <span>?</span>
                 </div>
+
+                {/*TODO: Make help content dynamic*/}
                 <div
                     tabIndex="0"
                     className="dropdown-content z-[1] w-64 mb-2 text-xs sm:text-sm !bg-[#333740] !border-none !rounded-md p-6 text-white"
