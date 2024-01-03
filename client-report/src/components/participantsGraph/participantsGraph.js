@@ -23,6 +23,7 @@ const geoPath = d3.geoPath()
 const Contour = ({ contour }) => (
     <path fill={color(contour.value * colorScaleDownFactor)} d={geoPath(contour)} />
 )
+
 class ParticipantsGraph extends React.Component {
     constructor(props) {
         super(props)
