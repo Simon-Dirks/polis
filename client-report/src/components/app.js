@@ -501,6 +501,7 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div>
+                {/*<WelcomeOverlay />*/}
                 <HelpButton />
 
                 <TitleMenuBar
