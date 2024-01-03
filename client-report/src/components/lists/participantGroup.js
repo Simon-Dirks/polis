@@ -4,16 +4,10 @@ import React from 'react'
 import * as globals from '../globals'
 // import Flex from "../framework/flex"
 // import style from "../../util/style";
-import CommentList from './commentList'
 import CommentGrid from './commentGrid'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedGroupId,
-    updateSelectedStatementId,
-    updateViewState,
-} from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { updateSelectedGroupId, updateViewState } from '../../store/actions'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 import Tag from '../tag'
 
@@ -50,7 +44,7 @@ const ParticipantGroup = ({
 
     return (
         <div>
-            <div className={'w-3/4 mx-auto'}>
+            <div className={'w-3/4 mx-auto mb-8'}>
                 <h1>De onderstaande stellingen typeren {groupLabel}</h1>
                 <Tag>Aantal deelnemers: {groupVotesForThisGroup['n-members']}</Tag>
             </div>

@@ -6,6 +6,8 @@ module.exports = {
             colors: {
                 'kennislink-light-gray': '#C6C6C6',
                 'kennislink-menu-bg': '#FAFAFA',
+                'kennislink-tag-bg': '#F4F4F4',
+                'kennislink-tag-border': '#BFBFBF',
             },
         },
     },

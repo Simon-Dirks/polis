@@ -2,13 +2,13 @@
 
 import React from 'react'
 import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
     BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
     Title,
     Tooltip,
-    Legend,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 import _ from 'lodash'
@@ -325,12 +325,8 @@ class StackedBarChart extends React.Component {
                 <div className={'w-[960px]'}>
                     {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
                 </div>
-                <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-gray-700'}>
-                    <p className={'text-left text-lg'}>
-                        Stellingen met consensus
-                        <br />
-                        (meerderheidsmening)
-                    </p>
+                <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-black'}>
+                    <p className={'text-left text-lg'}>Stellingen met consensus</p>
                     <p className={'text-right text-lg'}>Stellingen met verdeeldheid</p>
                 </div>
             </>

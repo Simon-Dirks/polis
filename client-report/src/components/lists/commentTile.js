@@ -39,7 +39,7 @@ const CommentTile = ({
                 sizePx={150}
             />
             <div>
-                <p className={'text-sm mt-2'}>
+                <p className={'text-sm mt-2 leading-5 mb-1'}>
                     <button
                         className={'underline'}
                         onClick={() => {
@@ -51,7 +51,7 @@ const CommentTile = ({
                         Stelling {comment.tid}
                     </button>
                 </p>
-                <p className={'text-lg'}>{comment.txt}</p>
+                <p className={'text-xl font-medium leading-6'}>{comment.txt}</p>
             </div>
         </div>
     )
