@@ -46,10 +46,12 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
                         <img src={infoIcon} alt={'info icon'} className={'h-4'} />
                         <span>Over deze tool</span>
                     </button>
-                    <button
+                    <a
                         className={
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold'
                         }
+                        href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
+                        target={'_blank'}
                     >
                         <img
                             src={megaphoneIcon}
@@ -57,7 +59,7 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
                             className={'h-4 py-[0.05rem]'}
                         />
                         <span>Stem mee</span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
