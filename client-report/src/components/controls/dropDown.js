@@ -8,7 +8,7 @@ const DropDown = ({ buttonLabel, children }) => {
     const [isShowing, setIsShowing] = useState(false)
 
     return (
-        <div className="dropdown">
+        <div className="dropdown relative">
             <div
                 tabIndex={0}
                 role="button"
@@ -24,7 +24,7 @@ const DropDown = ({ buttonLabel, children }) => {
             </div>
             <ul
                 tabIndex={0}
-                className="p-2 menu dropdown-content z-[1] w-52"
+                className="p-2 menu block dropdown-content z-[1] w-52 max-h-96 overflow-y-auto"
                 onFocus={() => {
                     setIsShowing(true)
                 }}
