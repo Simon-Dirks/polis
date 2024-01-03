@@ -11,23 +11,14 @@ import _ from 'lodash'
 import * as globals from './globals'
 import DataUtils from '../util/dataUtils'
 // import Matrix from "./correlationMatrix/matrix";
-import Heading from './framework/heading'
-import Footer from './framework/Footer'
-import Overview from './overview'
-import MajorityStrict from './lists/majorityStrict'
-import Uncertainty from './lists/uncertainty'
 import AllCommentsModeratedIn from './lists/allCommentsModeratedIn'
 import ParticipantGroups from './lists/participantGroups'
 // import CommentsGraph from "./commentsGraph/commentsGraph";
 import ParticipantsGraph from './participantsGraph/participantsGraph'
 // import BoxPlot from "./boxPlot/boxPlot";
-import Beeswarm from './beeswarm/beeswarm'
-import Controls from './controls/controls'
-
 import net from '../util/net'
 
 import $ from 'jquery'
-import BoxPlot from './boxPlot/boxPlot'
 import AllCommentsForParticipant from './lists/allCommentsForParticipant'
 import AllCommentsForGroup from './lists/allCommentsForGroup'
 import StackedBarChart from './stackedBarChart/stackedBarChart'
@@ -36,9 +27,9 @@ import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import { updateViewState } from '../store/actions'
 import CommentVotesPerGroup from './commentVotesPerGroup'
-import CloseButton from './controls/closeButton'
 import TitleMenuBar from './controls/titleMenuBar'
 import ViewMenuBar from './controls/viewMenuBar'
+import HelpButton from './helpButton'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -510,6 +501,8 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div>
+                <HelpButton />
+
                 <TitleMenuBar
                     math={this.state.math}
                     ptptCount={this.state.ptptCount}
