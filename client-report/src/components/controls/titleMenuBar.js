@@ -10,6 +10,8 @@ import {
 } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 import _ from 'lodash'
+import megaphoneIcon from '../../assets/megaphone.svg'
+import infoIcon from '../../assets/info.svg'
 
 const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversation }) => {
     const computeVoteTotal = (users) => {
@@ -26,7 +28,6 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
         <div
             className={'h-12 bg-gray-50 flex w-full border-b-2 border-[rgba(0,0,0,0.1)] fixed z-50'}
         >
-            <div className={'w-8 text-center border-r-2 border-[rgba(0,0,0,0.1)]'}>i</div>
             <div className={'p-2 flex-1 flex items-center'}>
                 <span className={'ml-8 font-bold'}>{conversation.topic}</span>
                 <span className={'ml-4'}>
@@ -38,7 +39,32 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
                 <span className={'ml-4'}>
                     <strong>{math['n-cmts']}</strong> stellingen
                 </span>
-                <span className={'absolute right-8 underline'}>Stem mee</span>
+                <div className={'absolute right-8'}>
+                    <button
+                        className={
+                            'rounded-full bg-white border-[1px] border-[#C6C6C6] px-4 font-semibold mr-6'
+                        }
+                    >
+                        <img
+                            src={infoIcon}
+                            alt={'info icon'}
+                            className={'inline-block mr-2 relative bottom-[0.1rem]'}
+                        />
+                        <span>Over deze tool</span>
+                    </button>
+                    <button
+                        className={
+                            'rounded-full bg-white border-[1px] border-[#C6C6C6] px-4 font-semibold'
+                        }
+                    >
+                        <img
+                            src={megaphoneIcon}
+                            alt={'megaphone icon'}
+                            className={'inline-block mr-2 relative bottom-[0.1rem]'}
+                        />
+                        <span>Stem mee</span>
+                    </button>
+                </div>
             </div>
         </div>
     )
