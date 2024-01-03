@@ -18,7 +18,7 @@ const GroupSelect = ({ selectedGroupId, updateSelectedGroupId, math }) => {
         <DropDown buttonLabel={'Groep ' + groupLabels[selectedGroupId]}>
             {getGroupIds().map((gid) => {
                 return (
-                    <li key={gid}>
+                    <li key={gid} className={gid === selectedGroupId ? 'font-semibold' : ''}>
                         <a
                             onClick={() => {
                                 console.log('Updating selected group id', gid)

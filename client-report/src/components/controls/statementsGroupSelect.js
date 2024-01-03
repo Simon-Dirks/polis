@@ -25,7 +25,7 @@ const StatementsGroupSelect = ({
 
     return (
         <DropDown buttonLabel={buttonLabel}>
-            <li>
+            <li className={selectedGroupId === -1 ? 'font-semibold' : ''}>
                 <a
                     onClick={() => {
                         updateViewState(ViewState.AllStatementVotes)
@@ -38,7 +38,7 @@ const StatementsGroupSelect = ({
 
             {getGroupIds().map((gid) => {
                 return (
-                    <li key={gid}>
+                    <li key={gid} className={gid === selectedGroupId ? 'font-semibold' : ''}>
                         <a
                             onClick={() => {
                                 console.log('Updating selected group id', gid)
