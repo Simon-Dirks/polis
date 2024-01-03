@@ -16,6 +16,7 @@ import DataUtils from '../../util/dataUtils'
 import CommentHighlight from '../lists/commentHighlight'
 import * as globals from '../globals'
 import Color from 'color'
+import GroupColorLegend from '../controls/groupColorLegend'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -293,6 +294,8 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <>
+                <GroupColorLegend math={this.props.math} />
+
                 <div
                     className={'min-h-[140px] absolute w-[70%] left-[15%]'}
                     style={{
