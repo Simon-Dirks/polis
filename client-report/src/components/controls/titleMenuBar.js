@@ -1,14 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedGroupId,
-    updateSelectedParticipantId,
-    updateSelectedStatementId,
-    updateViewCategory,
-    updateViewState,
-} from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { updateViewCategory, updateViewState } from '../../store/actions'
 import _ from 'lodash'
 import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
@@ -26,41 +19,42 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
 
     return (
         <div
-            className={'h-12 bg-gray-50 flex w-full border-b-2 border-[rgba(0,0,0,0.1)] fixed z-50'}
+            className={
+                'h-12 bg-kennislink-menu-bg flex w-full border-b border-kennislink-light-gray fixed z-50'
+            }
         >
             <div className={'p-2 flex-1 flex items-center'}>
                 <span className={'ml-8 font-bold'}>{conversation.topic}</span>
-                <span className={'ml-4'}>
-                    <strong>{ptptCount}</strong> deelnemers
-                </span>
-                <span className={'ml-4'}>
-                    <strong>{computeVoteTotal(math['user-vote-counts'])}</strong> stemmen
-                </span>
-                <span className={'ml-4'}>
-                    <strong>{math['n-cmts']}</strong> stellingen
-                </span>
+                <div className={'ml-12'}>
+                    <span>
+                        <strong>{ptptCount}</strong> deelnemers
+                    </span>
+                    <span className={'ml-4'}>
+                        <strong>{computeVoteTotal(math['user-vote-counts'])}</strong> stemmen
+                    </span>
+                    <span className={'ml-4'}>
+                        <strong>{math['n-cmts']}</strong> stellingen
+                    </span>
+                </div>
+
                 <div className={'absolute right-8'}>
                     <button
                         className={
-                            'rounded-full bg-white border-[1px] border-[#C6C6C6] px-4 font-semibold mr-6'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold mr-6'
                         }
                     >
-                        <img
-                            src={infoIcon}
-                            alt={'info icon'}
-                            className={'inline-block mr-2 relative bottom-[0.1rem]'}
-                        />
+                        <img src={infoIcon} alt={'info icon'} className={'h-4'} />
                         <span>Over deze tool</span>
                     </button>
                     <button
                         className={
-                            'rounded-full bg-white border-[1px] border-[#C6C6C6] px-4 font-semibold'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold'
                         }
                     >
                         <img
                             src={megaphoneIcon}
                             alt={'megaphone icon'}
-                            className={'inline-block mr-2 relative bottom-[0.1rem]'}
+                            className={'h-4 py-[0.05rem]'}
                         />
                         <span>Stem mee</span>
                     </button>

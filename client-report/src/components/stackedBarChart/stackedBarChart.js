@@ -326,14 +326,12 @@ class StackedBarChart extends React.Component {
                     {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
                 </div>
                 <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-gray-700'}>
-                    <p className={'text-left font-semibold text-lg'}>
+                    <p className={'text-left text-lg'}>
                         Stellingen met consensus
                         <br />
                         (meerderheidsmening)
                     </p>
-                    <p className={'text-right font-semibold text-lg'}>
-                        Stellingen met verdeeldheid
-                    </p>
+                    <p className={'text-right text-lg'}>Stellingen met verdeeldheid</p>
                 </div>
             </>
         )

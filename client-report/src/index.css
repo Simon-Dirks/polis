@@ -13,3 +13,14 @@
 * {
   font-family: 'Inter Tight', sans-serif;
 }
+
+.dropdown-content {
+  border: 1px solid #C6C6C6;
+  background: white;
+}
+
+.dropdown-content a {
+  border-radius: 0;
+}
+
+.btn { box-shadow: none; }

@@ -15,6 +15,7 @@ import ViewStateSelect from './viewStateSelect'
 import GroupSelect from './groupSelect'
 import StatementsGroupSelect from './statementsGroupSelect'
 import StatementSelect from './statementSelect'
+import ViewCategorySelect from './viewCategorySelect'
 
 const ViewMenuBar = ({
     viewState,
@@ -29,56 +30,27 @@ const ViewMenuBar = ({
     return (
         <div
             className={
-                'h-12 bg-white flex w-full border-b-2 border-[rgba(0,0,0,0.1)] fixed top-12 z-50'
+                'h-12 bg-white flex w-full border-b border-kennislink-light-gray fixed top-12 z-50'
             }
         >
-            <div className={'w-8 text-center border-r-2 border-[rgba(0,0,0,0.1)]'}>H</div>
             <div className={'flex-1 flex items-center'}>
                 <span
                     className={
-                        'ml-8 border-r-2 border-[rgba(0,0,0,0.1)] h-full pr-4 flex items-center'
+                        'px-2 ml-8 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
                     }
                 >
                     U bent nu hier:
                 </span>
                 <div
                     className={
-                        'ml-4 border-r-2 border-[rgba(0,0,0,0.1)] h-full pr-4 flex items-center'
+                        'ml-4 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
                     }
                 >
-                    <select
-                        name="viewcategory-select"
-                        id="viewcategory-select"
-                        value={viewCategory}
-                        onChange={(e) => {
-                            const viewCategory = e.target.value
-                            if (!viewCategory) {
-                                return
-                            }
-
-                            if (viewCategory === ViewCategory.AllStatements) {
-                                updateSelectedGroupId(-1)
-                            } else {
-                                updateSelectedGroupId(0)
-                            }
-
-                            console.log('Updating view category', viewCategory)
-                            updateViewCategory(viewCategory)
-                            updateViewState(ViewStatesForCategory[viewCategory][0])
-                        }}
-                    >
-                        {Object.keys(ViewStatesForCategory).map((category) => {
-                            return (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            )
-                        })}
-                    </select>
+                    <ViewCategorySelect />
                 </div>
                 <div
                     className={
-                        'ml-4 border-r-2 border-[rgba(0,0,0,0.1)] h-full pr-4 flex items-center'
+                        'ml-4 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
                     }
                 >
                     {viewCategory === ViewCategory.Home && <ViewStateSelect></ViewStateSelect>}

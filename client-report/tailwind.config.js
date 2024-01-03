@@ -2,7 +2,12 @@
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'kennislink-light-gray': '#C6C6C6',
+                'kennislink-menu-bg': '#FAFAFA',
+            },
+        },
     },
     plugins: [require('daisyui')],
     themes: ['light'],
