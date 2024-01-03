@@ -4,7 +4,6 @@ import React from 'react'
 import _ from 'lodash'
 import * as globals from '../globals'
 import graphUtil from '../../util/graphUtil'
-import Axes from '../graphAxes'
 import * as d3contour from 'd3-contour'
 import * as d3chromatic from 'd3-scale-chromatic'
 // import GroupLabels from "./groupLabels";
@@ -262,8 +261,8 @@ class ParticipantsGraph extends React.Component {
                     </button>
                 </div>
 
-                <div style={{ paddingTop: '30px', paddingBottom: '10px' }}>
-                    {this.state.selectedComment ? (
+                {this.state.selectedComment ? (
+                    <div style={{ paddingTop: '30px', paddingBottom: '10px' }}>
                         <CommentList
                             conversation={this.props.conversation}
                             ptptCount={this.props.ptptCount}
@@ -273,10 +272,10 @@ class ParticipantsGraph extends React.Component {
                             comments={this.props.comments}
                             voteColors={this.props.voteColors}
                         />
-                    ) : (
-                        <></>
-                    )}
-                </div>
+                    </div>
+                ) : (
+                    <></>
+                )}
 
                 {this.state.showParticipants
                     ? null
