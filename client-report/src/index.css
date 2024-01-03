@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-    h1 {
-        @apply text-4xl font-bold mb-4;
-    }
+  h1 {
+    @apply text-4xl font-bold mb-4;
+  }
+}
+
+* {
+  font-family: 'Inter Tight', sans-serif;
 }
