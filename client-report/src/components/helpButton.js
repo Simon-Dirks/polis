@@ -2,7 +2,7 @@ import React from 'react'
 
 const helpButton = () => {
     return (
-        <div className={'fixed bottom-4 right-4'}>
+        <div className={'fixed bottom-4 right-4 z-50'}>
             <div className="dropdown dropdown-top dropdown-end">
                 <div
                     tabIndex="0"
