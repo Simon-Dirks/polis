@@ -12,7 +12,7 @@ export const ViewCategory = {
     Home: '1. Startscherm',
     Groups: '2. Groepen',
     AllStatements: '3. Alle stellingen',
-    IndivididualStatements: '4. Individuele Stellingen',
+    IndivididualStatements: '4. Losse stellingen',
 }
 
 export const ViewStatesForCategory = {
