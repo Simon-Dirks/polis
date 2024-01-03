@@ -59,7 +59,7 @@ const GroupColorLegend = ({
                 >
                     <circle cx="10" cy="10" r="10" />
                 </svg>
-                <button>Geen</button>
+                <span>Geen</span>
             </p>
         </div>
     )
