@@ -5,9 +5,10 @@ import { mapStateToProps } from '../../store/mapStateToProps'
 import {
     updateSelectedGroupId,
     updateSelectedStatementId,
+    updateViewCategory,
     updateViewState,
 } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 import DataUtils from '../../util/dataUtils'
 import { groupLabels } from '../globals'
 import Tag from '../tag'
@@ -19,6 +20,7 @@ const CommentHighlight = ({
     updateSelectedStatementId,
     updateSelectedGroupId,
     updateViewState,
+    updateViewCategory,
 }) => {
     if (!comment) {
         console.error('No comment passed')
@@ -60,12 +62,12 @@ const CommentHighlight = ({
                             <span className={'inline-block'}>
                                 &nbsp;- Typerend voor{' '}
                                 {groupIdsForComment.map((gid, idx) => (
-                                    <>
+                                    <div key={gid} className={'inline'}>
                                         <button
-                                            key={gid}
                                             className={'underline'}
                                             onClick={() => {
                                                 updateSelectedGroupId(Number(gid))
+                                                updateViewCategory(ViewCategory.Groups)
                                                 updateViewState(
                                                     ViewState.GroupRepresentativeComments
                                                 )
@@ -76,7 +78,7 @@ const CommentHighlight = ({
                                         <span>
                                             {idx === groupIdsForComment.length - 1 ? '' : ' en '}
                                         </span>
-                                    </>
+                                    </div>
                                 ))}
                             </span>
                         )}
@@ -102,6 +104,7 @@ const CommentHighlight = ({
 
 export default connect(mapStateToProps, {
     updateViewState,
+    updateViewCategory,
     updateSelectedStatementId,
     updateSelectedGroupId,
 })(CommentHighlight)

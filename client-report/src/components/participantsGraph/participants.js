@@ -1,11 +1,24 @@
 import * as globals from '../globals'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedParticipantId,
+    updateViewCategory,
+    updateViewState,
+} from '../../store/actions'
 
-const Participants = ({ points, math, selfPid, updateViewState, updateSelectedParticipantId }) => {
+const Participants = ({
+    points,
+    math,
+    selfPid,
+    updateViewState,
+    updateSelectedParticipantId,
+    updateViewCategory,
+    updateSelectedGroupId,
+}) => {
     if (!points) {
         return null
     }
@@ -51,9 +64,11 @@ const Participants = ({ points, math, selfPid, updateViewState, updateSelectedPa
                             className={'cursor-pointer'}
                             onClick={() => {
                                 const clusterIdx = getClusterIdx(clusterPoint.id)
+                                updateSelectedGroupId(-1)
                                 updateSelectedParticipantId(
                                     math['base-clusters'].members[clusterIdx][0]
                                 )
+                                updateViewCategory(ViewCategory.AllStatements)
                                 updateViewState(ViewState.Participant)
                             }}
                         />
@@ -95,6 +110,9 @@ const Participants = ({ points, math, selfPid, updateViewState, updateSelectedPa
         </g>
     )
 }
-export default connect(mapStateToProps, { updateViewState, updateSelectedParticipantId })(
-    Participants
-)
+export default connect(mapStateToProps, {
+    updateViewState,
+    updateSelectedParticipantId,
+    updateSelectedGroupId,
+    updateViewCategory,
+})(Participants)

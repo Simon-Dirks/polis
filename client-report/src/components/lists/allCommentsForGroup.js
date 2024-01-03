@@ -1,15 +1,12 @@
 // Copyright (C) 2012-present, The Authors. This program is free software: you can redistribute it and/or  modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react'
-import net from '../../util/net'
 import * as globals from '../globals'
 import CommentList from './commentList'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
+import { updateViewState } from '../../store/actions'
 import { ViewState } from '../../models/viewState'
-import VotePieChart from '../votePieChart'
-import { brandColors, groupLabels } from '../globals'
 
 class allCommentsForGroup extends React.Component {
     constructor(props) {
@@ -32,12 +29,12 @@ class allCommentsForGroup extends React.Component {
     }
 
     onGroupIdUpdate() {
-        this.updateNumParticipantsOfGroup()
+        this.getNumParticipantsOfGroup()
         this.updateGroupVoteColors()
         this.updateGroupVotesForAllComments()
     }
 
-    updateNumParticipantsOfGroup() {
+    getNumParticipantsOfGroup() {
         if (!this.props.math || this.props.gid === undefined) {
             return null
         }
@@ -91,7 +88,7 @@ class allCommentsForGroup extends React.Component {
             <div className={'mt-8'}>
                 <h1>
                     Stemgedrag Groep {globals.groupLabels[this.props.gid]} (
-                    {this.updateNumParticipantsOfGroup()}) op{' '}
+                    {this.getNumParticipantsOfGroup()}) op{' '}
                     <button
                         className={'underline'}
                         onClick={() => {

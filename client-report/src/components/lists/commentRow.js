@@ -1,10 +1,9 @@
-import _ from 'lodash'
 import VotePieChart from '../votePieChart'
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedStatementId, updateViewState } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { updateSelectedStatementId, updateViewCategory, updateViewState } from '../../store/actions'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 const CommentRow = ({
     comment,
@@ -12,6 +11,7 @@ const CommentRow = ({
     voteColors,
     updateSelectedStatementId,
     updateViewState,
+    updateViewCategory,
     isRounded,
 }) => {
     if (!comment) {
@@ -41,6 +41,7 @@ const CommentRow = ({
                         className={'text-sm underline'}
                         onClick={() => {
                             updateSelectedStatementId(comment.tid)
+                            updateViewCategory(ViewCategory.IndivididualStatements)
                             updateViewState(ViewState.Statement)
                         }}
                     >
@@ -54,4 +55,8 @@ const CommentRow = ({
     )
 }
 
-export default connect(mapStateToProps, { updateViewState, updateSelectedStatementId })(CommentRow)
+export default connect(mapStateToProps, {
+    updateViewState,
+    updateSelectedStatementId,
+    updateViewCategory,
+})(CommentRow)

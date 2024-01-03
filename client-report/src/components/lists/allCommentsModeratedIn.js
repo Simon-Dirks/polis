@@ -6,8 +6,12 @@ import CommentList from './commentList'
 import * as globals from '../globals'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedParticipantId, updateViewState } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import {
+    updateSelectedParticipantId,
+    updateViewCategory,
+    updateViewState,
+} from '../../store/actions'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 function sortByTid(comments) {
     return _.map(comments, (comment) => comment.tid).sort((a, b) => a - b)
@@ -113,6 +117,7 @@ class allCommentsModeratedIn extends React.Component {
                     Stemgedrag{' '}
                     <button
                         onClick={() => {
+                            this.props.updateViewCategory(ViewCategory.Home)
                             this.props.updateViewState(ViewState.ParticipantsGraph)
                         }}
                         className={'underline'}
@@ -152,6 +157,8 @@ class allCommentsModeratedIn extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, { updateSelectedParticipantId, updateViewState })(
-    allCommentsModeratedIn
-)
+export default connect(mapStateToProps, {
+    updateSelectedParticipantId,
+    updateViewState,
+    updateViewCategory,
+})(allCommentsModeratedIn)

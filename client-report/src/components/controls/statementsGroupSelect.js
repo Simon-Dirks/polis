@@ -8,6 +8,7 @@ import DropDown from './dropDown'
 
 const StatementsGroupSelect = ({
     selectedGroupId,
+    selectedParticipantId,
     updateSelectedGroupId,
     math,
     updateViewState,
@@ -20,8 +21,13 @@ const StatementsGroupSelect = ({
         return [...Array(getNumberOfGroups()).keys()]
     }
 
-    const buttonLabel =
-        selectedGroupId === -1 ? 'Alle deelnemers' : `Groep ${groupLabels[selectedGroupId]}`
+    let buttonLabel = 'Alle deelnemers'
+    if (selectedGroupId > 0) {
+        buttonLabel = `Groep ${groupLabels[selectedGroupId]}`
+    }
+    if (selectedParticipantId > 0) {
+        buttonLabel = `Deelnemer ${selectedParticipantId}`
+    }
 
     return (
         <DropDown buttonLabel={buttonLabel}>
