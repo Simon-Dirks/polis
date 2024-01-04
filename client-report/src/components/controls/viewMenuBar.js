@@ -1,16 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import {
-    updateSelectedGroupId,
-    updateSelectedParticipantId,
-    updateSelectedStatementId,
-    updateViewCategory,
-    updateViewState,
-} from '../../store/actions'
-import { ViewCategory, ViewState, ViewStatesForCategory } from '../../models/viewState'
-import _ from 'lodash'
-import { groupLabels } from '../globals'
+import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../../store/actions'
+import { ViewCategory } from '../../models/viewState'
 import ViewStateSelect from './viewStateSelect'
 import GroupSelect from './groupSelect'
 import StatementsGroupSelect from './statementsGroupSelect'
@@ -36,21 +28,21 @@ const ViewMenuBar = ({
             <div className={'flex-1 flex items-center'}>
                 <span
                     className={
-                        'px-2 ml-8 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
+                        'hidden md:flex px-2 ml-8 border-r border-kennislink-light-gray h-full pr-4 items-center'
                     }
                 >
                     U bent nu hier:
                 </span>
                 <div
                     className={
-                        'ml-4 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
+                        'w-1/2 md:w-auto border-r border-kennislink-light-gray h-full flex items-center'
                     }
                 >
                     <ViewCategorySelect />
                 </div>
                 <div
                     className={
-                        'ml-4 border-r border-kennislink-light-gray h-full pr-4 flex items-center'
+                        'w-1/2 md:w-auto border-r border-kennislink-light-gray h-full flex items-center'
                     }
                 >
                     {viewCategory === ViewCategory.Home && <ViewStateSelect></ViewStateSelect>}

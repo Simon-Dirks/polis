@@ -9,7 +9,7 @@ const DropDown = ({ buttonLabel, children }) => {
     const buttonRef = useRef(null)
 
     return (
-        <div className="dropdown relative">
+        <div className="dropdown dropdown-bottom flex items-center justify-center w-full h-full text-center">
             <div
                 ref={buttonRef}
                 tabIndex={0}
@@ -27,14 +27,17 @@ const DropDown = ({ buttonLabel, children }) => {
                 onBlur={() => {
                     setIsShowing(false)
                 }}
-                className={'select-none'}
+                className={'select-none px-4 flex w-full h-full items-center justify-center'}
             >
                 {buttonLabel}
-                <img src={isShowing ? triangleUp : triangleDown} className={'ml-2 inline-block'} />
+                <img
+                    src={isShowing ? triangleUp : triangleDown}
+                    className={'ml-2 inline-block h-2'}
+                />
             </div>
             <ul
                 tabIndex={0}
-                className="p-2 menu block dropdown-content z-[1] w-52 max-h-96 overflow-y-auto"
+                className="p-2 menu block dropdown-content dropdown-bottom z-[1] w-52 max-h-96 overflow-y-auto"
                 onFocus={() => {
                     setTimeout(() => {
                         setIsShowing(true)

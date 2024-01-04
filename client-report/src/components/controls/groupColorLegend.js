@@ -23,7 +23,7 @@ const GroupColorLegend = ({
     return (
         <div
             className={
-                'border border-t-0 border-kennislink-light-gray p-6 bg-white fixed top-24 right-0 z-50'
+                'hidden md:block border border-t-0 border-kennislink-light-gray p-6 bg-white fixed top-24 right-0 z-50'
             }
         >
             <p className={'font-bold mb-2'}>Kleuren</p>
