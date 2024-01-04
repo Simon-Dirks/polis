@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import triangleUp from '../../assets/triangle-up.svg'
@@ -6,10 +6,12 @@ import triangleDown from '../../assets/triangle-down.svg'
 
 const DropDown = ({ buttonLabel, children }) => {
     const [isShowing, setIsShowing] = useState(false)
+    const buttonRef = useRef(null)
 
     return (
         <div className="dropdown relative">
             <div
+                ref={buttonRef}
                 tabIndex={0}
                 role="button"
                 onClick={(e) => {
@@ -17,7 +19,7 @@ const DropDown = ({ buttonLabel, children }) => {
                     setIsShowing(shouldShow)
 
                     if (shouldShow) {
-                        document.activeElement = e.target
+                        e.target.focus()
                     } else {
                         document.activeElement.blur()
                     }
@@ -25,6 +27,7 @@ const DropDown = ({ buttonLabel, children }) => {
                 onBlur={() => {
                     setIsShowing(false)
                 }}
+                className={'select-none'}
             >
                 {buttonLabel}
                 <img src={isShowing ? triangleUp : triangleDown} className={'ml-2 inline-block'} />
@@ -33,10 +36,17 @@ const DropDown = ({ buttonLabel, children }) => {
                 tabIndex={0}
                 className="p-2 menu block dropdown-content z-[1] w-52 max-h-96 overflow-y-auto"
                 onFocus={() => {
-                    setIsShowing(true)
+                    setTimeout(() => {
+                        setIsShowing(true)
+                    })
                 }}
                 onBlur={() => {
-                    setIsShowing(false)
+                    setTimeout(() => {
+                        const hasFocusedOnButton = document.activeElement === buttonRef.current
+                        if (!hasFocusedOnButton) {
+                            setIsShowing(false)
+                        }
+                    })
                 }}
             >
                 {children}
