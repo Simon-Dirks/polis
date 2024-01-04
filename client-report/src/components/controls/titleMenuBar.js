@@ -37,7 +37,7 @@ const TitleMenuBar = ({
                     className={'hidden md:block ml-8 font-bold text-left'}
                     onClick={() => {
                         updateViewCategory(ViewCategory.Home)
-                        updateViewState(ViewState.Participant)
+                        updateViewState(ViewState.ParticipantsGraph)
                     }}
                 >
                     {conversation.topic}
