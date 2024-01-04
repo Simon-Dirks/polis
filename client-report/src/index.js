@@ -4,7 +4,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { ArcElement, Chart as ChartJS, Legend } from 'chart.js'
 
 import App from './components/app'
 import './index.css'
@@ -18,11 +18,11 @@ const store = configureStore()
 class Root extends React.Component {
     render() {
         return (
-            <div>
+            <>
                 <Provider store={store}>
                     <App />
                 </Provider>
-            </div>
+            </>
         )
     }
 }

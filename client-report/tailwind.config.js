@@ -8,6 +8,7 @@ module.exports = {
                 'kennislink-menu-bg': '#FAFAFA',
                 'kennislink-tag-bg': '#F4F4F4',
                 'kennislink-tag-border': '#BFBFBF',
+                'kennislink-dark-gray': '#464646',
             },
         },
     },

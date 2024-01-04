@@ -6,21 +6,11 @@ import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../s
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import DataUtils from '../util/dataUtils'
-import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from './controls/arrowButton'
 import Tag from './tag'
 import CommentRepresentativeGroupsText from './lists/commentRepresentativeGroupsText'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from './controls/arrowButton'
 
-const CommentVotesPerGroup = ({
-    comments,
-    groupVotes,
-    voteColors,
-    commentTid,
-    updateViewState,
-    updateViewCategory,
-    math,
-    updateSelectedGroupId,
-    selectedStatementId,
-}) => {
+const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, math }) => {
     if (!comments) {
         console.error('No comments passed')
         return null
@@ -41,79 +31,83 @@ const CommentVotesPerGroup = ({
     //     return null
     // }
     return (
-        <div>
-            {comment && (
-                <div className={'mb-4 w-3/4 mx-auto'}>
-                    <div className={'text-sm'}>
-                        Stelling {comment.tid}
-                        <CommentRepresentativeGroupsText groupIdsForComment={groupIdsForComment} />
+        <div className={'h-full flex'}>
+            {/*LEFT ARROW*/}
+            <div className="w-52 flex items-center justify-center">
+                <ArrowButton
+                    direction={ArrowButtonDirection.Previous}
+                    target={ArrowButtonTarget.Statement}
+                    comments={comments}
+                ></ArrowButton>
+            </div>
+
+            {/* MIDDLE*/}
+            <div className="flex-1 flex flex-col justify-center ">
+                {comment && (
+                    <div className={'mb-16 w-3/4 mx-auto'}>
+                        <div className={'text-xl text-kennislink-dark-gray'}>
+                            Stelling {comment.tid}
+                            <CommentRepresentativeGroupsText
+                                groupIdsForComment={groupIdsForComment}
+                            />
+                        </div>
+                        <p className={'text-3xl font-bold mb-3'}>{comment.txt}</p>
+
+                        <Tag>Aantal stemmen: {comment.saw}</Tag>
                     </div>
-                    <p className={'text-2xl mb-2'}>{comment.txt}</p>
+                )}
 
-                    <Tag>Aantal stemmen: {comment.saw}</Tag>
-                </div>
-            )}
+                {/*TODO: Update pie chart size to fit dynamically*/}
+                <div className={'grid grid-flow-col gap-4 overflow-x-scroll'}>
+                    {/*TODO: Center horizontally*/}
+                    {comment && (
+                        <div>
+                            <VotePieChart
+                                comment={comment}
+                                voteCounts={{
+                                    A: comment.agreed,
+                                    D: comment.disagreed,
+                                    S: comment.saw,
+                                }}
+                                nMembers={totalCommentVoteMembers}
+                                voteColors={voteColors}
+                                sizePx={300}
+                                heading={'Stemgedrag alle deelnemers'}
+                                subscript={'Aantal stemmen: ' + comment.saw}
+                            />
+                        </div>
+                    )}
 
-            <div className={'grid grid-cols-12'}>
-                <div className={'col-span-1 flex items-center text-3xl'}>
-                    <ArrowButton
-                        direction={ArrowButtonDirection.Previous}
-                        target={ArrowButtonTarget.Statement}
-                        comments={comments}
-                    ></ArrowButton>
+                    {comment &&
+                        Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
+                            return (
+                                <div key={groupId}>
+                                    {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
+                                    <VotePieChart
+                                        comment={comment}
+                                        voteCounts={groupVoteData?.votes[comment.tid]}
+                                        nMembers={groupVoteData['n-members']}
+                                        voteColors={brandColors.groups[groupId]}
+                                        sizePx={300}
+                                        heading={'Stemgedrag Groep ' + groupLabels[groupId]}
+                                        subscript={
+                                            'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S
+                                        }
+                                    />
+                                </div>
+                            )
+                        })}
                 </div>
-                <div className={'col-span-10'}>
-                    <div className={'grid grid-flow-col gap-4 '}>
-                        {/*TODO: Center horizontally*/}
-                        {comment && (
-                            <div>
-                                <VotePieChart
-                                    comment={comment}
-                                    voteCounts={{
-                                        A: comment.agreed,
-                                        D: comment.disagreed,
-                                        S: comment.saw,
-                                    }}
-                                    nMembers={totalCommentVoteMembers}
-                                    voteColors={voteColors}
-                                    sizePx={150}
-                                    heading={'Stemgedrag alle deelnemers'}
-                                    subscript={'Aantal stemmen: ' + comment.saw}
-                                />
-                            </div>
-                        )}
+            </div>
 
-                        {comment &&
-                            Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
-                                return (
-                                    <div key={groupId}>
-                                        {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
-                                        <VotePieChart
-                                            comment={comment}
-                                            voteCounts={groupVoteData?.votes[comment.tid]}
-                                            nMembers={groupVoteData['n-members']}
-                                            voteColors={brandColors.groups[groupId]}
-                                            sizePx={150}
-                                            heading={'Stemgedrag Groep ' + groupLabels[groupId]}
-                                            subscript={
-                                                'Aantal stemmen: ' +
-                                                groupVoteData?.votes[comment.tid].S
-                                            }
-                                        />
-                                    </div>
-                                )
-                            })}
-                    </div>
-                </div>
-
-                <div className={'col-span-1 flex items-center text-3xl'}>
-                    {/*TODO: Define / add disabled state here based on number of available comments*/}
-                    <ArrowButton
-                        direction={ArrowButtonDirection.Next}
-                        target={ArrowButtonTarget.Statement}
-                        comments={comments}
-                    ></ArrowButton>
-                </div>
+            {/*RIGHT ARROW*/}
+            <div className="w-52 flex items-center justify-center">
+                {/*TODO: Define / add disabled state here based on number of available comments*/}
+                <ArrowButton
+                    direction={ArrowButtonDirection.Next}
+                    target={ArrowButtonTarget.Statement}
+                    comments={comments}
+                ></ArrowButton>
             </div>
         </div>
     )

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 // import { Pie } from 'react-chartjs-2'
-import { brandColors } from './globals'
 import { Chart } from 'chart.js/auto'
 import ChartDataLabels from 'chartjs-plugin-datalabels'
 
@@ -163,8 +162,8 @@ const VotePieChart = ({
                 </div>
             )}
 
-            {heading && <p className={'font-bold'}>{heading}</p>}
-            {subscript && <p>{subscript}</p>}
+            {heading && <p className={'font-medium text-xl mt-3'}>{heading}</p>}
+            {subscript && <p className={'text-lg text-kennislink-dark-gray'}>{subscript}</p>}
         </div>
     )
 }

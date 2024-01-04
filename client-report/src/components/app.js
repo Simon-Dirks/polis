@@ -501,7 +501,7 @@ class App extends React.Component {
         }
         console.log('top level app state and props', this.state, this.props)
         return (
-            <div>
+            <div className={'h-full'}>
                 {this.props.welcomeShown && <WelcomeOverlay />}
                 <HelpButton math={this.state.math} />
 
@@ -517,7 +517,7 @@ class App extends React.Component {
                     comments={this.state.comments}
                 ></ViewMenuBar>
                 {/*<Heading conversation={this.state.conversation} />*/}
-                <div className={'p-8 pt-28'}>
+                <div className={'p-8 pt-28 h-full'}>
                     {/*<Controls*/}
                     {/*    onAutoRefreshEnabled={this.onAutoRefreshEnabled.bind(this)}*/}
                     {/*    handleColorblindModeClick={this.handleColorblindModeClick.bind(this)}*/}

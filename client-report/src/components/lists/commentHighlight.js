@@ -46,7 +46,7 @@ const CommentHighlight = ({
                     />
                 </div>
                 <div>
-                    <div className={'text-xl'}>
+                    <div className={'text-xl text-kennislink-dark-gray'}>
                         <button
                             className={'underline inline-block'}
                             onClick={() => {

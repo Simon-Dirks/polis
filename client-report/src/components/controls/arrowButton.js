@@ -8,6 +8,8 @@ import {
     updateViewState,
 } from '../../store/actions'
 import _ from 'lodash'
+import arrowRight from '../../assets/arrow-right.svg'
+import arrowLeft from '../../assets/arrow-left.svg'
 
 export const ArrowButtonTarget = {
     Participant: 'participant',
@@ -88,9 +90,13 @@ const ArrowButton = ({
                 disabled={isDisabled}
                 style={{ opacity: isDisabled ? '40%' : 'initial' }}
             >
-                <span>{direction === ArrowButtonDirection.Next ? '→' : '←'}</span>
+                <img
+                    src={direction === ArrowButtonDirection.Next ? arrowRight : arrowLeft}
+                    alt={'Arrow icon'}
+                    className={'h-12 mx-auto'}
+                />
 
-                <p className={'text-sm'}>
+                <p className={'text-xl'}>
                     {direction === ArrowButtonDirection.Next ? 'Volgende ' : 'Vorige '} {label}
                 </p>
             </button>

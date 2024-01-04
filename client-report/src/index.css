@@ -24,3 +24,7 @@
 }
 
 .btn { box-shadow: none; }
+
+html, body, #root {
+  height: 100%;
+}
