@@ -24,9 +24,9 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
                 'h-12 bg-kennislink-menu-bg flex w-full border-b border-kennislink-light-gray fixed z-50'
             }
         >
-            <div className={'p-2 flex-1 flex items-center'}>
+            <div className={'p-2 flex-1 flex items-center pr-[22rem]'}>
                 <button
-                    className={'ml-8 font-bold'}
+                    className={'ml-8 font-bold text-left'}
                     onClick={() => {
                         updateViewCategory(ViewCategory.Home)
                         updateViewState(ViewState.Participant)
@@ -34,15 +34,15 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
                 >
                     {conversation.topic}
                 </button>
-                <div className={'ml-12'}>
+                <div className={'ml-12 hidden xl:block'}>
                     <span>
-                        <strong>{ptptCount}</strong> deelnemers
+                        <strong>{ptptCount}</strong>&nbsp;deelnemers
                     </span>
                     <span className={'ml-4'}>
-                        <strong>{computeVoteTotal(math['user-vote-counts'])}</strong> stemmen
+                        <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>&nbsp;stemmen
                     </span>
                     <span className={'ml-4'}>
-                        <strong>{math['n-cmts']}</strong> stellingen
+                        <strong>{math['n-cmts']}</strong>&nbsp;stellingen
                     </span>
                 </div>
 
