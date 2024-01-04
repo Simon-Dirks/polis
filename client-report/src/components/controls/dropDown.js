@@ -12,8 +12,15 @@ const DropDown = ({ buttonLabel, children }) => {
             <div
                 tabIndex={0}
                 role="button"
-                onFocus={() => {
-                    setIsShowing(true)
+                onClick={(e) => {
+                    const shouldShow = !isShowing
+                    setIsShowing(shouldShow)
+
+                    if (shouldShow) {
+                        document.activeElement = e.target
+                    } else {
+                        document.activeElement.blur()
+                    }
                 }}
                 onBlur={() => {
                     setIsShowing(false)
