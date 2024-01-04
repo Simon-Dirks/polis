@@ -502,7 +502,7 @@ class App extends React.Component {
         return (
             <div>
                 {/*<WelcomeOverlay />*/}
-                <HelpButton />
+                <HelpButton math={this.state.math} />
 
                 <TitleMenuBar
                     math={this.state.math}
