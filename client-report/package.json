@@ -46,6 +46,7 @@
         "webpack-hot-middleware": "~2.25.3"
     },
     "dependencies": {
+        "@floating-ui/react": "^0.26.4",
         "chart.js": "^4.4.0",
         "chartjs-plugin-datalabels": "^2.2.0",
         "color": "~4.2.3",
