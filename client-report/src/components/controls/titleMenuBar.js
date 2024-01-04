@@ -5,6 +5,7 @@ import { updateViewCategory, updateViewState } from '../../store/actions'
 import _ from 'lodash'
 import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversation }) => {
     const computeVoteTotal = (users) => {
@@ -24,7 +25,15 @@ const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversatio
             }
         >
             <div className={'p-2 flex-1 flex items-center'}>
-                <span className={'ml-8 font-bold'}>{conversation.topic}</span>
+                <button
+                    className={'ml-8 font-bold'}
+                    onClick={() => {
+                        updateViewCategory(ViewCategory.Home)
+                        updateViewState(ViewState.Participant)
+                    }}
+                >
+                    {conversation.topic}
+                </button>
                 <div className={'ml-12'}>
                     <span>
                         <strong>{ptptCount}</strong> deelnemers
