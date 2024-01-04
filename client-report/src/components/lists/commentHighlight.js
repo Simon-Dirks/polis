@@ -83,11 +83,8 @@ const CommentHighlight = ({
                             </span>
                         )}
                     </div>
-
-                    <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>
-
-                    <Tag>Aantal stemmen: XXX</Tag>
-
+                    <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>`
+                    <Tag>Aantal stemmen: {comment.saw}</Tag>
                     {/*<button*/}
                     {/*    className={'underline mt-2'}*/}
                     {/*    onClick={() => {*/}
