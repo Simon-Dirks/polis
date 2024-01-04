@@ -7,7 +7,14 @@ import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
 import { ViewCategory, ViewState } from '../../models/viewState'
 
-const TitleMenuBar = ({ viewState, updateViewState, ptptCount, math, conversation }) => {
+const TitleMenuBar = ({
+    viewState,
+    updateViewState,
+    updateViewCategory,
+    ptptCount,
+    math,
+    conversation,
+}) => {
     const computeVoteTotal = (users) => {
         let voteTotal = 0
 
