@@ -3,12 +3,12 @@ import React from 'react'
 import VotePieChart from './votePieChart'
 import { brandColors, groupLabels } from './globals'
 import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../store/actions'
-import { ViewCategory, ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import DataUtils from '../util/dataUtils'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from './controls/arrowButton'
 import Tag from './tag'
+import CommentRepresentativeGroupsText from './lists/commentRepresentativeGroupsText'
 
 const CommentVotesPerGroup = ({
     comments,
@@ -44,29 +44,13 @@ const CommentVotesPerGroup = ({
         <div>
             {comment && (
                 <div className={'mb-4 w-3/4 mx-auto'}>
-                    <p className={'text-sm'}>Stelling {comment.tid}</p>
+                    <div className={'text-sm'}>
+                        Stelling {comment.tid}
+                        <CommentRepresentativeGroupsText groupIdsForComment={groupIdsForComment} />
+                    </div>
                     <p className={'text-2xl mb-2'}>{comment.txt}</p>
 
                     <Tag>Aantal stemmen: {comment.saw}</Tag>
-
-                    {groupIdsForComment.length > 0 && (
-                        <Tag>
-                            Typerend voor Groep:{' '}
-                            {groupIdsForComment.map((gid) => (
-                                <button
-                                    key={gid}
-                                    className={'underline mr-1'}
-                                    onClick={() => {
-                                        updateSelectedGroupId(Number(gid))
-                                        updateViewCategory(ViewCategory.Groups)
-                                        updateViewState(ViewState.GroupRepresentativeComments)
-                                    }}
-                                >
-                                    {groupLabels[gid]}{' '}
-                                </button>
-                            ))}
-                        </Tag>
-                    )}
                 </div>
             )}
 

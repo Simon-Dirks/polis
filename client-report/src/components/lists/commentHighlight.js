@@ -8,10 +8,10 @@ import {
     updateViewCategory,
     updateViewState,
 } from '../../store/actions'
-import { ViewCategory, ViewState } from '../../models/viewState'
+import { ViewState } from '../../models/viewState'
 import DataUtils from '../../util/dataUtils'
-import { groupLabels } from '../globals'
 import Tag from '../tag'
+import CommentRepresentativeGroupsText from './commentRepresentativeGroupsText'
 
 const CommentHighlight = ({
     comment,
@@ -56,32 +56,7 @@ const CommentHighlight = ({
                         >
                             Stelling {comment.tid}{' '}
                         </button>
-
-                        {/*TODO: Refactor into component?*/}
-                        {groupIdsForComment && groupIdsForComment.length > 0 && (
-                            <span className={'inline-block'}>
-                                &nbsp;- Typerend voor{' '}
-                                {groupIdsForComment.map((gid, idx) => (
-                                    <div key={gid} className={'inline'}>
-                                        <button
-                                            className={'underline'}
-                                            onClick={() => {
-                                                updateSelectedGroupId(Number(gid))
-                                                updateViewCategory(ViewCategory.Groups)
-                                                updateViewState(
-                                                    ViewState.GroupRepresentativeComments
-                                                )
-                                            }}
-                                        >
-                                            Groep {groupLabels[gid]}
-                                        </button>
-                                        <span>
-                                            {idx === groupIdsForComment.length - 1 ? '' : ' en '}
-                                        </span>
-                                    </div>
-                                ))}
-                            </span>
-                        )}
+                        <CommentRepresentativeGroupsText groupIdsForComment={groupIdsForComment} />
                     </div>
                     <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>`
                     <Tag>Aantal stemmen: {comment.saw}</Tag>
