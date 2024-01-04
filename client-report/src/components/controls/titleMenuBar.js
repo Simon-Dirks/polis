@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateViewCategory, updateViewState } from '../../store/actions'
+import { updateViewCategory, updateViewState, updateWelcomeShown } from '../../store/actions'
 import _ from 'lodash'
 import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
@@ -11,6 +11,7 @@ const TitleMenuBar = ({
     viewState,
     updateViewState,
     updateViewCategory,
+    updateWelcomeShown,
     ptptCount,
     math,
     conversation,
@@ -63,6 +64,9 @@ const TitleMenuBar = ({
                         className={
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold mr-6'
                         }
+                        onClick={() => {
+                            updateWelcomeShown(true)
+                        }}
                     >
                         <img src={infoIcon} alt={'info icon'} className={'h-4'} />
                         <span>Over deze tool</span>
@@ -89,4 +93,5 @@ const TitleMenuBar = ({
 export default connect(mapStateToProps, {
     updateViewState,
     updateViewCategory,
+    updateWelcomeShown,
 })(TitleMenuBar)

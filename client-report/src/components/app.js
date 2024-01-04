@@ -30,6 +30,7 @@ import CommentVotesPerGroup from './commentVotesPerGroup'
 import TitleMenuBar from './controls/titleMenuBar'
 import ViewMenuBar from './controls/viewMenuBar'
 import HelpButton from './helpButton'
+import WelcomeOverlay from './welcomeOverlay'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -501,7 +502,7 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div>
-                {/*<WelcomeOverlay />*/}
+                {this.props.welcomeShown && <WelcomeOverlay />}
                 <HelpButton math={this.state.math} />
 
                 <TitleMenuBar
