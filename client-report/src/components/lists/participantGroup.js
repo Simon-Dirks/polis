@@ -8,8 +8,9 @@ import CommentGrid from './commentGrid'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import { updateSelectedGroupId, updateViewState } from '../../store/actions'
-import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 import Tag from '../tag'
+import GroupColorLegend from '../controls/groupColorLegend'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 
 const ParticipantGroup = ({
     gid,
@@ -43,36 +44,38 @@ const ParticipantGroup = ({
     }
 
     return (
-        <div>
-            <div className={'w-3/4 mx-auto mb-8'}>
-                <h1>De onderstaande stellingen typeren {groupLabel}</h1>
-                <Tag>Aantal deelnemers: {groupVotesForThisGroup['n-members']}</Tag>
-            </div>
+        <div className={'h-full'}>
+            <GroupColorLegend math={math} />
 
-            <div className={'grid grid-cols-12'}>
-                <div className={'col-span-1 flex'}>
+            <div className="h-full flex">
+                <div className="flex-1 flex items-center justify-center">
                     <ArrowButton
                         overrideDisabled={gid - 1 < 0}
                         target={ArrowButtonTarget.Group}
                         direction={ArrowButtonDirection.Previous}
                     ></ArrowButton>
                 </div>
+                <div className="w-3/4 mx-auto overflow-y-auto">
+                    <div className="mb-8 mt-6">
+                        <h1>De onderstaande stellingen typeren {groupLabel}</h1>
+                        <Tag>Aantal deelnemers: {groupVotesForThisGroup['n-members']}</Tag>
+                    </div>
 
-                <div className={'col-span-10'}>
-                    <CommentGrid
-                        conversation={conversation}
-                        ptptCount={ptptCount}
-                        math={math}
-                        formatTid={formatTid}
-                        tidsToRender={
-                            _.map(groupComments, 'tid') /* uncertainTids would be funnier */
-                        }
-                        comments={comments}
-                        voteColors={groupVoteColors}
-                    />
+                    <div>
+                        <CommentGrid
+                            conversation={conversation}
+                            ptptCount={ptptCount}
+                            math={math}
+                            formatTid={formatTid}
+                            tidsToRender={
+                                _.map(groupComments, 'tid') /* uncertainTids would be funnier */
+                            }
+                            comments={comments}
+                            voteColors={groupVoteColors}
+                        />
+                    </div>
                 </div>
-
-                <div className={'col-span-1 flex'}>
+                <div className="flex-1 flex items-center justify-center">
                     <ArrowButton
                         overrideDisabled={gid + 1 >= getNumberOfGroups()}
                         target={ArrowButtonTarget.Group}

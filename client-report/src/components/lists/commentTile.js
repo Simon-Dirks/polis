@@ -4,7 +4,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { updateSelectedStatementId, updateViewCategory, updateViewState } from '../../store/actions'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { ViewCategory, ViewState } from '../../models/viewState'
 
 const CommentTile = ({
     comment,
@@ -39,17 +38,16 @@ const CommentTile = ({
                 sizePx={150}
             />
             <div>
-                <p className={'text-sm mt-2 leading-5 mb-1'}>
-                    <button
-                        className={'underline'}
-                        onClick={() => {
-                            updateSelectedStatementId(comment.tid)
-                            updateViewCategory(ViewCategory.IndivididualStatements)
-                            updateViewState(ViewState.Statement)
-                        }}
-                    >
-                        Stelling {comment.tid}
-                    </button>
+                <p className={'text-sm mt-2 leading-5 mb-1 text-kennislink-dark-gray'}>
+                    Stelling {comment.tid}
+                    {/*<button*/}
+                    {/*  onClick={() => {*/}
+                    {/*    updateSelectedStatementId(comment.tid)*/}
+                    {/*    updateViewCategory(ViewCategory.IndivididualStatements)*/}
+                    {/*    updateViewState(ViewState.Statement)*/}
+                    {/*  }}*/}
+                    {/*>*/}
+                    {/*</button>*/}
                 </p>
                 <p className={'text-lg font-medium leading-6'}>{comment.txt}</p>
             </div>

@@ -4,7 +4,6 @@ import React from 'react'
 import _ from 'lodash'
 // import * as globals from '../globals'
 import CommentTile from './commentTile'
-import * as globals from '../globals'
 
 class CommentGrid extends React.Component {
     render() {

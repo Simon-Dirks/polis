@@ -4,7 +4,6 @@ import React from 'react'
 // import _ from "lodash";
 import Group from './participantGroup'
 // import style from "../../util/style";
-import * as globals from '../globals'
 import Metadata from './metadata'
 
 class ParticipantGroups extends React.Component {
@@ -25,8 +24,8 @@ class ParticipantGroups extends React.Component {
             return <div>Loading Groups</div>
         }
         return (
-            <div style={Object.assign({}, styles.base, this.props.style)}>
-                <div>
+            <div className={'h-full'} style={Object.assign({}, styles.base, this.props.style)}>
+                <div className={'h-full'}>
                     <Metadata
                         math={this.props.math}
                         comments={this.props.comments}
