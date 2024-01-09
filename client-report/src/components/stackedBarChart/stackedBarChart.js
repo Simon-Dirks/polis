@@ -299,7 +299,7 @@ class StackedBarChart extends React.Component {
                 <GroupColorLegend math={this.props.math} />
 
                 <div
-                    className={'min-h-[140px] absolute w-[60%] left-[20%] pt-16'}
+                    className={'min-h-[140px] absolute w-[60%] left-[20%] pt-16 z-10'}
                     style={{
                         minHeight: '140px',
                         opacity: this.getPreviewCommentOpacity(),
@@ -327,26 +327,39 @@ class StackedBarChart extends React.Component {
                     )}
                 </div>
 
-                <div className={'w-[960px]'}>
-                    {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
-                </div>
-                <div
-                    className={
-                        'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-black relative'
-                    }
-                >
-                    <img
-                        src={arrowHeadLeft}
-                        alt="Arrow head left"
-                        className={'absolute top-[-7px] left-[-2px]'}
-                    />
-                    <img
-                        src={arrowHeadRight}
-                        alt="Arrow head right"
-                        className={'absolute top-[-7px] right-[-2px]'}
-                    />
-                    <p className={'text-left text-lg'}>Stellingen met consensus</p>
-                    <p className={'text-right text-lg'}>Stellingen met verdeeldheid</p>
+                <div className={'flex relative'}>
+                    <div className={'flex-1 flex items-end justify-end pr-6 pb-5'}>
+                        <p className={'text-left text-lg'}>Stellingen met consensus</p>
+                    </div>
+
+                    <div className={'flex justify-center'}>
+                        <div className={'w-[960px]'}>
+                            {this.state.data && (
+                                <Bar options={this.state.options} data={this.state.data} />
+                            )}
+
+                            <div
+                                className={
+                                    'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-black relative'
+                                }
+                            >
+                                <img
+                                    src={arrowHeadLeft}
+                                    alt="Arrow head left"
+                                    className={'absolute top-[-7px] left-[-2px]'}
+                                />
+                                <img
+                                    src={arrowHeadRight}
+                                    alt="Arrow head right"
+                                    className={'absolute top-[-7px] right-[-2px]'}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={'flex-1 flex items-end pl-6 pb-5'}>
+                        <p className={'text-right text-lg'}>Stellingen met verdeeldheid</p>
+                    </div>
                 </div>
             </>
         )
