@@ -5,10 +5,16 @@ import * as globals from '../globals'
 import CommentList from './commentList'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedParticipantId,
+    updateViewCategory,
+    updateViewState,
+} from '../../store/actions'
 import Tag from '../tag'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 import { ViewCategory, ViewState } from '../../models/viewState'
+import DataUtils from '../../util/dataUtils'
 
 class allCommentsForGroup extends React.Component {
     constructor(props) {
@@ -85,6 +91,14 @@ class allCommentsForGroup extends React.Component {
         return Object.keys(this.props.math['group-votes']).length
     }
 
+    isLastGroup() {
+        return this.props.gid + 1 === this.getNumberOfGroups()
+    }
+
+    getParticipantIds() {
+        return
+    }
+
     render() {
         if (!this.props.conversation) {
             return <div>Loading..</div>
@@ -137,11 +151,27 @@ class allCommentsForGroup extends React.Component {
                 </div>
 
                 <div className="flex-1 flex justify-center items-center">
-                    <ArrowButton
-                        overrideDisabled={this.props.gid + 1 >= this.getNumberOfGroups()}
-                        target={ArrowButtonTarget.Group}
-                        direction={ArrowButtonDirection.Next}
-                    ></ArrowButton>
+                    {this.isLastGroup() ? (
+                        <ArrowButton
+                            overrideDisabled={false}
+                            overrideClick={() => {
+                                this.props.updateSelectedGroupId(-1)
+                                this.props.updateSelectedParticipantId(
+                                    DataUtils.getParticipantIds(this.props.math)[0] ?? 0
+                                )
+                                this.props.updateViewCategory(ViewCategory.AllStatements)
+                                this.props.updateViewState(ViewState.Participant)
+                            }}
+                            target={ArrowButtonTarget.Group}
+                            direction={ArrowButtonDirection.Next}
+                        ></ArrowButton>
+                    ) : (
+                        <ArrowButton
+                            overrideDisabled={this.props.gid + 1 >= this.getNumberOfGroups()}
+                            target={ArrowButtonTarget.Group}
+                            direction={ArrowButtonDirection.Next}
+                        ></ArrowButton>
+                    )}
                 </div>
             </div>
         )
@@ -152,4 +182,5 @@ export default connect(mapStateToProps, {
     updateViewState,
     updateViewCategory,
     updateSelectedGroupId,
+    updateSelectedParticipantId,
 })(allCommentsForGroup)
