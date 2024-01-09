@@ -19,8 +19,8 @@ const initialState = {
     viewState: ViewState.ParticipantsGraph,
     selectedParticipantId: -1,
     selectedGroupId: -1,
-    selectedStatementId: 11,
-    welcomeShown: false,
+    selectedStatementId: -1,
+    welcomeShown: true,
 }
 
 const rootReducer = (state = initialState, action) => {
