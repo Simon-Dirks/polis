@@ -21,7 +21,7 @@ class allCommentsForParticipant extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            participantGroupId: 0,
+            participantGroupId: -1,
             participantVotes: null,
         }
     }
@@ -46,8 +46,14 @@ class allCommentsForParticipant extends React.Component {
             return null
         }
 
+        const participantClusterIdx = this.props.math['base-clusters'].members.findIndex(
+            (clusterMembers) => {
+                return clusterMembers.includes(pid)
+            }
+        )
+
         const participantGroupIdx = this.props.math['group-clusters'].findIndex((cluster) => {
-            return cluster.members.includes(pid)
+            return cluster.members.includes(participantClusterIdx)
         })
         this.setState({ participantGroupId: participantGroupIdx })
     }
