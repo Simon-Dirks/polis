@@ -16,7 +16,7 @@ export const ViewCategory = {
 }
 
 export const ViewStatesForCategory = {
-    [ViewCategory.Home]: [ViewState.ParticipantsGraph, ViewState.StatementsGraph],
+    [ViewCategory.Home]: [ViewState.StatementsGraph, ViewState.ParticipantsGraph],
     [ViewCategory.Groups]: [ViewState.GroupRepresentativeComments],
     [ViewCategory.AllStatements]: [ViewState.AllStatementVotes],
     [ViewCategory.IndivididualStatements]: [ViewState.Statement],
