@@ -47,7 +47,6 @@ const ArrowButton = ({
             const nextTid = getNextCommentTid()
             if (nextTid === undefined) {
                 shouldBeDisabled = true
-                console.log('SHOULD BE DIABLE', shouldBeDisabled)
             }
         }
         if (target === ArrowButtonTarget.Participant) {
@@ -55,8 +54,6 @@ const ArrowButton = ({
             if (nextPid === undefined) {
                 shouldBeDisabled = true
             }
-            console.log('MATH', math)
-            console.log('SHOULD BE DISABLED', shouldBeDisabled, selectedParticipantId)
         }
         setDisabled(shouldBeDisabled)
     }, [target, selectedStatementId, selectedParticipantId])
