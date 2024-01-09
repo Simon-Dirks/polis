@@ -32,7 +32,14 @@ const CommentHighlight = ({
     return (
         <>
             <div className={'flex flex-row py-4'}>
-                <div className={'flex items-center pr-8'}>
+                <div
+                    className={'flex items-center pr-8 cursor-pointer'}
+                    onClick={() => {
+                        updateSelectedStatementId(comment.tid)
+                        updateViewCategory(ViewCategory.IndivididualStatements)
+                        updateViewState(ViewState.Statement)
+                    }}
+                >
                     <VotePieChart
                         comment={comment}
                         voteCounts={{
@@ -47,19 +54,19 @@ const CommentHighlight = ({
                 </div>
                 <div>
                     <div className={'text-xl text-kennislink-dark-gray'}>
-                        <button
-                            className={'underline inline-block'}
-                            onClick={() => {
-                                updateSelectedStatementId(comment.tid)
-                                updateViewCategory(ViewCategory.IndivididualStatements)
-                                updateViewState(ViewState.Statement)
-                            }}
-                        >
-                            Stelling {comment.tid}{' '}
-                        </button>
+                        <span className={'inline-block'}>Stelling {comment.tid} </span>
                         <CommentRepresentativeGroupsText groupIdsForComment={groupIdsForComment} />
                     </div>
-                    <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>
+                    <p
+                        className={'text-3xl font-bold mt-1 leading-9 mb-3 cursor-pointer'}
+                        onClick={() => {
+                            updateSelectedStatementId(comment.tid)
+                            updateViewCategory(ViewCategory.IndivididualStatements)
+                            updateViewState(ViewState.Statement)
+                        }}
+                    >
+                        {comment.txt}
+                    </p>
                     <Tag>Aantal stemmen: {comment.saw}</Tag>
                     {/*<button*/}
                     {/*    className={'underline mt-2'}*/}
