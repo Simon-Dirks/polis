@@ -18,7 +18,7 @@ const helpButton = ({ math }) => {
                     <button
                         ref={ref}
                         {...props}
-                        className="btn btn-circle bg-kennislink-light-gray border-none text-white text-3xl"
+                        className="btn btn-circle bg-kennislink-light-gray border-none text-white text-3xl font-normal"
                     >
                         ?
                     </button>

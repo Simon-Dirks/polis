@@ -10,7 +10,7 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
                 'fixed w-screen h-screen bg-[rgba(255,255,255,0.95)] z-[99] p-8 flex items-center justify-center'
             }
         >
-            <div className={'w-3/4'}>
+            <div className={'w-[40rem]'}>
                 <p className={'text-5xl font-bold mb-4'}>Welkom bij de resultaten</p>
                 <p className={'mb-2'}>
                     Via onze interactieve tool doen we onderzoek naar de vraag: ‘Hoe moeten we

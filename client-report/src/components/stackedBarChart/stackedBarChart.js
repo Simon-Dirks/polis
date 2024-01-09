@@ -297,7 +297,7 @@ class StackedBarChart extends React.Component {
                 <GroupColorLegend math={this.props.math} />
 
                 <div
-                    className={'min-h-[140px] absolute w-[70%] left-[15%]'}
+                    className={'min-h-[140px] absolute w-[60%] left-[20%] pt-16'}
                     style={{
                         minHeight: '140px',
                         opacity: this.getPreviewCommentOpacity(),

@@ -28,7 +28,7 @@ const ViewMenuBar = ({
             <div className={'flex-1 flex items-center'}>
                 <span
                     className={
-                        'hidden md:flex px-2 ml-8 border-r border-kennislink-light-gray h-full pr-4 items-center'
+                        'hidden md:flex ml-8 border-r border-kennislink-light-gray h-full pl-2 px-6 items-center'
                     }
                 >
                     U bent nu hier:

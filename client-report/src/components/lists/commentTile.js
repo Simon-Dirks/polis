@@ -51,7 +51,7 @@ const CommentTile = ({
                         Stelling {comment.tid}
                     </button>
                 </p>
-                <p className={'text-xl font-medium leading-6'}>{comment.txt}</p>
+                <p className={'text-lg font-medium leading-6'}>{comment.txt}</p>
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import {
     updateViewCategory,
     updateViewState,
 } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 import DataUtils from '../../util/dataUtils'
 import Tag from '../tag'
 import CommentRepresentativeGroupsText from './commentRepresentativeGroupsText'
@@ -41,7 +41,7 @@ const CommentHighlight = ({
                             S: comment.saw,
                         }}
                         voteColors={voteColors}
-                        sizePx={75}
+                        sizePx={182}
                         showLabels={false}
                     />
                 </div>
@@ -51,6 +51,7 @@ const CommentHighlight = ({
                             className={'underline inline-block'}
                             onClick={() => {
                                 updateSelectedStatementId(comment.tid)
+                                updateViewCategory(ViewCategory.IndivididualStatements)
                                 updateViewState(ViewState.Statement)
                             }}
                         >
@@ -58,7 +59,7 @@ const CommentHighlight = ({
                         </button>
                         <CommentRepresentativeGroupsText groupIdsForComment={groupIdsForComment} />
                     </div>
-                    <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>`
+                    <p className={'text-3xl font-bold mt-1 leading-9 mb-3'}>{comment.txt}</p>
                     <Tag>Aantal stemmen: {comment.saw}</Tag>
                     {/*<button*/}
                     {/*    className={'underline mt-2'}*/}

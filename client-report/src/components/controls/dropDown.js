@@ -27,7 +27,7 @@ const DropDown = ({ buttonLabel, children }) => {
                 onBlur={() => {
                     setIsShowing(false)
                 }}
-                className={'select-none px-4 flex w-full h-full items-center justify-center'}
+                className={'select-none px-6 flex w-full h-full items-center justify-center'}
             >
                 {buttonLabel}
                 <img
