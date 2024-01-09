@@ -26,14 +26,18 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
 
                 <div className={'mt-8 text-center'}>
                     <button
-                        className={'btn bg-white border border-kennislink-light-gray uppercase'}
+                        className={
+                            'btn bg-white border border-kennislink-light-gray uppercase font-bold'
+                        }
                         onClick={() => updateWelcomeShown(false)}
                     >
                         Ontdek nu
                     </button>
                     <span className={'mx-4'}> of </span>
                     <a
-                        className={'btn bg-white border border-kennislink-light-gray uppercase'}
+                        className={
+                            'btn bg-white border border-kennislink-light-gray uppercase font-bold'
+                        }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}
                     >
