@@ -33,7 +33,7 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
     return (
         <div className={'h-full flex'}>
             {/*LEFT ARROW*/}
-            <div className="w-52 flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center">
                 <ArrowButton
                     direction={ArrowButtonDirection.Previous}
                     target={ArrowButtonTarget.Statement}
@@ -42,7 +42,7 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
             </div>
 
             {/* MIDDLE*/}
-            <div className="flex-1 flex flex-col justify-center ">
+            <div className="w-3/4 mx-auto flex flex-col mt-6">
                 {comment && (
                     <div className={'mb-16 w-3/4 mx-auto'}>
                         <div className={'text-xl text-kennislink-dark-gray'}>
@@ -59,9 +59,8 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
 
                 {/*TODO: Update pie chart size to fit dynamically*/}
                 <div className={'grid grid-flow-col gap-4 overflow-x-scroll'}>
-                    {/*TODO: Center horizontally*/}
                     {comment && (
-                        <div>
+                        <div className={'flex flex-col items-center'}>
                             <VotePieChart
                                 comment={comment}
                                 voteCounts={{
@@ -71,7 +70,7 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
                                 }}
                                 nMembers={totalCommentVoteMembers}
                                 voteColors={voteColors}
-                                sizePx={300}
+                                sizePx={200}
                                 heading={'Stemgedrag alle deelnemers'}
                                 subscript={'Aantal stemmen: ' + comment.saw}
                             />
@@ -81,14 +80,14 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
                     {comment &&
                         Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
                             return (
-                                <div key={groupId}>
+                                <div key={groupId} className={'flex flex-col items-center'}>
                                     {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
                                     <VotePieChart
                                         comment={comment}
                                         voteCounts={groupVoteData?.votes[comment.tid]}
                                         nMembers={groupVoteData['n-members']}
                                         voteColors={brandColors.groups[groupId]}
-                                        sizePx={300}
+                                        sizePx={200}
                                         heading={'Stemgedrag Groep ' + groupLabels[groupId]}
                                         subscript={
                                             'Aantal stemmen: ' + groupVoteData?.votes[comment.tid].S
@@ -101,7 +100,7 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
             </div>
 
             {/*RIGHT ARROW*/}
-            <div className="w-52 flex items-center justify-center">
+            <div className="flex-1 flex items-center justify-center">
                 {/*TODO: Define / add disabled state here based on number of available comments*/}
                 <ArrowButton
                     direction={ArrowButtonDirection.Next}
