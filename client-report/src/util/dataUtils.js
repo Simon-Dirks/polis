@@ -33,8 +33,20 @@ function getGroupIdsForComment(commentId, math) {
     return groupIds
 }
 
+function getParticipantIds(math) {
+    if ('group-clusters' in math) {
+        const allGroupMembersFlattened = math['group-clusters'].reduce((acc, group) => {
+            return acc.concat(group.members)
+        }, [])
+        allGroupMembersFlattened.sort((a, b) => a - b)
+        return allGroupMembersFlattened
+    }
+    return []
+}
+
 const dataUtils = {
     getVoteTotals: getVoteTotals,
     getGroupIdsForComment: getGroupIdsForComment,
+    getParticipantIds: getParticipantIds,
 }
 export default dataUtils

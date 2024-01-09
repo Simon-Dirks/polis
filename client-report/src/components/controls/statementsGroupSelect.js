@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import {
@@ -9,6 +9,7 @@ import {
 import { ViewState } from '../../models/viewState'
 import { groupLabels } from '../globals'
 import DropDown from './dropDown'
+import DataUtils from '../../util/dataUtils'
 
 const StatementsGroupSelect = ({
     selectedGroupId,
@@ -34,17 +35,8 @@ const StatementsGroupSelect = ({
         buttonLabel = `Deelnemer ${selectedParticipantId}`
     }
 
-    const [participantIds, setParticipantIds] = useState([])
-
-    useEffect(() => {
-        if ('group-clusters' in math) {
-            const allGroupMembersFlattened = math['group-clusters'].reduce((acc, group) => {
-                return acc.concat(group.members)
-            }, [])
-            allGroupMembersFlattened.sort((a, b) => a - b)
-            setParticipantIds(allGroupMembersFlattened)
-        }
-    }, [math])
+    // TODO: UseEffect to update when math changes?
+    const participantIds = DataUtils.getParticipantIds(math)
 
     return (
         <DropDown buttonLabel={buttonLabel}>
