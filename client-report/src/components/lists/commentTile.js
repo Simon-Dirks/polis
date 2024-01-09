@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { updateSelectedStatementId, updateViewCategory, updateViewState } from '../../store/actions'
 import { mapStateToProps } from '../../store/mapStateToProps'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 const CommentTile = ({
     comment,
@@ -25,7 +26,14 @@ const CommentTile = ({
     })
 
     return (
-        <div>
+        <div
+            className={'cursor-pointer'}
+            onClick={() => {
+                updateSelectedStatementId(comment.tid)
+                updateViewCategory(ViewCategory.IndivididualStatements)
+                updateViewState(ViewState.Statement)
+            }}
+        >
             <VotePieChart
                 comment={comment}
                 voteCounts={{
@@ -40,14 +48,6 @@ const CommentTile = ({
             <div>
                 <p className={'text-sm mt-2 leading-5 mb-1 text-kennislink-dark-gray'}>
                     Stelling {comment.tid}
-                    {/*<button*/}
-                    {/*  onClick={() => {*/}
-                    {/*    updateSelectedStatementId(comment.tid)*/}
-                    {/*    updateViewCategory(ViewCategory.IndivididualStatements)*/}
-                    {/*    updateViewState(ViewState.Statement)*/}
-                    {/*  }}*/}
-                    {/*>*/}
-                    {/*</button>*/}
                 </p>
                 <p className={'text-lg font-medium leading-6'}>{comment.txt}</p>
             </div>
