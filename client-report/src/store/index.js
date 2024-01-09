@@ -19,7 +19,7 @@ const initialState = {
     viewState: ViewState.StatementsGraph,
     selectedParticipantId: -1,
     selectedGroupId: -1,
-    selectedStatementId: -1,
+    selectedStatementId: 0,
     welcomeShown: true,
 }
 
