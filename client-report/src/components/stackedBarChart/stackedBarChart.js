@@ -17,6 +17,8 @@ import CommentHighlight from '../lists/commentHighlight'
 import * as globals from '../globals'
 import Color from 'color'
 import GroupColorLegend from '../controls/groupColorLegend'
+import arrowHeadRight from '../../assets/arrow-head-right.svg'
+import arrowHeadLeft from '../../assets/arrow-head-left.svg'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -328,7 +330,21 @@ class StackedBarChart extends React.Component {
                 <div className={'w-[960px]'}>
                     {this.state.data && <Bar options={this.state.options} data={this.state.data} />}
                 </div>
-                <div className={'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-black'}>
+                <div
+                    className={
+                        'w-[960px] pt-2 mt-4 grid grid-cols-2 border-t-2 border-black relative'
+                    }
+                >
+                    <img
+                        src={arrowHeadLeft}
+                        alt="Arrow head left"
+                        className={'absolute top-[-7px] left-[-2px]'}
+                    />
+                    <img
+                        src={arrowHeadRight}
+                        alt="Arrow head right"
+                        className={'absolute top-[-7px] right-[-2px]'}
+                    />
                     <p className={'text-left text-lg'}>Stellingen met consensus</p>
                     <p className={'text-right text-lg'}>Stellingen met verdeeldheid</p>
                 </div>
