@@ -21,15 +21,15 @@ const CommentRow = ({
 
     return (
         <>
-            <div className={'flex flex-row py-4'}>
-                <button
-                    className={'flex items-center pr-4'}
-                    onClick={() => {
-                        updateSelectedStatementId(comment.tid)
-                        updateViewCategory(ViewCategory.IndivididualStatements)
-                        updateViewState(ViewState.Statement)
-                    }}
-                >
+            <div
+                className={'flex flex-row py-4 cursor-pointer'}
+                onClick={() => {
+                    updateSelectedStatementId(comment.tid)
+                    updateViewCategory(ViewCategory.IndivididualStatements)
+                    updateViewState(ViewState.Statement)
+                }}
+            >
+                <div className={'flex items-center pr-4'}>
                     <VotePieChart
                         comment={comment}
                         voteCounts={{
@@ -42,18 +42,11 @@ const CommentRow = ({
                         showLabels={false}
                         isRounded={isRounded}
                     />
-                </button>
+                </div>
                 <div>
-                    <button
-                        className={'text-sm text-kennislink-dark-gray'}
-                        onClick={() => {
-                            updateSelectedStatementId(comment.tid)
-                            updateViewCategory(ViewCategory.IndivididualStatements)
-                            updateViewState(ViewState.Statement)
-                        }}
-                    >
+                    <span className={'text-sm text-kennislink-dark-gray'}>
                         Stelling {comment.tid}
-                    </button>
+                    </span>
                     <p className={'text-lg'}>{comment.txt}</p>
                 </div>
             </div>
