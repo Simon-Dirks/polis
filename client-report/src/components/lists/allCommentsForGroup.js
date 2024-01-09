@@ -5,8 +5,10 @@ import * as globals from '../globals'
 import CommentList from './commentList'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateViewState } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../../store/actions'
+import Tag from '../tag'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
+import { ViewCategory, ViewState } from '../../models/viewState'
 
 class allCommentsForGroup extends React.Component {
     constructor(props) {
@@ -79,41 +81,88 @@ class allCommentsForGroup extends React.Component {
         this.setState({ commentsWithGroupVotes: commentsWithGroupVotes })
     }
 
+    getNumberOfGroups() {
+        return Object.keys(this.props.math['group-votes']).length
+    }
+
     render() {
         if (!this.props.conversation) {
             return <div>Loading..</div>
         }
 
         return (
-            <div className={'mt-8'}>
-                <h1>
-                    Stemgedrag Groep {globals.groupLabels[this.props.gid]} (
-                    {this.getNumParticipantsOfGroup()}) op{' '}
-                    <button
-                        className={'underline'}
-                        onClick={() => {
-                            this.props.updateViewState(ViewState.StatementsGraph)
-                        }}
-                    >
-                        alle stellingen
-                    </button>
-                    {this.state.commentsWithGroupVotes && (
-                        <span> ({this.state.commentsWithGroupVotes.length})</span>
+            <div className={'h-full flex'}>
+                <div className="flex-1 flex justify-center items-center">
+                    {this.props.gid === 0 && (
+                        <ArrowButton
+                            overrideDisabled={false}
+                            overrideClick={() => {
+                                this.props.updateSelectedGroupId(-1)
+                                this.props.updateViewCategory(ViewCategory.AllStatements)
+                                this.props.updateViewState(ViewState.AllStatementVotes)
+                            }}
+                            target={ArrowButtonTarget.Group}
+                            direction={ArrowButtonDirection.Previous}
+                        ></ArrowButton>
                     )}
-                </h1>
+                    {this.props.gid !== 0 && (
+                        <ArrowButton
+                            overrideDisabled={this.props.gid - 1 < 0}
+                            target={ArrowButtonTarget.Group}
+                            direction={ArrowButtonDirection.Previous}
+                        ></ArrowButton>
+                    )}
+                </div>
 
-                {this.state.commentsWithGroupVotes && (
-                    <CommentList
-                        conversation={this.props.conversation}
-                        math={this.props.math}
-                        tidsToRender={this.state.commentsWithGroupVotes.map((c) => c.tid)}
-                        comments={this.state.commentsWithGroupVotes}
-                        voteColors={this.state.groupVoteColors}
-                    />
-                )}
+                <div className="w-3/4 mx-auto overflow-y-auto">
+                    <h1 className={'mt-6'}>
+                        Stemgedrag Groep {globals.groupLabels[this.props.gid]} op alle stellingen
+                        {/*(*/}
+                        {/*  {this.getNumParticipantsOfGroup()}) op{' '}*/}
+                        {/*  <button*/}
+                        {/*      className={'underline'}*/}
+                        {/*      onClick={() => {*/}
+                        {/*          this.props.updateViewState(ViewState.StatementsGraph)*/}
+                        {/*      }}*/}
+                        {/*  >*/}
+                        {/*      alle stellingen*/}
+                        {/*  </button>*/}
+                        {/*  {this.state.commentsWithGroupVotes && (*/}
+                        {/*      <span> ({this.state.commentsWithGroupVotes.length})</span>*/}
+                        {/*  )}*/}
+                    </h1>
+                    <Tag>Aantal deelnemers: {this.getNumParticipantsOfGroup()}</Tag>
+                    {this.state.commentsWithGroupVotes && (
+                        <Tag>Aantal stellingen: {this.state.commentsWithGroupVotes.length}</Tag>
+                    )}
+
+                    {this.state.commentsWithGroupVotes && (
+                        <div className="mt-4">
+                            <CommentList
+                                conversation={this.props.conversation}
+                                math={this.props.math}
+                                tidsToRender={this.state.commentsWithGroupVotes.map((c) => c.tid)}
+                                comments={this.state.commentsWithGroupVotes}
+                                voteColors={this.state.groupVoteColors}
+                            />
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex-1 flex justify-center items-center">
+                    <ArrowButton
+                        overrideDisabled={this.props.gid + 1 >= this.getNumberOfGroups()}
+                        target={ArrowButtonTarget.Group}
+                        direction={ArrowButtonDirection.Next}
+                    ></ArrowButton>
+                </div>
             </div>
         )
     }
 }
 
-export default connect(mapStateToProps, { updateViewState })(allCommentsForGroup)
+export default connect(mapStateToProps, {
+    updateViewState,
+    updateViewCategory,
+    updateSelectedGroupId,
+})(allCommentsForGroup)

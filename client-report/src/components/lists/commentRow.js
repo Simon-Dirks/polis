@@ -22,7 +22,14 @@ const CommentRow = ({
     return (
         <>
             <div className={'flex flex-row py-4'}>
-                <div className={'flex items-center pr-4'}>
+                <button
+                    className={'flex items-center pr-4'}
+                    onClick={() => {
+                        updateSelectedStatementId(comment.tid)
+                        updateViewCategory(ViewCategory.IndivididualStatements)
+                        updateViewState(ViewState.Statement)
+                    }}
+                >
                     <VotePieChart
                         comment={comment}
                         voteCounts={{
@@ -35,10 +42,10 @@ const CommentRow = ({
                         showLabels={false}
                         isRounded={isRounded}
                     />
-                </div>
+                </button>
                 <div>
                     <button
-                        className={'text-sm underline'}
+                        className={'text-sm text-kennislink-dark-gray'}
                         onClick={() => {
                             updateSelectedStatementId(comment.tid)
                             updateViewCategory(ViewCategory.IndivididualStatements)

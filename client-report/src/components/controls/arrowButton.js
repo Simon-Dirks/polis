@@ -34,6 +34,7 @@ const ArrowButton = ({
     direction,
     comments,
     overrideDisabled,
+    overrideClick,
 }) => {
     const [disabled, setDisabled] = useState(false)
 
@@ -56,6 +57,11 @@ const ArrowButton = ({
     }
 
     const onClick = () => {
+        if (overrideClick) {
+            overrideClick()
+            return
+        }
+
         const addToId = direction === ArrowButtonDirection.Next ? 1 : -1
 
         switch (target) {

@@ -22,10 +22,10 @@ const StatementsGroupSelect = ({
     }
 
     let buttonLabel = 'Alle deelnemers'
-    if (selectedGroupId > 0) {
+    if (selectedGroupId >= 0) {
         buttonLabel = `Groep ${groupLabels[selectedGroupId]}`
     }
-    if (selectedParticipantId > 0) {
+    if (selectedParticipantId >= 0) {
         buttonLabel = `Deelnemer ${selectedParticipantId}`
     }
 

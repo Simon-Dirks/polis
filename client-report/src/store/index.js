@@ -17,8 +17,8 @@ import {
 const initialState = {
     viewCategory: ViewCategory.Home,
     viewState: ViewState.ParticipantsGraph,
-    selectedParticipantId: 0,
-    selectedGroupId: 0,
+    selectedParticipantId: -1,
+    selectedGroupId: -1,
     selectedStatementId: 11,
     welcomeShown: false,
 }

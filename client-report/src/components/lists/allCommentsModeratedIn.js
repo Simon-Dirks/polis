@@ -7,10 +7,13 @@ import * as globals from '../globals'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
 import {
+    updateSelectedGroupId,
     updateSelectedParticipantId,
     updateViewCategory,
     updateViewState,
 } from '../../store/actions'
+import Tag from '../tag'
+import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 import { ViewCategory, ViewState } from '../../models/viewState'
 
 function sortByTid(comments) {
@@ -112,45 +115,59 @@ class allCommentsModeratedIn extends React.Component {
         }
 
         return (
-            <div>
-                <h1>
-                    Stemgedrag{' '}
-                    <button
-                        onClick={() => {
-                            this.props.updateViewCategory(ViewCategory.Home)
-                            this.props.updateViewState(ViewState.ParticipantsGraph)
+            <div className={'h-full flex'}>
+                <div className="flex-1 flex items-center justify-center">
+                    <ArrowButton
+                        overrideDisabled={true}
+                        target={ArrowButtonTarget.Group}
+                        direction={ArrowButtonDirection.Previous}
+                    ></ArrowButton>
+                </div>
+
+                <div className="w-3/4 mx-auto overflow-y-auto">
+                    <h1 className={'mt-6'}>Stemgedrag alle deelnemers op alle stellingen</h1>
+                    <Tag>Aantal deelnemers: {this.props.ptptCount}</Tag>
+                    <Tag>Aantal stellingen: {this.props.comments?.length}</Tag>
+
+                    {/*TODO: Bring back sorting once design is available*/}
+                    {/*<label htmlFor="allCommentsSortMode">Sort by: </label>*/}
+                    {/*<select*/}
+                    {/*    id="allCommentsSortMode"*/}
+                    {/*    onChange={this.onSortChanged.bind(this)}*/}
+                    {/*    value={this.state.sortStyle}*/}
+                    {/*>*/}
+                    {/*    /!*<option value="tid">Statement Id</option>*!/*/}
+                    {/*    <option value="consensus">Group-informed Consensus</option>*/}
+                    {/*    <option value="numvotes">Number of votes</option>*/}
+                    {/*    <option value="pctAgreed">% Agreed</option>*/}
+                    {/*    <option value="pctDisagreed">% Disagreed</option>*/}
+                    {/*    <option value="pctPassed">% Passed</option>*/}
+                    {/*</select>*/}
+
+                    <div className="mt-4">
+                        <CommentList
+                            conversation={this.props.conversation}
+                            ptptCount={this.props.ptptCount}
+                            math={this.props.math}
+                            formatTid={this.props.formatTid}
+                            tidsToRender={sortFunction(this.props.comments)}
+                            comments={this.props.comments}
+                            voteColors={this.props.voteColors}
+                        />
+                    </div>
+                </div>
+
+                <div className="flex-1 flex items-center justify-center">
+                    <ArrowButton
+                        overrideDisabled={false}
+                        overrideClick={() => {
+                            this.props.updateSelectedGroupId(0)
+                            this.props.updateViewCategory(ViewCategory.AllStatements)
+                            this.props.updateViewState(ViewState.AllStatementVotesSelectedGroup)
                         }}
-                        className={'underline'}
-                    >
-                        alle deelnemers
-                    </button>{' '}
-                    ({this.props.ptptCount}) op alle stellingen ({this.props.comments?.length})
-                </h1>
-
-                <label htmlFor="allCommentsSortMode">Sort by: </label>
-                <select
-                    id="allCommentsSortMode"
-                    onChange={this.onSortChanged.bind(this)}
-                    value={this.state.sortStyle}
-                >
-                    {/*<option value="tid">Statement Id</option>*/}
-                    <option value="consensus">Group-informed Consensus</option>
-                    <option value="numvotes">Number of votes</option>
-                    <option value="pctAgreed">% Agreed</option>
-                    <option value="pctDisagreed">% Disagreed</option>
-                    <option value="pctPassed">% Passed</option>
-                </select>
-
-                <div>
-                    <CommentList
-                        conversation={this.props.conversation}
-                        ptptCount={this.props.ptptCount}
-                        math={this.props.math}
-                        formatTid={this.props.formatTid}
-                        tidsToRender={sortFunction(this.props.comments)}
-                        comments={this.props.comments}
-                        voteColors={this.props.voteColors}
-                    />
+                        target={ArrowButtonTarget.Group}
+                        direction={ArrowButtonDirection.Next}
+                    ></ArrowButton>
                 </div>
             </div>
         )
@@ -161,4 +178,5 @@ export default connect(mapStateToProps, {
     updateSelectedParticipantId,
     updateViewState,
     updateViewCategory,
+    updateSelectedGroupId,
 })(allCommentsModeratedIn)
