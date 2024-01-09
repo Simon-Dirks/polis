@@ -10,7 +10,7 @@ class CommentList extends React.Component {
         const comments = _.keyBy(this.props.comments, 'tid')
 
         return (
-            <div>
+            <div className={'pb-6'}>
                 {this.props.tidsToRender.map((tid, i) => {
                     return (
                         <CommentRow

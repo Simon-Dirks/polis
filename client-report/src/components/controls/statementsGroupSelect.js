@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedGroupId, updateViewState } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedParticipantId,
+    updateViewState,
+} from '../../store/actions'
 import { ViewState } from '../../models/viewState'
 import { groupLabels } from '../globals'
 import DropDown from './dropDown'
@@ -9,6 +13,7 @@ import DropDown from './dropDown'
 const StatementsGroupSelect = ({
     selectedGroupId,
     selectedParticipantId,
+    updateSelectedParticipantId,
     updateSelectedGroupId,
     math,
     updateViewState,
@@ -29,12 +34,29 @@ const StatementsGroupSelect = ({
         buttonLabel = `Deelnemer ${selectedParticipantId}`
     }
 
+    const [participantIds, setParticipantIds] = useState([])
+
+    useEffect(() => {
+        if ('group-clusters' in math) {
+            const allGroupMembersFlattened = math['group-clusters'].reduce((acc, group) => {
+                return acc.concat(group.members)
+            }, [])
+            allGroupMembersFlattened.sort((a, b) => a - b)
+            setParticipantIds(allGroupMembersFlattened)
+        }
+    }, [math])
+
     return (
         <DropDown buttonLabel={buttonLabel}>
-            <li className={selectedGroupId === -1 ? 'font-semibold' : ''}>
+            <li
+                className={
+                    selectedGroupId === -1 && selectedParticipantId === -1 ? 'font-semibold' : ''
+                }
+            >
                 <a
                     onClick={() => {
                         updateViewState(ViewState.AllStatementVotes)
+                        updateSelectedParticipantId(-1)
                         updateSelectedGroupId(-1)
                     }}
                 >
@@ -48,6 +70,7 @@ const StatementsGroupSelect = ({
                         <a
                             onClick={() => {
                                 console.log('Updating selected group id', gid)
+                                updateSelectedParticipantId(-1)
                                 updateSelectedGroupId(gid)
                                 updateViewState(ViewState.AllStatementVotesSelectedGroup)
                             }}
@@ -57,10 +80,28 @@ const StatementsGroupSelect = ({
                     </li>
                 )
             })}
+
+            {participantIds.map((pid) => {
+                return (
+                    <li key={pid} className={pid === selectedParticipantId ? 'font-semibold' : ''}>
+                        <a
+                            onClick={() => {
+                                console.log('Updating selected participant id', pid)
+                                updateSelectedGroupId(-1)
+                                updateSelectedParticipantId(pid)
+                                updateViewState(ViewState.Participant)
+                            }}
+                        >
+                            Deelnemer {pid}
+                        </a>
+                    </li>
+                )
+            })}
         </DropDown>
     )
 }
 export default connect(mapStateToProps, {
     updateSelectedGroupId,
+    updateSelectedParticipantId,
     updateViewState,
 })(StatementsGroupSelect)

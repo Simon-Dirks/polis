@@ -1,7 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateSelectedGroupId, updateViewCategory, updateViewState } from '../../store/actions'
+import {
+    updateSelectedGroupId,
+    updateSelectedParticipantId,
+    updateViewCategory,
+    updateViewState,
+} from '../../store/actions'
 import { ViewCategory, ViewStatesForCategory } from '../../models/viewState'
 import DropDown from './dropDown'
 
@@ -10,6 +15,7 @@ const ViewCategorySelect = ({
     updateViewCategory,
     updateViewState,
     updateSelectedGroupId,
+    updateSelectedParticipantId,
 }) => {
     return (
         <DropDown buttonLabel={viewCategory}>
@@ -24,6 +30,7 @@ const ViewCategorySelect = ({
 
                                 if (category === ViewCategory.AllStatements) {
                                     updateSelectedGroupId(-1)
+                                    updateSelectedParticipantId(-1)
                                 } else {
                                     updateSelectedGroupId(0)
                                 }
@@ -45,4 +52,5 @@ export default connect(mapStateToProps, {
     updateViewState,
     updateViewCategory,
     updateSelectedGroupId,
+    updateSelectedParticipantId,
 })(ViewCategorySelect)

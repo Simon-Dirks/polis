@@ -42,7 +42,7 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
             </div>
 
             {/* MIDDLE*/}
-            <div className="w-3/4 mx-auto flex flex-col mt-6">
+            <div className="w-3/4 mx-auto flex flex-col justify-center">
                 {comment && (
                     <div className={'mb-16 w-3/4 mx-auto'}>
                         <div className={'text-xl text-kennislink-dark-gray'}>

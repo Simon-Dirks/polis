@@ -8,11 +8,13 @@ import { mapStateToProps } from '../../store/mapStateToProps'
 import {
     updateSelectedGroupId,
     updateSelectedParticipantId,
+    updateViewCategory,
     updateViewState,
 } from '../../store/actions'
-import { ViewState } from '../../models/viewState'
+import { ViewCategory, ViewState } from '../../models/viewState'
 import CommentList from './commentList'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
+import Tag from '../tag'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -112,58 +114,64 @@ class allCommentsForParticipant extends React.Component {
         }
 
         return (
-            <div className={'mt-8'}>
-                {this.state.participantGroupId > 0 && (
-                    <h2>
-                        Deelnemer {this.props.selectedParticipantId} is onderdeel van{' '}
-                        <button
-                            className={'underline'}
-                            onClick={() => {
-                                this.props.updateSelectedGroupId(this.state.participantGroupId)
-                                this.props.updateViewState(ViewState.GroupRepresentativeComments)
-                            }}
-                        >
-                            Groep {globals.groupLabels[this.state.participantGroupId]}
-                        </button>
-                    </h2>
-                )}
+            <div className={'h-full flex mt-6'}>
+                <div className="flex-1 flex items-center justify-center">
+                    {/*TODO: Add disabled state*/}
+                    <ArrowButton
+                        direction={ArrowButtonDirection.Previous}
+                        target={ArrowButtonTarget.Participant}
+                        // disabled={false}
+                    ></ArrowButton>
+                </div>
 
-                <h1>
-                    Alle stellingen{' '}
-                    {this.getParticipantCommentVotes() &&
-                        `(${this.getParticipantCommentVotes().length})`}{' '}
-                    waarop deelnemer {this.props.selectedParticipantId} gestemd heeft
-                </h1>
+                <div className={'w-3/4 mx-auto overflow-y-auto'}>
+                    {this.state.participantGroupId > 0 && (
+                        <p className={'text-xl text-kennislink-dark-gray'}>
+                            Onderdeel van{' '}
+                            <button
+                                className={'underline'}
+                                onClick={() => {
+                                    this.props.updateSelectedGroupId(this.state.participantGroupId)
+                                    this.props.updateViewCategory(ViewCategory.Groups)
+                                    this.props.updateViewState(
+                                        ViewState.GroupRepresentativeComments
+                                    )
+                                }}
+                            >
+                                Groep {globals.groupLabels[this.state.participantGroupId]}
+                            </button>
+                        </p>
+                    )}
 
-                <div className={'grid grid-cols-12'}>
-                    <div className={'col-span-1'}>
-                        {/*TODO: Add disabled state*/}
-                        <ArrowButton
-                            direction={ArrowButtonDirection.Previous}
-                            target={ArrowButtonTarget.Participant}
-                            // disabled={false}
-                        ></ArrowButton>
-                    </div>
-                    <div className={'col-span-10'}>
-                        {this.getParticipantCommentVotes() && (
-                            <CommentList
-                                conversation={this.props.conversation}
-                                math={this.props.math}
-                                tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
-                                comments={this.getParticipantCommentVotes()}
-                                voteColors={this.props.voteColors}
-                                isRounded={true}
-                            />
-                        )}
-                    </div>
-                    <div className={'col-span-1'}>
-                        {/*TODO: Add disabled state*/}
-                        <ArrowButton
-                            direction={ArrowButtonDirection.Next}
-                            target={ArrowButtonTarget.Participant}
-                            // disabled={false}
-                        ></ArrowButton>
-                    </div>
+                    <h1 className={'font-semibold'}>
+                        Stemgedrag Deelnemer {this.props.selectedParticipantId} op alle stellingen
+                    </h1>
+
+                    {this.getParticipantCommentVotes() && (
+                        <div className="mb-6">
+                            <Tag>Aantal stellingen: {this.getParticipantCommentVotes().length}</Tag>
+                        </div>
+                    )}
+
+                    {this.getParticipantCommentVotes() && (
+                        <CommentList
+                            conversation={this.props.conversation}
+                            math={this.props.math}
+                            tidsToRender={this.getParticipantCommentVotes().map((c) => c.tid)}
+                            comments={this.getParticipantCommentVotes()}
+                            voteColors={this.props.voteColors}
+                            isRounded={true}
+                        />
+                    )}
+                </div>
+
+                <div className="flex-1 flex items-center justify-center">
+                    {/*TODO: Add disabled state*/}
+                    <ArrowButton
+                        direction={ArrowButtonDirection.Next}
+                        target={ArrowButtonTarget.Participant}
+                        // disabled={false}
+                    ></ArrowButton>
                 </div>
             </div>
         )
@@ -174,4 +182,5 @@ export default connect(mapStateToProps, {
     updateSelectedParticipantId,
     updateSelectedGroupId,
     updateViewState,
+    updateViewCategory,
 })(allCommentsForParticipant)
