@@ -117,19 +117,6 @@ class allCommentsForGroup extends React.Component {
                 <div className="w-3/4 mx-auto overflow-y-auto">
                     <h1 className={'mt-6'}>
                         Stemgedrag Groep {globals.groupLabels[this.props.gid]} op alle stellingen
-                        {/*(*/}
-                        {/*  {this.getNumParticipantsOfGroup()}) op{' '}*/}
-                        {/*  <button*/}
-                        {/*      className={'underline'}*/}
-                        {/*      onClick={() => {*/}
-                        {/*          this.props.updateViewState(ViewState.StatementsGraph)*/}
-                        {/*      }}*/}
-                        {/*  >*/}
-                        {/*      alle stellingen*/}
-                        {/*  </button>*/}
-                        {/*  {this.state.commentsWithGroupVotes && (*/}
-                        {/*      <span> ({this.state.commentsWithGroupVotes.length})</span>*/}
-                        {/*  )}*/}
                     </h1>
                     <Tag>Aantal deelnemers: {this.getNumParticipantsOfGroup()}</Tag>
                     {this.state.commentsWithGroupVotes && (
