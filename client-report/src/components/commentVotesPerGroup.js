@@ -9,8 +9,18 @@ import DataUtils from '../util/dataUtils'
 import Tag from './tag'
 import CommentRepresentativeGroupsText from './lists/commentRepresentativeGroupsText'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from './controls/arrowButton'
+import { ViewCategory, ViewState } from '../models/viewState'
 
-const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, math }) => {
+const CommentVotesPerGroup = ({
+    comments,
+    groupVotes,
+    voteColors,
+    commentTid,
+    math,
+    updateSelectedGroupId,
+    updateViewState,
+    updateViewCategory,
+}) => {
     if (!comments) {
         console.error('No comments passed')
         return null
@@ -80,7 +90,15 @@ const CommentVotesPerGroup = ({ comments, groupVotes, voteColors, commentTid, ma
                     {comment &&
                         Object.entries(groupVotes).map(([groupId, groupVoteData]) => {
                             return (
-                                <div key={groupId} className={'flex flex-col items-center'}>
+                                <div
+                                    key={groupId}
+                                    className={'flex flex-col items-center cursor-pointer'}
+                                    onClick={() => {
+                                        updateSelectedGroupId(Number(groupId))
+                                        updateViewCategory(ViewCategory.Groups)
+                                        updateViewState(ViewState.GroupRepresentativeComments)
+                                    }}
+                                >
                                     {/*<p key={groupId}>{JSON.stringify(groupVoteData)}</p>*/}
                                     <VotePieChart
                                         comment={comment}
