@@ -1,3 +1,4 @@
+import React, { useRef, useState } from 'react'
 import {
     arrow,
     autoUpdate,
@@ -7,13 +8,10 @@ import {
     shift,
     useDismiss,
     useFloating,
-    useFocus,
-    useHover,
     useInteractions,
     useRole,
     useTransitionStyles,
 } from '@floating-ui/react'
-import React, { useRef, useState } from 'react'
 
 export const Tooltip = ({ children, renderOpener, placement, color }) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -39,23 +37,30 @@ export const Tooltip = ({ children, renderOpener, placement, color }) => {
         whileElementsMounted: autoUpdate,
     })
 
-    const hover = useHover(context, { move: false })
-    const focus = useFocus(context)
     const dismiss = useDismiss(context)
     const role = useRole(context, { role: 'tooltip' })
 
-    const { getReferenceProps, getFloatingProps } = useInteractions([hover, focus, dismiss, role])
+    const { getReferenceProps, getFloatingProps } = useInteractions([dismiss, role])
+
+    const handleOpenerClick = () => {
+        setIsOpen(!isOpen)
+    }
 
     const { styles: transitionStyles } = useTransitionStyles(context, {
         initial: {
             opacity: 0,
-            transform: 'scale(0.8)',
+            // transform: 'scale(0.95)',
+            // transformOrigin: 'bottom right',
         },
     })
 
     return (
         <>
-            {renderOpener({ ref: setReference, ...getReferenceProps() })}
+            {renderOpener({
+                onClick: handleOpenerClick,
+                ref: setReference,
+                ...getReferenceProps(),
+            })}
             {isOpen && children && (
                 <div
                     ref={setFloating}
