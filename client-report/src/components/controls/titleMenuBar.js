@@ -13,6 +13,7 @@ const TitleMenuBar = ({
     updateViewCategory,
     updateWelcomeShown,
     ptptCount,
+    ptptCountTotal,
     math,
     conversation,
 }) => {
@@ -49,7 +50,10 @@ const TitleMenuBar = ({
 
                 <div className={'ml-12 hidden xl:block'}>
                     <span>
-                        <strong>{ptptCount}</strong>&nbsp;deelnemers
+                        <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
+                    </span>
+                    <span className={'ml-4'}>
+                        <strong>{ptptCount}</strong>&nbsp;gegroepeerd
                     </span>
                     <span className={'ml-4'}>
                         <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>&nbsp;stemmen

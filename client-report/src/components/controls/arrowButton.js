@@ -10,6 +10,7 @@ import {
 import _ from 'lodash'
 import arrowRight from '../../assets/arrow-right.svg'
 import arrowLeft from '../../assets/arrow-left.svg'
+import DataUtils from '../../util/dataUtils'
 
 export const ArrowButtonTarget = {
     Participant: 'participant',
@@ -33,18 +34,32 @@ const ArrowButton = ({
     target,
     direction,
     comments,
+    math,
     overrideDisabled,
     overrideClick,
 }) => {
     const [disabled, setDisabled] = useState(false)
 
     useEffect(() => {
-        if (ArrowButtonTarget.Statement) {
+        let shouldBeDisabled = false
+
+        if (target === ArrowButtonTarget.Statement) {
             const nextTid = getNextCommentTid()
-            let shouldBeDisabled = nextTid === undefined
-            setDisabled(shouldBeDisabled)
+            if (nextTid === undefined) {
+                shouldBeDisabled = true
+                console.log('SHOULD BE DIABLE', shouldBeDisabled)
+            }
         }
-    }, [selectedStatementId])
+        if (target === ArrowButtonTarget.Participant) {
+            const nextPid = getNextParticipantPid()
+            if (nextPid === undefined) {
+                shouldBeDisabled = true
+            }
+            console.log('MATH', math)
+            console.log('SHOULD BE DISABLED', shouldBeDisabled, selectedParticipantId)
+        }
+        setDisabled(shouldBeDisabled)
+    }, [target, selectedStatementId, selectedParticipantId])
 
     const getNextCommentTid = () => {
         const addToId = direction === ArrowButtonDirection.Next ? 1 : -1
@@ -53,6 +68,22 @@ const ArrowButton = ({
         if (currentIdx + addToId in sortedComments) {
             const nextTid = sortedComments[currentIdx + addToId].tid
             return nextTid
+        }
+        return undefined
+    }
+
+    const getNextParticipantPid = () => {
+        const participantIds = DataUtils.getParticipantIds(math)
+        if (!participantIds) {
+            return undefined
+        }
+
+        const currentParticipantIdx = participantIds.findIndex((id) => id === selectedParticipantId)
+        const addToIdx = direction === ArrowButtonDirection.Next ? 1 : -1
+        const nextParticipantIdx = currentParticipantIdx + addToIdx
+        if (nextParticipantIdx in participantIds) {
+            const nextParticipantId = participantIds[nextParticipantIdx]
+            return nextParticipantId
         }
         return undefined
     }
@@ -66,9 +97,13 @@ const ArrowButton = ({
         const addToId = direction === ArrowButtonDirection.Next ? 1 : -1
 
         switch (target) {
-            case ArrowButtonTarget.Participant:
-                updateSelectedParticipantId(selectedParticipantId + addToId)
+            case ArrowButtonTarget.Participant: {
+                const nextPid = getNextParticipantPid()
+                if (nextPid !== undefined) {
+                    updateSelectedParticipantId(nextPid)
+                }
                 break
+            }
             case ArrowButtonTarget.Group:
                 updateSelectedGroupId(selectedGroupId + addToId)
                 break

@@ -34,14 +34,10 @@ function getGroupIdsForComment(commentId, math) {
 }
 
 function getParticipantIds(math) {
-    if ('group-clusters' in math) {
-        const allGroupMembersFlattened = math['group-clusters'].reduce((acc, group) => {
-            return acc.concat(group.members)
-        }, [])
-        allGroupMembersFlattened.sort((a, b) => a - b)
-        return allGroupMembersFlattened
+    if (!math || !('in-conv' in math)) {
+        return []
     }
-    return []
+    return Object.values(math['in-conv']).sort((a, b) => a - b)
 }
 
 function getGroupVotesForComments(gid, math, comments) {

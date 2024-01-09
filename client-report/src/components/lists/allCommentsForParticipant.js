@@ -46,7 +46,6 @@ class allCommentsForParticipant extends React.Component {
             return null
         }
 
-        // TODO: Make sure members in group-clusters are zero-indexed (it seems that participant 0 does not belong to a group now, is that correct? The other participant groups seem to match the visualization)
         const participantGroupIdx = this.props.math['group-clusters'].findIndex((cluster) => {
             return cluster.members.includes(pid)
         })
@@ -117,24 +116,6 @@ class allCommentsForParticipant extends React.Component {
         return participantIds[0] === this.props.selectedParticipantId
     }
 
-    hasNextParticipant(direction) {
-        const participantIds = DataUtils.getParticipantIds(this.props.math)
-        if (!participantIds) {
-            return false
-        }
-
-        const currentParticipantIdx = participantIds.findIndex(
-            (id) => id === this.props.selectedParticipantId
-        )
-        const addToIdx = direction === ArrowButtonDirection.Next ? 1 : -1
-        const nextParticipantIdx = currentParticipantIdx + addToIdx
-        if (nextParticipantIdx in participantIds) {
-            const nextParticipantId = participantIds[nextParticipantIdx]
-            return nextParticipantId !== undefined
-        }
-        return false
-    }
-
     getNumberOfGroups() {
         return Object.keys(this.props.math['group-votes']).length
     }
@@ -163,9 +144,7 @@ class allCommentsForParticipant extends React.Component {
                         <ArrowButton
                             direction={ArrowButtonDirection.Previous}
                             target={ArrowButtonTarget.Participant}
-                            overrideDisabled={
-                                !this.hasNextParticipant(ArrowButtonDirection.Previous)
-                            }
+                            math={this.props.math}
                         ></ArrowButton>
                     )}
                 </div>
@@ -215,7 +194,7 @@ class allCommentsForParticipant extends React.Component {
                     <ArrowButton
                         direction={ArrowButtonDirection.Next}
                         target={ArrowButtonTarget.Participant}
-                        overrideDisabled={!this.hasNextParticipant(ArrowButtonDirection.Next)}
+                        math={this.props.math}
                     ></ArrowButton>
                 </div>
             </div>

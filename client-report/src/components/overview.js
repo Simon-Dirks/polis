@@ -2,7 +2,6 @@
 
 import React from 'react'
 import _ from 'lodash'
-import * as globals from './globals'
 
 const computeVoteTotal = (users) => {
     let voteTotal = 0
@@ -22,7 +21,7 @@ const Overview = ({
     // conversation,
     // demographics,
     ptptCount,
-    // ptptCountTotal,
+    ptptCountTotal,
     math,
     // comments,
     //stats,
@@ -31,7 +30,10 @@ const Overview = ({
     return (
         <div>
             <div>
-                <p className={'font-bold'}>{ptptCount}</p> <p>Deelnemers</p>
+                <p className={'font-bold'}>{ptptCount}</p> <p>gestemd</p>
+            </div>
+            <div>
+                <p className={'font-bold'}>{ptptCountTotal}</p> <p>gegroepeerd</p>
             </div>
             <div className={'mt-2'}>
                 <p className={'font-bold'}>{computeVoteTotal(math['user-vote-counts'])}</p>

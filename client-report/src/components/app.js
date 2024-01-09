@@ -508,6 +508,7 @@ class App extends React.Component {
                 <TitleMenuBar
                     math={this.state.math}
                     ptptCount={this.state.ptptCount}
+                    ptptCountTotal={this.state.ptptCountTotal}
                     conversation={this.state.conversation}
                 ></TitleMenuBar>
                 <ViewMenuBar
