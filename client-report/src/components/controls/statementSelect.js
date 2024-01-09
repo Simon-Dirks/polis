@@ -12,6 +12,20 @@ const StatementSelect = ({ selectedStatementId, updateSelectedStatementId, math,
     }, [comments])
     const selectedStatement = comments.find((comment) => comment.tid === selectedStatementId)
 
+    const getShortenedCommentText = (text) => {
+        if (!text) {
+            return ''
+        }
+
+        const numWords = 10
+        const textWords = text.split(' ')
+        const textNeedsShortening = textWords.length > numWords
+        if (textNeedsShortening) {
+            return textWords.slice(0, numWords).join(' ') + '...'
+        }
+        return text
+    }
+
     return (
         <DropDown buttonLabel={`Stelling ${selectedStatement.tid}`}>
             {sortedComments.map((comment) => {
@@ -26,7 +40,7 @@ const StatementSelect = ({ selectedStatementId, updateSelectedStatementId, math,
                                 updateSelectedStatementId(comment.tid)
                             }}
                         >
-                            Stelling {comment.tid} - {comment.txt}
+                            Stelling {comment.tid} - {getShortenedCommentText(comment.txt)}
                         </a>
                     </li>
                 )
