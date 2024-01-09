@@ -41,7 +41,8 @@ const ArrowButton = ({
     useEffect(() => {
         if (ArrowButtonTarget.Statement) {
             const nextTid = getNextCommentTid()
-            setDisabled(!nextTid)
+            let shouldBeDisabled = nextTid === undefined
+            setDisabled(shouldBeDisabled)
         }
     }, [selectedStatementId])
 
@@ -73,7 +74,7 @@ const ArrowButton = ({
                 break
             case ArrowButtonTarget.Statement: {
                 const nextTid = getNextCommentTid()
-                if (nextTid) {
+                if (nextTid !== undefined) {
                     updateSelectedStatementId(nextTid)
                 }
                 break
