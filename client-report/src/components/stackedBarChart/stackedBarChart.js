@@ -296,7 +296,7 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <>
-                <GroupColorLegend math={this.props.math} />
+                <GroupColorLegend math={this.props.math} showNoneColor={true} />
 
                 <div
                     className={'min-h-[140px] absolute w-[60%] left-[20%] pt-16 z-10'}

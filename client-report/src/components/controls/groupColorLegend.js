@@ -11,6 +11,7 @@ const GroupColorLegend = ({
     updateViewCategory,
     updateViewState,
     updateSelectedGroupId,
+    showNoneColor,
 }) => {
     const getNumberOfGroups = () => {
         return Object.keys(math['group-votes']).length
@@ -52,16 +53,18 @@ const GroupColorLegend = ({
                 )
             })}
 
-            <p className={'mb-2'}>
-                <svg
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={'h-6 inline-block mr-3 fill-[#A8A8A8]'}
-                >
-                    <circle cx="10" cy="10" r="10" />
-                </svg>
-                <span>Geen</span>
-            </p>
+            {showNoneColor && (
+                <p className={'mb-2'}>
+                    <svg
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className={'h-6 inline-block mr-3 fill-[#A8A8A8]'}
+                    >
+                        <circle cx="10" cy="10" r="10" />
+                    </svg>
+                    <span>Geen</span>
+                </p>
+            )}
         </div>
     )
 }
