@@ -15,6 +15,7 @@ import { ViewCategory, ViewState } from '../../models/viewState'
 import CommentList from './commentList'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
 import Tag from '../tag'
+import DataUtils from '../../util/dataUtils'
 
 class allCommentsForParticipant extends React.Component {
     constructor(props) {
@@ -108,6 +109,18 @@ class allCommentsForParticipant extends React.Component {
         return participantCommentVotes
     }
 
+    isFirstParticipant() {
+        const participantIds = DataUtils.getParticipantIds(this.props.math)
+        if (!participantIds) {
+            return false
+        }
+        return participantIds[0] === this.props.selectedParticipantId
+    }
+
+    getNumberOfGroups() {
+        return Object.keys(this.props.math['group-votes']).length
+    }
+
     render() {
         if (!this.props.conversation) {
             return <div>Loading..</div>
@@ -117,11 +130,25 @@ class allCommentsForParticipant extends React.Component {
             <div className={'h-full flex mt-6'}>
                 <div className="flex-1 flex items-center justify-center">
                     {/*TODO: Add disabled state*/}
-                    <ArrowButton
-                        direction={ArrowButtonDirection.Previous}
-                        target={ArrowButtonTarget.Participant}
-                        // disabled={false}
-                    ></ArrowButton>
+                    {this.isFirstParticipant() ? (
+                        <ArrowButton
+                            overrideDisabled={false}
+                            overrideClick={() => {
+                                this.props.updateSelectedParticipantId(-1)
+                                this.props.updateSelectedGroupId(this.getNumberOfGroups() - 1)
+                                this.props.updateViewCategory(ViewCategory.AllStatements)
+                                this.props.updateViewState(ViewState.AllStatementVotesSelectedGroup)
+                            }}
+                            direction={ArrowButtonDirection.Previous}
+                            target={ArrowButtonTarget.Group}
+                        ></ArrowButton>
+                    ) : (
+                        <ArrowButton
+                            direction={ArrowButtonDirection.Previous}
+                            target={ArrowButtonTarget.Participant}
+                            // disabled={false}
+                        ></ArrowButton>
+                    )}
                 </div>
 
                 <div className={'w-3/4 mx-auto overflow-y-auto'}>

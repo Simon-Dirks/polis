@@ -162,7 +162,7 @@ class allCommentsForGroup extends React.Component {
                                 this.props.updateViewCategory(ViewCategory.AllStatements)
                                 this.props.updateViewState(ViewState.Participant)
                             }}
-                            target={ArrowButtonTarget.Group}
+                            target={ArrowButtonTarget.Participant}
                             direction={ArrowButtonDirection.Next}
                         ></ArrowButton>
                     ) : (
