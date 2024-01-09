@@ -49,6 +49,7 @@ class allCommentsForParticipant extends React.Component {
         const participantGroupIdx = this.props.math['group-clusters'].findIndex((cluster) => {
             return cluster.members.includes(pid)
         })
+        console.log('PARTICIPANT', pid, 'BELONGS TO GROUP', participantGroupIdx)
         this.setState({ participantGroupId: participantGroupIdx })
     }
 
@@ -125,7 +126,7 @@ class allCommentsForParticipant extends React.Component {
                 </div>
 
                 <div className={'w-3/4 mx-auto overflow-y-auto'}>
-                    {this.state.participantGroupId > 0 && (
+                    {this.state.participantGroupId >= 0 && (
                         <p className={'text-xl text-kennislink-dark-gray'}>
                             Onderdeel van{' '}
                             <button
