@@ -49,7 +49,6 @@ class allCommentsForParticipant extends React.Component {
         const participantGroupIdx = this.props.math['group-clusters'].findIndex((cluster) => {
             return cluster.members.includes(pid)
         })
-        console.log('PARTICIPANT', pid, 'BELONGS TO GROUP', participantGroupIdx)
         this.setState({ participantGroupId: participantGroupIdx })
     }
 
