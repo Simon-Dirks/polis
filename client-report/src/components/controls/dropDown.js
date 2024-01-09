@@ -35,6 +35,7 @@ const DropDown = ({ buttonLabel, children }) => {
                     className={'ml-2 inline-block h-2'}
                 />
             </div>
+            {/*TODO: Collapse once an option has been clicked*/}
             <ul
                 tabIndex={0}
                 className="p-2 menu block dropdown-content dropdown-bottom z-[1] w-52 max-h-96 overflow-y-auto"
