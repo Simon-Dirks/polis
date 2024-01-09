@@ -63,28 +63,14 @@ class allCommentsForGroup extends React.Component {
         if (!this.props.math || this.props.gid === undefined || !this.props.comments) {
             return
         }
-        const commentsWithGroupVotes = []
-        const groupVotes = this.props.math['group-votes'][this.props.gid]['votes']
-        for (const [tid, commentVotes] of Object.entries(groupVotes)) {
-            const comment = this.props.comments.find((c) => c.tid === parseInt(tid))
-            if (!comment) {
-                // Some comments might have been voted on by participant, but are not part of the conversation (yet)
-                continue
-            }
 
-            const groupVotesForComment = {
-                txt: comment.txt,
-                tid: comment.tid,
-                pid: comment.pid,
-                agreed: commentVotes.A,
-                disagreed: commentVotes.D,
-                saw: commentVotes.S,
-            }
-
-            commentsWithGroupVotes.push(groupVotesForComment)
-        }
-
-        this.setState({ commentsWithGroupVotes: commentsWithGroupVotes })
+        this.setState({
+            commentsWithGroupVotes: DataUtils.getGroupVotesForComments(
+                this.props.gid,
+                this.props.math,
+                this.props.comments
+            ),
+        })
     }
 
     getNumberOfGroups() {
@@ -93,10 +79,6 @@ class allCommentsForGroup extends React.Component {
 
     isLastGroup() {
         return this.props.gid + 1 === this.getNumberOfGroups()
-    }
-
-    getParticipantIds() {
-        return
     }
 
     render() {

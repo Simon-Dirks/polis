@@ -1,6 +1,6 @@
 // Copyright (C) 2012-present, The Authors. This program is free software: you can redistribute it and/or  modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import * as globals from '../globals'
 // import Flex from "../framework/flex"
 // import style from "../../util/style";
@@ -11,6 +11,7 @@ import { updateSelectedGroupId, updateViewState } from '../../store/actions'
 import Tag from '../tag'
 import GroupColorLegend from '../controls/groupColorLegend'
 import ArrowButton, { ArrowButtonDirection, ArrowButtonTarget } from '../controls/arrowButton'
+import DataUtils from '../../util/dataUtils'
 
 const ParticipantGroup = ({
     gid,
@@ -43,6 +44,11 @@ const ParticipantGroup = ({
         return Object.keys(math['group-votes']).length
     }
 
+    const [commentsWithGroupVotes, setCommentsWithGroupVotes] = useState(undefined)
+    useEffect(() => {
+        setCommentsWithGroupVotes(DataUtils.getGroupVotesForComments(gid, math, comments))
+    }, [math, comments, gid])
+
     return (
         <div className={'h-full'}>
             <GroupColorLegend math={math} />
@@ -70,7 +76,7 @@ const ParticipantGroup = ({
                             tidsToRender={
                                 _.map(groupComments, 'tid') /* uncertainTids would be funnier */
                             }
-                            comments={comments}
+                            comments={commentsWithGroupVotes}
                             voteColors={groupVoteColors}
                         />
                     </div>

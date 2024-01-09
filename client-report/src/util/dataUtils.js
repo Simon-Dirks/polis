@@ -44,9 +44,35 @@ function getParticipantIds(math) {
     return []
 }
 
+function getGroupVotesForComments(gid, math, comments) {
+    const commentsWithGroupVotes = []
+    const groupVotes = math['group-votes'][gid]['votes']
+    for (const [tid, commentVotes] of Object.entries(groupVotes)) {
+        const comment = comments.find((c) => c.tid === parseInt(tid))
+        if (!comment) {
+            // Some comments might have been voted on by participant, but are not part of the conversation (yet)
+            continue
+        }
+
+        const groupVotesForComment = {
+            txt: comment.txt,
+            tid: comment.tid,
+            pid: comment.pid,
+            agreed: commentVotes.A,
+            disagreed: commentVotes.D,
+            saw: commentVotes.S,
+        }
+
+        commentsWithGroupVotes.push(groupVotesForComment)
+    }
+
+    return commentsWithGroupVotes
+}
+
 const dataUtils = {
     getVoteTotals: getVoteTotals,
     getGroupIdsForComment: getGroupIdsForComment,
     getParticipantIds: getParticipantIds,
+    getGroupVotesForComments: getGroupVotesForComments,
 }
 export default dataUtils
