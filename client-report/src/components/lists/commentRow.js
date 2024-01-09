@@ -45,7 +45,10 @@ const CommentRow = ({
                 </div>
                 <div>
                     <span className={'text-sm text-kennislink-dark-gray'}>
-                        Stelling {comment.tid}
+                        Stelling {comment.tid}{' '}
+                        <span className="text-[#969696] text-xs">
+                            ({comment.saw} {comment.saw === 1 ? 'stem' : 'stemmen'})
+                        </span>
                     </span>
                     <p className={'text-lg'}>{comment.txt}</p>
                 </div>
