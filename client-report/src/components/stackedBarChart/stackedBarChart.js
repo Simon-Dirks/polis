@@ -16,7 +16,6 @@ import DataUtils from '../../util/dataUtils'
 import CommentHighlight from '../lists/commentHighlight'
 import * as globals from '../globals'
 import Color from 'color'
-import GroupColorLegend from '../controls/groupColorLegend'
 import arrowHeadRight from '../../assets/arrow-head-right.svg'
 import arrowHeadLeft from '../../assets/arrow-head-left.svg'
 
@@ -296,7 +295,7 @@ class StackedBarChart extends React.Component {
     render() {
         return (
             <>
-                <GroupColorLegend math={this.props.math} showNoneColor={true} />
+                {/*<GroupColorLegend math={this.props.math} showNoneColor={true} />*/}
 
                 <div
                     className={'min-h-[140px] absolute w-[60%] left-[20%] pt-16 z-10'}

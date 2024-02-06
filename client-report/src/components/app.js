@@ -11,24 +11,17 @@ import _ from 'lodash'
 import * as globals from './globals'
 import DataUtils from '../util/dataUtils'
 // import Matrix from "./correlationMatrix/matrix";
-import AllCommentsModeratedIn from './lists/allCommentsModeratedIn'
-import ParticipantGroups from './lists/participantGroups'
 // import CommentsGraph from "./commentsGraph/commentsGraph";
-import ParticipantsGraph from './participantsGraph/participantsGraph'
 // import BoxPlot from "./boxPlot/boxPlot";
 import net from '../util/net'
 
 import $ from 'jquery'
-import AllCommentsForParticipant from './lists/allCommentsForParticipant'
-import AllCommentsForGroup from './lists/allCommentsForGroup'
 import StackedBarChart from './stackedBarChart/stackedBarChart'
 import { ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import { updateViewState } from '../store/actions'
-import CommentVotesPerGroup from './commentVotesPerGroup'
 import TitleMenuBar from './controls/titleMenuBar'
-import ViewMenuBar from './controls/viewMenuBar'
 import HelpButton from './helpButton'
 import WelcomeOverlay from './welcomeOverlay'
 
@@ -511,12 +504,13 @@ class App extends React.Component {
                     ptptCountTotal={this.state.ptptCountTotal}
                     conversation={this.state.conversation}
                 ></TitleMenuBar>
-                <ViewMenuBar
-                    math={this.state.math}
-                    ptptCount={this.state.ptptCount}
-                    conversation={this.state.conversation}
-                    comments={this.state.comments}
-                ></ViewMenuBar>
+
+                {/*<ViewMenuBar*/}
+                {/*    math={this.state.math}*/}
+                {/*    ptptCount={this.state.ptptCount}*/}
+                {/*    conversation={this.state.conversation}*/}
+                {/*    comments={this.state.comments}*/}
+                {/*></ViewMenuBar>*/}
                 {/*<Heading conversation={this.state.conversation} />*/}
                 <div className={'p-8 pt-28 pb-0 h-full overflow-y-auto'}>
                     {/*<Controls*/}
@@ -586,113 +580,113 @@ class App extends React.Component {
                         </>
                     )}
 
-                    {this.props.viewState === ViewState.AllStatementVotes && (
-                        <>
-                            <AllCommentsModeratedIn
-                                math={this.state.math}
-                                comments={this.state.comments}
-                                conversation={this.state.conversation}
-                                ptptCount={this.state.ptptCount}
-                                formatTid={this.state.formatTid}
-                                voteColors={this.state.voteColors}
-                            />
-                        </>
-                    )}
+                    {/*{this.props.viewState === ViewState.AllStatementVotes && (*/}
+                    {/*    <>*/}
+                    {/*        <AllCommentsModeratedIn*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            conversation={this.state.conversation}*/}
+                    {/*            ptptCount={this.state.ptptCount}*/}
+                    {/*            formatTid={this.state.formatTid}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*        />*/}
+                    {/*    </>*/}
+                    {/*)}*/}
 
-                    {this.props.viewState === ViewState.ParticipantsGraph && (
-                        <div>
-                            <ParticipantsGraph
-                                comments={this.state.comments}
-                                participants={this.state.participants}
-                                groupNames={this.state.groupNames}
-                                badTids={this.state.badTids}
-                                colorBlindMode={this.state.colorBlindMode}
-                                formatTid={this.state.formatTid}
-                                repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                                math={this.state.math}
-                                renderHeading={false}
-                                report={this.state.report}
-                                voteColors={this.state.voteColors}
-                                showParticipants={true}
-                                showComments={false}
-                            />
-                        </div>
-                    )}
+                    {/*{this.props.viewState === ViewState.ParticipantsGraph && (*/}
+                    {/*    <div>*/}
+                    {/*        <ParticipantsGraph*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            participants={this.state.participants}*/}
+                    {/*            groupNames={this.state.groupNames}*/}
+                    {/*            badTids={this.state.badTids}*/}
+                    {/*            colorBlindMode={this.state.colorBlindMode}*/}
+                    {/*            formatTid={this.state.formatTid}*/}
+                    {/*            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            renderHeading={false}*/}
+                    {/*            report={this.state.report}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*            showParticipants={true}*/}
+                    {/*            showComments={false}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
 
-                    {this.props.viewState === ViewState.Participant && (
-                        <AllCommentsForParticipant
-                            math={this.state.math}
-                            comments={this.state.comments}
-                            conversation={this.state.conversation}
-                            voteColors={this.state.voteColors}
-                        />
-                    )}
+                    {/*{this.props.viewState === ViewState.Participant && (*/}
+                    {/*    <AllCommentsForParticipant*/}
+                    {/*        math={this.state.math}*/}
+                    {/*        comments={this.state.comments}*/}
+                    {/*        conversation={this.state.conversation}*/}
+                    {/*        voteColors={this.state.voteColors}*/}
+                    {/*    />*/}
+                    {/*)}*/}
 
-                    {this.props.viewState === ViewState.GroupRepresentativeComments && (
-                        <>
-                            <ParticipantGroups
-                                comments={this.state.comments}
-                                conversation={this.state.conversation}
-                                demographics={this.state.demographics}
-                                ptptCount={this.state.ptptCount}
-                                groupNames={this.state.groupNames}
-                                formatTid={this.state.formatTid}
-                                math={this.state.math}
-                                badTids={this.state.badTids}
-                                repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}
-                                repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}
-                                report={this.state.report}
-                                voteColors={this.state.voteColors}
-                                gidsToRender={[this.props.selectedGroupId ?? 0]}
-                            />
-                        </>
-                    )}
+                    {/*{this.props.viewState === ViewState.GroupRepresentativeComments && (*/}
+                    {/*    <>*/}
+                    {/*        <ParticipantGroups*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            conversation={this.state.conversation}*/}
+                    {/*            demographics={this.state.demographics}*/}
+                    {/*            ptptCount={this.state.ptptCount}*/}
+                    {/*            groupNames={this.state.groupNames}*/}
+                    {/*            formatTid={this.state.formatTid}*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            badTids={this.state.badTids}*/}
+                    {/*            repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
+                    {/*            repfulDisageeTidsByGroup={this.state.repfulDisageeTidsByGroup}*/}
+                    {/*            report={this.state.report}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*            gidsToRender={[this.props.selectedGroupId ?? 0]}*/}
+                    {/*        />*/}
+                    {/*    </>*/}
+                    {/*)}*/}
 
-                    {this.props.viewState === ViewState.AllStatementVotesSelectedGroup && (
-                        <>
-                            <AllCommentsForGroup
-                                math={this.state.math}
-                                comments={this.state.comments}
-                                conversation={this.state.conversation}
-                                gid={this.props.selectedGroupId ?? 0}
-                                ptptCount={this.state.ptptCount}
-                                formatTid={this.state.formatTid}
-                                voteColors={this.state.voteColors}
-                            />
-                        </>
-                    )}
+                    {/*{this.props.viewState === ViewState.AllStatementVotesSelectedGroup && (*/}
+                    {/*    <>*/}
+                    {/*        <AllCommentsForGroup*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            conversation={this.state.conversation}*/}
+                    {/*            gid={this.props.selectedGroupId ?? 0}*/}
+                    {/*            ptptCount={this.state.ptptCount}*/}
+                    {/*            formatTid={this.state.formatTid}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*        />*/}
+                    {/*    </>*/}
+                    {/*)}*/}
 
-                    {this.props.viewState === ViewState.Statement && (
-                        <>
-                            <CommentVotesPerGroup
-                                math={this.state.math}
-                                voteColors={this.state.voteColors}
-                                groupVotes={this.state.math['group-votes']}
-                                comments={this.state.comments}
-                                commentTid={this.props.selectedStatementId}
-                            ></CommentVotesPerGroup>
-                        </>
-                    )}
+                    {/*{this.props.viewState === ViewState.Statement && (*/}
+                    {/*    <>*/}
+                    {/*        <CommentVotesPerGroup*/}
+                    {/*            math={this.state.math}*/}
+                    {/*            voteColors={this.state.voteColors}*/}
+                    {/*            groupVotes={this.state.math['group-votes']}*/}
+                    {/*            comments={this.state.comments}*/}
+                    {/*            commentTid={this.props.selectedStatementId}*/}
+                    {/*        ></CommentVotesPerGroup>*/}
+                    {/*    </>*/}
+                    {/*)}*/}
 
-                    <div className={'hidden'}>
-                        {/*<h1>Statements graph</h1>*/}
+                    {/*<div className={'hidden'}>*/}
+                    {/*<h1>Statements graph</h1>*/}
 
-                        {/*<ParticipantsGraph*/}
-                        {/*    comments={this.state.comments}*/}
-                        {/*    participants={this.state.participants}*/}
-                        {/*    groupNames={this.state.groupNames}*/}
-                        {/*    badTids={this.state.badTids}*/}
-                        {/*    colorBlindMode={this.state.colorBlindMode}*/}
-                        {/*    formatTid={this.state.formatTid}*/}
-                        {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
-                        {/*    math={this.state.math}*/}
-                        {/*    renderHeading={false}*/}
-                        {/*    report={this.state.report}*/}
-                        {/*    voteColors={this.state.voteColors}*/}
-                        {/*    showParticipants={false}*/}
-                        {/*    showComments={true}*/}
-                        {/*/>*/}
-                    </div>
+                    {/*<ParticipantsGraph*/}
+                    {/*    comments={this.state.comments}*/}
+                    {/*    participants={this.state.participants}*/}
+                    {/*    groupNames={this.state.groupNames}*/}
+                    {/*    badTids={this.state.badTids}*/}
+                    {/*    colorBlindMode={this.state.colorBlindMode}*/}
+                    {/*    formatTid={this.state.formatTid}*/}
+                    {/*    repfulAgreeTidsByGroup={this.state.repfulAgreeTidsByGroup}*/}
+                    {/*    math={this.state.math}*/}
+                    {/*    renderHeading={false}*/}
+                    {/*    report={this.state.report}*/}
+                    {/*    voteColors={this.state.voteColors}*/}
+                    {/*    showParticipants={false}*/}
+                    {/*    showComments={true}*/}
+                    {/*/>*/}
+                    {/*</div>*/}
 
                     {/*<Uncertainty*/}
                     {/*    math={this.state.math}*/}
