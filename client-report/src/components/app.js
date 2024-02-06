@@ -23,7 +23,7 @@ import { updateViewState } from '../store/actions'
 import TitleMenuBar from './controls/titleMenuBar'
 import HelpButton from './helpButton'
 import WelcomeOverlay from './welcomeOverlay'
-import VarianceChart from './stackedBarChart/varianceChart'
+import VarianceChart from './varianceChart/varianceChart'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]

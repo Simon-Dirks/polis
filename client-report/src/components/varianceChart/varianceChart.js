@@ -48,9 +48,9 @@ class VarianceChart extends Component {
 
         const circlesData = []
 
-        for (let row = 0; row < this.state.numRows; row++) {
-            for (let i = 0; i < this.state.numCirclesPerRow; i++) {
-                circlesData.push({ row, index: i })
+        for (let colIdx = 0; colIdx < this.state.numCirclesPerRow; colIdx++) {
+            for (let rowIdx = this.state.numRows - 1; rowIdx >= 0; rowIdx--) {
+                circlesData.push({ row: rowIdx, index: colIdx })
             }
         }
 
@@ -62,8 +62,14 @@ class VarianceChart extends Component {
             .append('circle')
             .attr('cx', (d) => (d.index + 0.5) * (circleRadius * 2 + padding))
             .attr('cy', (d) => (d.row + 0.5) * (circleRadius * 2 + padding))
-            .attr('r', circleRadius)
+            .attr('r', circleRadius / 2)
             .attr('fill', 'steelblue')
+            .attr('opacity', '0')
+            .transition()
+            .duration(1000)
+            .delay((d, i) => i * 15)
+            .attr('r', circleRadius)
+            .attr('opacity', '1')
     }
 
     render() {
