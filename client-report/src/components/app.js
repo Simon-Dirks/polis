@@ -512,7 +512,7 @@ class App extends React.Component {
                 {/*    comments={this.state.comments}*/}
                 {/*></ViewMenuBar>*/}
                 {/*<Heading conversation={this.state.conversation} />*/}
-                <div className={'p-8 pt-28 pb-0 h-full overflow-y-auto'}>
+                <div className={'p-8 pt-20 pb-8 h-full overflow-y-auto'}>
                     {/*<Controls*/}
                     {/*    onAutoRefreshEnabled={this.onAutoRefreshEnabled.bind(this)}*/}
                     {/*    handleColorblindModeClick={this.handleColorblindModeClick.bind(this)}*/}
