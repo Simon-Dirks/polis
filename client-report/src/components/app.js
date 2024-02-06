@@ -16,7 +16,6 @@ import DataUtils from '../util/dataUtils'
 import net from '../util/net'
 
 import $ from 'jquery'
-import StackedBarChart from './stackedBarChart/stackedBarChart'
 import { ViewState } from '../models/viewState'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
@@ -24,6 +23,7 @@ import { updateViewState } from '../store/actions'
 import TitleMenuBar from './controls/titleMenuBar'
 import HelpButton from './helpButton'
 import WelcomeOverlay from './welcomeOverlay'
+import VarianceChart from './stackedBarChart/varianceChart'
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
@@ -561,9 +561,16 @@ class App extends React.Component {
                             {/*    voteColors={this.state.voteColors}*/}
                             {/*/>*/}
 
-                            <StackedBarChart
+                            {/*<StackedBarChart*/}
+                            {/*    conversation={this.state.conversation}*/}
+                            {/*    extremity={this.state.extremity}*/}
+                            {/*    math={this.state.math}*/}
+                            {/*    comments={this.state.comments}*/}
+                            {/*    voteColors={this.state.voteColors}*/}
+                            {/*/>*/}
+
+                            <VarianceChart
                                 conversation={this.state.conversation}
-                                extremity={this.state.extremity}
                                 math={this.state.math}
                                 comments={this.state.comments}
                                 voteColors={this.state.voteColors}
