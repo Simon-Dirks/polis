@@ -65,12 +65,15 @@ function getGroupVotesForComments(gid, math, comments) {
     return commentsWithGroupVotes
 }
 
-function calculateVariance(arr) {
-    if (arr.length === 0) return NaN
+function calculateVariance(votes) {
+    if (votes.length === 0) {
+        return 0
+    }
 
-    const mean = arr.reduce((acc, val) => acc + val, 0) / arr.length
-    const squaredDifferences = arr.map((val) => Math.pow(val - mean, 2))
-    const variance = squaredDifferences.reduce((acc, val) => acc + val, 0) / (arr.length - 1)
+    const mean = votes.reduce((sum, vote) => sum + vote, 0) / votes.length
+    const squaredDifferences = votes.map((vote) => Math.pow(vote - mean, 2))
+    const variance =
+        squaredDifferences.reduce((sum, squaredDiff) => sum + squaredDiff, 0) / votes.length
 
     return variance
 }
