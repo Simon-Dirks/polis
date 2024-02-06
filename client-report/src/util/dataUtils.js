@@ -65,10 +65,21 @@ function getGroupVotesForComments(gid, math, comments) {
     return commentsWithGroupVotes
 }
 
+function calculateVariance(arr) {
+    if (arr.length === 0) return NaN
+
+    const mean = arr.reduce((acc, val) => acc + val, 0) / arr.length
+    const squaredDifferences = arr.map((val) => Math.pow(val - mean, 2))
+    const variance = squaredDifferences.reduce((acc, val) => acc + val, 0) / (arr.length - 1)
+
+    return variance
+}
+
 const dataUtils = {
     getVoteTotals: getVoteTotals,
     getGroupIdsForComment: getGroupIdsForComment,
     getParticipantIds: getParticipantIds,
     getGroupVotesForComments: getGroupVotesForComments,
+    calculateVariance: calculateVariance,
 }
 export default dataUtils
