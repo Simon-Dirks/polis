@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
+import PercentageVotesBlock from './percentageVotesBlock'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -57,7 +58,7 @@ class VarianceChart extends Component {
                 if (animate && !that.state.introAnimationCompleted) {
                     return
                 }
-                that.setState({ selectedComment: circleData.text })
+                that.setState({ selectedComment: circleData.comment })
                 d3.select(this)
                     .transition()
                     .duration(timeForHoverAnimationInMs)
@@ -73,6 +74,7 @@ class VarianceChart extends Component {
                 if (animate && !that.state.introAnimationCompleted) {
                     return
                 }
+
                 d3.select(this)
                     .transition()
                     .duration(timeForHoverAnimationInMs)
@@ -135,6 +137,9 @@ class VarianceChart extends Component {
             comment.variance = variance
             minVariance = variance < minVariance ? variance : minVariance
             maxVariance = variance > maxVariance ? variance : maxVariance
+
+            comment.passed = comment.saw - comment.agreed - comment.disagreed
+
             return comment
         })
 
@@ -164,7 +169,7 @@ class VarianceChart extends Component {
                 circlesData.push({
                     row: slotRowIdx,
                     index: slotColIdx,
-                    text: JSON.stringify(slotItem),
+                    comment: slotItem,
                 })
             }
         }
@@ -202,8 +207,39 @@ class VarianceChart extends Component {
     render() {
         return (
             <div className="flex flex-col w-full h-full">
-                <div className="flex-grow pb-8">
-                    {this.state.selectedComment && <p>{this.state.selectedComment}</p>}
+                <div
+                    className="flex-grow-0 pb-8 flex"
+                    style={{ visibility: this.state.selectedComment ? 'visible' : 'hidden' }}
+                >
+                    <>
+                        <div className={'w-64 flex-grow-0'}>
+                            <PercentageVotesBlock
+                                color={'#0097F6'}
+                                percentage={this.state.selectedComment?.pctAgreed}
+                                label={'Eens'}
+                            />
+                            <PercentageVotesBlock
+                                color={'#FA3EA4'}
+                                percentage={this.state.selectedComment?.pctDisagreed}
+                                label={'Oneens'}
+                            />
+                            <PercentageVotesBlock
+                                color={'#FFE63A'}
+                                percentage={this.state.selectedComment?.pctVoted}
+                                label={'Overslaan'}
+                            />
+                        </div>
+                        <div className={'flex-grow ml-8'}>
+                            {this.state.selectedComment && (
+                                <>
+                                    {/*<p>{JSON.stringify(this.state.selectedComment)}</p>*/}
+                                    <p>Stelling {this.state.selectedComment?.tid}</p>
+                                    <p className={'text-5xl'}>{this.state.selectedComment?.txt}</p>
+                                    <p>Aantal stemmen: {this.state.selectedComment?.saw}</p>
+                                </>
+                            )}
+                        </div>
+                    </>
                 </div>
 
                 <div className="flex-grow mb-4">

@@ -10,6 +10,9 @@ module.exports = {
                 'kennislink-tag-border': '#BFBFBF',
                 'kennislink-dark-gray': '#464646',
             },
+            fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+            },
         },
     },
     plugins: [require('daisyui')],
