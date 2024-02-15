@@ -20,7 +20,7 @@ class VarianceChart extends Component {
         super(props)
         this.state = {
             numCirclesPerRow: 36,
-            padding: 3,
+            paddingPx: 3,
             selectedComment: undefined,
             introAnimationCompleted: false,
         }
@@ -118,7 +118,7 @@ class VarianceChart extends Component {
     // }
 
     initCircles(svg, circlesData, circleRadius) {
-        const padding = this.state.padding - 1 // quick fix for making sure the very far right pixel of a circle is not cut off
+        const padding = this.state.paddingPx - 1 // quick fix for making sure the very far right pixel of a circle is not cut off
         // const svgWidth = svg.node().getBoundingClientRect().width
         const svgHeight = svg.node().getBoundingClientRect().height
 
@@ -216,7 +216,7 @@ class VarianceChart extends Component {
             containerHeight,
             isMobile ? numRows : this.state.numCirclesPerRow,
             isMobile ? this.state.numCirclesPerRow : numRows,
-            this.state.padding
+            this.state.paddingPx
         )
 
         svg.selectAll('circle').remove()
@@ -233,7 +233,7 @@ class VarianceChart extends Component {
         let contentHeight = '100%'
         if (isMobile) {
             contentHeight = `${
-                this.state.numCirclesPerRow * (2 * circleRadius + this.state.padding)
+                this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
             }px`
         }
         svg.attr('width', '100%').attr('height', contentHeight)
