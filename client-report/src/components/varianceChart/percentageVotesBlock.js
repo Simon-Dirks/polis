@@ -8,8 +8,8 @@ const PercentageVotesBlock = ({ percentage, label, color, backgroundColor, isLas
             style={{ background: backgroundColor, marginBottom: isLast ? '0' : '0.5rem' }}
         >
             <div
-                className={'w-[70%] h-full z-10 absolute top-0 left-0 rounded-lg'}
-                style={{ background: color, width: percentageStr + '%' }}
+                className={'h-full z-10 absolute top-0 left-0 rounded-lg'}
+                style={{ background: color, width: percentageStr + '%', transition: 'width 0.75s' }}
             ></div>
             <div className={'relative z-20'}>
                 <p>
