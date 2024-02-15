@@ -4,6 +4,7 @@ import DataUtils from '../../util/dataUtils'
 import PercentageVotesBlocks from './percentageVotesBlocks'
 import CommentContent from './commentContent'
 import HorizontalVarianceAxis from './horizontalVarianceAxis'
+import closeIcon from '../../assets/close.svg'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -296,10 +297,18 @@ class VarianceChart extends Component {
 
                 {/* MOBILE COMMENT DETAILS */}
                 <div
-                    className="md:!hidden border-t border-t-kennislink-light-gray p-6"
+                    className="md:!hidden border-t border-t-kennislink-light-gray p-6 relative"
                     style={{ display: this.state.selectedComment ? 'block' : 'none' }}
                 >
                     <>
+                        <button
+                            className={'absolute top-4 right-4'}
+                            onClick={() => {
+                                this.setState({ selectedComment: undefined })
+                            }}
+                        >
+                            <img src={closeIcon} alt="close icon" />
+                        </button>
                         <div className="mb-4">
                             <PercentageVotesBlocks comment={this.state.selectedComment} />
                         </div>
