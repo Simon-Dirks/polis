@@ -14,6 +14,9 @@ module.exports = {
             fontFamily: {
                 inter: ['Inter', 'sans-serif'],
             },
+            overflow: {
+                initial: 'initial',
+            },
         },
     },
     plugins: [require('daisyui')],

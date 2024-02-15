@@ -226,8 +226,6 @@ class VarianceChart extends Component {
         const containerWidth = container.clientWidth
         const containerHeight = container.clientHeight
 
-        console.log(containerWidth, containerHeight)
-
         const isMobile = this.isMobile()
 
         const [circlesData, numRows] = this.getCirclesData()
@@ -265,10 +263,10 @@ class VarianceChart extends Component {
     render() {
         return (
             <div className="flex flex-col w-full h-full">
+                {/* DESKTOP COMMENT DETAILS */}
                 <div
-                    className="flex-grow-0 pb-8 hidden md:flex mx-20"
+                    className="flex-grow-0 hidden md:flex mx-20"
                     style={{ visibility: this.state.selectedComment ? 'visible' : 'hidden' }}
-                    id={'desktop-comment-info'}
                 >
                     <>
                         <div className={'w-64 flex-grow-0'}>
@@ -280,14 +278,33 @@ class VarianceChart extends Component {
                     </>
                 </div>
 
-                <div className="flex-grow md:mb-24 max-w-full">
-                    <svg
-                        ref={this.svgRef}
-                        className="mb-16 md:mb-0"
-                        style={{ maxWidth: '100%' }}
-                    ></svg>
+                {/* SVG */}
+                <div
+                    className="flex-grow md:mb-20"
+                    style={{ overflowY: this.isMobile() ? 'auto' : 'initial' }}
+                >
+                    <div className="max-w-full md:h-full mx-8 md:mx-0">
+                        <svg
+                            ref={this.svgRef}
+                            className="mb-16 md:mb-0"
+                            style={{ maxWidth: '100%' }}
+                        ></svg>
 
-                    <HorizontalVarianceAxis width={this.state.svgWidth} />
+                        <HorizontalVarianceAxis width={this.state.svgWidth} />
+                    </div>
+                </div>
+
+                {/* MOBILE COMMENT DETAILS */}
+                <div
+                    className="md:hidden border-t border-t-kennislink-light-gray p-6"
+                    style={{ display: this.state.selectedComment ? 'block' : 'none' }}
+                >
+                    <>
+                        <div className="mb-4">
+                            <PercentageVotesBlocks comment={this.state.selectedComment} />
+                        </div>
+                        <CommentContent comment={this.state.selectedComment} />
+                    </>
                 </div>
             </div>
         )
