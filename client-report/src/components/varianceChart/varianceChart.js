@@ -9,7 +9,7 @@ import arrowLeft from '../../assets/arrow-left.svg'
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
 
-const timeForHoverAnimationInMs = 250
+const timeForHoverAnimationInMs = 100
 // const timeForIntroAnimationInMs = 750
 // const delayBetweenCirclesInMs = 0 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
 
@@ -70,39 +70,33 @@ class VarianceChart extends Component {
 
     initCircleHover(svg, animate) {
         const that = this
-        svg.selectAll('circle')
-            .on('mouseover', function (circleData) {
-                if (animate && !that.state.introAnimationCompleted) {
-                    return
-                }
-                that.setState({ selectedComment: circleData.comment })
-                d3.select(this)
-                    .transition()
-                    .duration(timeForHoverAnimationInMs)
-                    .attrTween('fill', function () {
-                        const startColor = d3.rgb(circleColor)
-                        const endColor = d3.rgb(circleColorOnHover)
-                        return function (t) {
-                            return d3.interpolate(startColor, endColor)(t)
-                        }
-                    })
-            })
-            .on('mouseout', function () {
-                if (animate && !that.state.introAnimationCompleted) {
-                    return
-                }
 
-                d3.select(this)
-                    .transition()
-                    .duration(timeForHoverAnimationInMs)
-                    .attrTween('fill', function () {
-                        const startColor = d3.rgb(circleColorOnHover)
-                        const endColor = d3.rgb(circleColor)
-                        return function (t) {
-                            return d3.interpolate(startColor, endColor)(t)
-                        }
-                    })
+        const onCircleSelect = function (circleData) {
+            if (animate && !that.state.introAnimationCompleted) {
+                return
+            }
+            that.setState({ selectedComment: circleData.comment })
+
+            that.deselectAllCircles()
+
+            d3.select(this)
+                .transition()
+                .duration(timeForHoverAnimationInMs)
+                .attrTween('fill', function () {
+                    const startColor = d3.rgb(circleColor)
+                    const endColor = d3.rgb(circleColorOnHover)
+                    return function (t) {
+                        return d3.interpolate(startColor, endColor)(t)
+                    }
+                })
+        }
+
+        svg.selectAll('circle')
+            .on('mouseover', onCircleSelect)
+            .on('mouseout', function () {
+                that.deselectCircle(d3.select(this))
             })
+            .on('click', onCircleSelect)
     }
     //
     // initCircleIntroAnimation(circles, radius) {
@@ -206,6 +200,21 @@ class VarianceChart extends Component {
         return [circlesData, maxSlotItems]
     }
 
+    deselectCircle(c) {
+        c.transition()
+            .duration(timeForHoverAnimationInMs)
+            .attrTween('fill', function () {
+                const startColor = d3.color(d3.select(this).attr('fill')) || d3.rgb(circleColor)
+                const endColor = d3.rgb(circleColor)
+                return (t) => d3.interpolate(startColor, endColor)(t)
+            })
+    }
+
+    deselectAllCircles() {
+        const svg = d3.select(this.svgRef.current)
+        this.deselectCircle(svg.selectAll('circle'))
+    }
+
     removeAllCircles() {
         const svg = d3.select(this.svgRef.current)
         svg.selectAll('circle').remove()
@@ -286,7 +295,7 @@ class VarianceChart extends Component {
                             <img src={arrowLeft} alt={'Arrow icon'} className={'h-8 mr-2 inline'} />
                             <span>Stellingen met overeenstemming</span>
                         </p>
-                        <p className={'absolute top-0 right-0'}>
+                        <p className={'absolute top-0 right-8'}>
                             <span>Stellingen met verdeeldheid</span>
                             <img
                                 src={arrowRight}
