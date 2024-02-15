@@ -5,6 +5,7 @@ import PercentageVotesBlocks from './percentageVotesBlocks'
 import CommentContent from './commentContent'
 import HorizontalVarianceAxis from './horizontalVarianceAxis'
 import closeIcon from '../../assets/close.svg'
+import VerticalVarianceAxis from './verticalVarianceAxis'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -251,9 +252,10 @@ class VarianceChart extends Component {
         let contentWidth = this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
         let contentHeight = '100%'
         if (isMobile) {
-            contentHeight = `${
+            const contentHeightPx =
                 this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
-            }px`
+            contentHeight = `${contentHeightPx}px`
+            this.setState({ svgHeight: contentHeightPx })
         }
         this.setState({ svgWidth: contentWidth })
 
@@ -284,20 +286,21 @@ class VarianceChart extends Component {
                     className="flex-grow md:mb-20 pt-4 md:pt-0"
                     style={{ overflowY: this.isMobile() ? 'auto' : 'initial' }}
                 >
-                    <div className="max-w-full md:h-full mx-8 md:mx-0">
+                    <div className="max-w-full md:h-full mx-16 md:mx-0 relative">
                         <svg
                             ref={this.svgRef}
                             className="mb-16 md:mb-0"
                             style={{ maxWidth: '100%' }}
                         ></svg>
 
+                        <VerticalVarianceAxis height={this.state.svgHeight} />
                         <HorizontalVarianceAxis width={this.state.svgWidth} />
                     </div>
                 </div>
 
                 {/* MOBILE COMMENT DETAILS */}
                 <div
-                    className="md:!hidden border-t border-t-kennislink-light-gray p-6 relative"
+                    className="md:!hidden border-t border-t-kennislink-light-gray p-6 relative z-20"
                     style={{ display: this.state.selectedComment ? 'block' : 'none' }}
                 >
                     <>
