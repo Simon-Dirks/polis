@@ -4,8 +4,13 @@ const PercentageVotesBlock = ({ percentage, label, color, backgroundColor, isLas
     const percentageStr = percentage === undefined ? '...' : Math.round(percentage * 100).toString()
     return (
         <div
-            className={'rounded-lg px-4 py-2 relative font-medium w-1/2 md:w-72'}
-            style={{ background: backgroundColor, marginBottom: isLast ? '0' : '0.5rem' }}
+            className={`rounded-lg px-4 py-0.5 md:py-2 relative font-medium w-1/2 md:w-72 mb-0.5 md:mb-2 ${
+                isLast ? '!mb-0' : ''
+            }`}
+            style={{
+                background: backgroundColor,
+                minWidth: '10rem',
+            }}
         >
             <div
                 className={'h-full z-10 absolute top-0 left-0 rounded-lg'}

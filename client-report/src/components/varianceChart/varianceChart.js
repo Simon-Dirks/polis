@@ -296,7 +296,7 @@ class VarianceChart extends Component {
 
                 {/* MOBILE COMMENT DETAILS */}
                 <div
-                    className="md:hidden border-t border-t-kennislink-light-gray p-6"
+                    className="md:!hidden border-t border-t-kennislink-light-gray p-6"
                     style={{ display: this.state.selectedComment ? 'block' : 'none' }}
                 >
                     <>

@@ -61,7 +61,7 @@ const TitleMenuBar = ({
                             updateWelcomeShown(true)
                         }}
                     >
-                        <img src={infoIcon} alt={'info icon'} className={'h-4 inline mr-2'} />
+                        <img src={infoIcon} alt={'info icon'} className={'h-4 inline md:mr-2'} />
                         <span>Over deze tool</span>
                     </button>
                     <button
@@ -74,7 +74,7 @@ const TitleMenuBar = ({
                         <img
                             src={megaphoneIcon}
                             alt={'megaphone icon'}
-                            className={'h-4 mr-2 inline py-[0.05rem]'}
+                            className={'h-4 md:mr-2 inline py-[0.05rem]'}
                         />
                         <span>Stem mee</span>
                     </button>
