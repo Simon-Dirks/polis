@@ -7,12 +7,12 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
     return (
         <div
             className={
-                'fixed w-screen h-screen bg-[rgba(255,255,255,0.6)] z-[99] p-8 flex items-center justify-center'
+                'fixed w-screen h-screen bg-[rgba(255,255,255,0.6)] z-[99] p-4 md:p-8 flex items-center justify-center'
             }
         >
             <div
                 className={
-                    'w-9/12 max-w-[80rem] bg-kennislink-dark-blue text-white p-16 rounded-xl text-2xl'
+                    'w-11/12 md:w-9/12 max-w-[80rem] bg-kennislink-dark-blue text-white p-16 rounded-xl text-2xl'
                 }
             >
                 <p className={'text-5xl font-medium mb-6'}>
@@ -29,25 +29,25 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
                 </p>
                 <p>Heb je nog niet gestemd? Doe dat dan eerst.</p>
 
-                <div className={'mt-8 text-center'}>
+                <div className={'mt-8 text-left md:text-center'}>
                     <button
                         className={
-                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl block md:inline-block mb-2 md:mb-0'
                         }
                         onClick={() => updateWelcomeShown(false)}
                     >
                         Ontdek nu
                     </button>
-                    <span className={'mx-4'}> of </span>
-                    <a
+                    <span className={'hidden md:inline-block mx-4'}> of </span>
+                    <button
                         className={
-                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl block md:inline-block'
                         }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}
                     >
                         Eerst stemmen
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>

@@ -37,10 +37,6 @@ const TitleMenuBar = ({
                     {conversation.topic}
                 </span>
 
-                <p className={'block md:hidden ml-8 font-bold text-center w-full'}>
-                    U bent nu hier:
-                </p>
-
                 <div className={'ml-12 hidden xl:block'}>
                     <span>
                         <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
@@ -56,21 +52,21 @@ const TitleMenuBar = ({
                     </span>
                 </div>
 
-                <div className={'absolute right-8 hidden md:block'}>
+                <div className={'text-center w-full md:w-auto md:text-left md:absolute md:right-8'}>
                     <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold mr-6'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold w-[45%] md:w-auto mr-6 inline-block text-left'
                         }
                         onClick={() => {
                             updateWelcomeShown(true)
                         }}
                     >
-                        <img src={infoIcon} alt={'info icon'} className={'h-4'} />
-                        <span>Over deze tool</span>
+                        <img src={infoIcon} alt={'info icon'} className={'h-4 inline mr-2'} />
+                        <span className={'relative top-[0.1rem]'}>Over deze tool</span>
                     </button>
-                    <a
+                    <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold inline-block text-left'
                         }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}
@@ -78,10 +74,10 @@ const TitleMenuBar = ({
                         <img
                             src={megaphoneIcon}
                             alt={'megaphone icon'}
-                            className={'h-4 py-[0.05rem]'}
+                            className={'h-4 mr-2 inline py-[0.05rem]'}
                         />
-                        <span>Stem mee</span>
-                    </a>
+                        <span className={'relative top-[0.1rem]'}>Stem mee</span>
+                    </button>
                 </div>
             </div>
         </div>
