@@ -5,7 +5,6 @@ import { updateViewCategory, updateViewState, updateWelcomeShown } from '../../s
 import _ from 'lodash'
 import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
-import { ViewCategory, ViewState } from '../../models/viewState'
 
 const TitleMenuBar = ({
     viewState,
@@ -34,15 +33,9 @@ const TitleMenuBar = ({
             }
         >
             <div className={'p-2 flex-1 flex items-center md:pr-[22rem]'}>
-                <button
-                    className={'hidden md:block ml-8 font-bold text-left'}
-                    onClick={() => {
-                        updateViewCategory(ViewCategory.Home)
-                        updateViewState(ViewState.StatementsGraph)
-                    }}
-                >
+                <span className={'hidden md:block ml-8 font-bold text-left'}>
                     {conversation.topic}
-                </button>
+                </span>
 
                 <p className={'block md:hidden ml-8 font-bold text-center w-full'}>
                     U bent nu hier:
