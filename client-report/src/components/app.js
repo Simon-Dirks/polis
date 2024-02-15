@@ -24,6 +24,17 @@ import TitleMenuBar from './controls/titleMenuBar'
 import HelpButton from './helpButton'
 import WelcomeOverlay from './welcomeOverlay'
 import VarianceChart from './varianceChart/varianceChart'
+import {
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from 'chart.js'
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 var pathname = window.location.pathname // "/report/2arcefpshi"
 var report_id = pathname.split('/')[2]
