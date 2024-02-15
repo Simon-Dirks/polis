@@ -4,9 +4,7 @@ import { mapStateToProps } from '../store/mapStateToProps'
 
 const Tag = ({ children }) => {
     return (
-        <span
-            className={'bg-kennislink-tag-bg border border-kennislink-tag-border rounded px-2 mr-2'}
-        >
+        <span className={'border border-black rounded-full px-6 py-2 mr-2 text-xl'}>
             {children}
         </span>
     )

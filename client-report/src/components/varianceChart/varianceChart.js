@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
 import PercentageVotesBlock from './percentageVotesBlock'
+import Tag from '../tag'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -208,7 +209,7 @@ class VarianceChart extends Component {
         return (
             <div className="flex flex-col w-full h-full">
                 <div
-                    className="flex-grow-0 pb-8 flex"
+                    className="flex-grow-0 pb-8 flex mx-20"
                     style={{ visibility: this.state.selectedComment ? 'visible' : 'hidden' }}
                 >
                     <>
@@ -230,15 +231,27 @@ class VarianceChart extends Component {
                                 backgroundColor={'rgba(255,230,58,0.5)'}
                                 percentage={this.state.selectedComment?.pctVoted}
                                 label={'Overslaan'}
+                                isLast={true}
                             />
                         </div>
-                        <div className={'flex-grow ml-8'}>
+                        <div className={'flex-grow ml-24 flex flex-col justify-center'}>
                             {this.state.selectedComment && (
                                 <>
                                     {/*<p>{JSON.stringify(this.state.selectedComment)}</p>*/}
-                                    <p>Stelling {this.state.selectedComment?.tid}</p>
-                                    <p className={'text-5xl'}>{this.state.selectedComment?.txt}</p>
-                                    <p>Aantal stemmen: {this.state.selectedComment?.saw}</p>
+                                    <p className={'font-inter text-2xl'}>
+                                        Stelling {this.state.selectedComment?.tid}
+                                    </p>
+                                    <p className={'font-inter text-5xl font-medium mt-1 mb-6'}>
+                                        {this.state.selectedComment?.txt}
+                                    </p>
+                                    <div className={'mb-4'}>
+                                        <Tag>
+                                            Aantal stemmen:{' '}
+                                            <span className={'font-semibold'}>
+                                                {this.state.selectedComment?.saw}
+                                            </span>
+                                        </Tag>
+                                    </div>
                                 </>
                             )}
                         </div>
