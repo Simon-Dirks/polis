@@ -30,8 +30,8 @@ const helpButton = ({ math }) => {
                         'w-64 sm:w-96 rounded-lg p-6 mr-4 bg-kennislink-dark-blue text-white'
                     }
                 >
-                    <p className={'font-semibold text-sm mb-2'}>Waar kijk ik naar?</p>
-                    <p className={'text-sm'}>
+                    <p className={'font-semibold text-sm md:text-base mb-2'}>Waar kijk ik naar?</p>
+                    <p className={'text-sm md:text-base'}>
                         Elke cirkel is een stelling. Klik op een stelling om te zien hoe er gestemd
                         is. Als de meeste mensen hetzelfde hebben gestemd (meerderheid ‘eens’ of
                         ‘oneens’), is er veel overeenstemming. Die stellingen staan links.
