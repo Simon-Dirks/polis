@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
-import arrowLeft from '../../assets/arrow-left.svg'
-import arrowRight from '../../assets/arrow-right.svg'
 import PercentageVotesBlocks from './percentageVotesBlocks'
 import CommentContent from './commentContent'
+import arrowRight from '../../assets/arrow-right.svg'
+import arrowLeft from '../../assets/arrow-left.svg'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -23,6 +23,7 @@ class VarianceChart extends Component {
             paddingPx: 3,
             selectedComment: undefined,
             introAnimationCompleted: false,
+            svgWidth: 0,
         }
         this.svgRef = React.createRef()
         this.handleResize = this.handleResize.bind(this)
@@ -47,6 +48,7 @@ class VarianceChart extends Component {
     }
 
     handleResize() {
+        this.removeAllCircles()
         this.createSVG(false)
     }
 
@@ -168,6 +170,7 @@ class VarianceChart extends Component {
 
             return comment
         })
+        // console.log('Comments with variance', commentsWithVariance)
 
         const numSlots = this.state.numCirclesPerRow
         const slotWidth = (maxVariance - minVariance) / numSlots
@@ -199,7 +202,13 @@ class VarianceChart extends Component {
                 })
             }
         }
+
         return [circlesData, maxSlotItems]
+    }
+
+    removeAllCircles() {
+        const svg = d3.select(this.svgRef.current)
+        svg.selectAll('circle').remove()
     }
 
     createSVG(animate = true) {
@@ -208,6 +217,8 @@ class VarianceChart extends Component {
         const container = svg.node().parentElement
         const containerWidth = container.clientWidth
         const containerHeight = container.clientHeight
+
+        console.log(containerWidth, containerHeight)
 
         const isMobile = this.isMobile()
 
@@ -221,8 +232,6 @@ class VarianceChart extends Component {
             this.state.paddingPx
         )
 
-        svg.selectAll('circle').remove()
-
         // const circles = this.initCircles(svg, circlesData, circleRadius)
         this.initCircles(svg, circlesData, circleRadius)
 
@@ -232,13 +241,17 @@ class VarianceChart extends Component {
 
         this.initCircleHover(svg, animate)
 
+        let contentWidth = this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
         let contentHeight = '100%'
         if (isMobile) {
             contentHeight = `${
                 this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
             }px`
         }
-        svg.attr('width', '100%').attr('height', contentHeight)
+        this.setState({ svgWidth: contentWidth })
+
+        // container.style.width = `${contentWidth}px`
+        svg.attr('width', `${contentWidth}px`).attr('height', contentHeight)
     }
 
     render() {
@@ -259,11 +272,16 @@ class VarianceChart extends Component {
                     </>
                 </div>
 
-                <div className="flex-grow md:mb-24">
-                    <svg ref={this.svgRef} className="w-full mb-16 md:mb-0"></svg>
-
-                    {/*Desktop x-axis*/}
-                    <div className={'hidden md:block text-xl relative mt-2'}>
+                <div className="flex-grow md:mb-24 max-w-full">
+                    <svg
+                        ref={this.svgRef}
+                        className="mb-16 md:mb-0"
+                        style={{ maxWidth: '100%' }}
+                    ></svg>
+                    <div
+                        className={'hidden md:block text-xl relative mt-2'}
+                        style={{ width: `${this.state.svgWidth}px` }}
+                    >
                         <p className={'absolute top-0 left-0'}>
                             <img src={arrowLeft} alt={'Arrow icon'} className={'h-8 mr-2 inline'} />
                             <span>Stellingen met overeenstemming</span>
