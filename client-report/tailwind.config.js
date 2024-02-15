@@ -9,6 +9,7 @@ module.exports = {
                 'kennislink-tag-bg': '#F4F4F4',
                 'kennislink-tag-border': '#BFBFBF',
                 'kennislink-dark-gray': '#464646',
+                'kennislink-dark-blue': '#002C3E',
             },
             fontFamily: {
                 inter: ['Inter', 'sans-serif'],
