@@ -122,10 +122,12 @@ class VarianceChart extends Component {
         // const svgWidth = svg.node().getBoundingClientRect().width
         const svgHeight = svg.node().getBoundingClientRect().height
 
+        // Circles from left to right
         let cx = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
         let cy = (d) => svgHeight - (d.row + 0.5) * (circleRadius * 2 + padding)
 
         if (this.isMobile()) {
+            // Circles from top to bottom
             cx = (d) => (d.row + 0.5) * (circleRadius * 2 + padding)
             cy = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
         }
