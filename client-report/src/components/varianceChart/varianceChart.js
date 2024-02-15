@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
-import PercentageVotesBlock from './percentageVotesBlock'
-import Tag from '../tag'
 import arrowLeft from '../../assets/arrow-left.svg'
 import arrowRight from '../../assets/arrow-right.svg'
+import PercentageVotesBlocks from './percentageVotesBlocks'
+import CommentContent from './commentContent'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
 
 const timeForHoverAnimationInMs = 250
-const timeForIntroAnimationInMs = 750
-const delayBetweenCirclesInMs = 0 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
+// const timeForIntroAnimationInMs = 750
+// const delayBetweenCirclesInMs = 0 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
 
 const minVotesForCommentToShow = 7
 
@@ -31,10 +31,13 @@ class VarianceChart extends Component {
     componentDidMount() {
         this.createSVG()
 
-        setTimeout(() => {
-            this.resizeObserver = new ResizeObserver(this.handleResize)
-            this.resizeObserver.observe(this.svgRef.current)
-        }, timeForIntroAnimationInMs * 2)
+        this.resizeObserver = new ResizeObserver(this.handleResize)
+        this.resizeObserver.observe(this.svgRef.current)
+
+        // setTimeout(() => {
+        //     this.resizeObserver = new ResizeObserver(this.handleResize)
+        //     this.resizeObserver.observe(this.svgRef.current)
+        // }, timeForIntroAnimationInMs * 2)
     }
 
     componentWillUnmount() {
@@ -99,24 +102,24 @@ class VarianceChart extends Component {
                     })
             })
     }
-
-    initCircleIntroAnimation(circles, radius) {
-        circles
-            // .attr('r', radius / 2)
-            .attr('opacity', '0')
-            .transition()
-            .duration(timeForIntroAnimationInMs)
-            .delay((d, i) => i * delayBetweenCirclesInMs)
-            .attr('r', radius)
-            .attr('opacity', '1')
-            .on('end', () => {
-                this.setState({ introAnimationCompleted: true })
-            })
-    }
+    //
+    // initCircleIntroAnimation(circles, radius) {
+    //     circles
+    //         // .attr('r', radius / 2)
+    //         .attr('opacity', '0')
+    //         .transition()
+    //         .duration(timeForIntroAnimationInMs)
+    //         .delay((d, i) => i * delayBetweenCirclesInMs)
+    //         .attr('r', radius)
+    //         .attr('opacity', '1')
+    //         .on('end', () => {
+    //             this.setState({ introAnimationCompleted: true })
+    //         })
+    // }
 
     initCircles(svg, circlesData, circleRadius) {
         const padding = this.state.padding - 1 // quick fix for making sure the very far right pixel of a circle is not cut off
-        const svgWidth = svg.node().getBoundingClientRect().width
+        // const svgWidth = svg.node().getBoundingClientRect().width
         const svgHeight = svg.node().getBoundingClientRect().height
 
         let cx = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
@@ -218,11 +221,12 @@ class VarianceChart extends Component {
 
         svg.selectAll('circle').remove()
 
-        const circles = this.initCircles(svg, circlesData, circleRadius)
+        // const circles = this.initCircles(svg, circlesData, circleRadius)
+        this.initCircles(svg, circlesData, circleRadius)
 
-        if (animate) {
-            this.initCircleIntroAnimation(circles, circleRadius)
-        }
+        // if (animate) {
+        //     this.initCircleIntroAnimation(circles, circleRadius)
+        // }
 
         this.initCircleHover(svg, animate)
 
@@ -234,61 +238,27 @@ class VarianceChart extends Component {
         }
         svg.attr('width', '100%').attr('height', contentHeight)
     }
+
     render() {
         return (
             <div className="flex flex-col w-full h-full">
                 <div
                     className="flex-grow-0 pb-8 hidden md:flex mx-20"
                     style={{ visibility: this.state.selectedComment ? 'visible' : 'hidden' }}
+                    id={'desktop-comment-info'}
                 >
                     <>
                         <div className={'w-64 flex-grow-0'}>
-                            <PercentageVotesBlock
-                                color={'#0097F6'}
-                                backgroundColor={'rgba(0,151,246,0.5)'}
-                                percentage={this.state.selectedComment?.pctAgreed}
-                                label={'Eens'}
-                            />
-                            <PercentageVotesBlock
-                                color={'#FA3EA4'}
-                                backgroundColor={'rgba(250,62,164,0.5)'}
-                                percentage={this.state.selectedComment?.pctDisagreed}
-                                label={'Oneens'}
-                            />
-                            <PercentageVotesBlock
-                                color={'#FFE63A'}
-                                backgroundColor={'rgba(255,230,58,0.5)'}
-                                percentage={this.state.selectedComment?.pctVoted}
-                                label={'Overslaan'}
-                                isLast={true}
-                            />
+                            <PercentageVotesBlocks comment={this.state.selectedComment} />
                         </div>
                         <div className={'flex-grow ml-24 flex flex-col justify-center'}>
-                            {this.state.selectedComment && (
-                                <>
-                                    {/*<p>{JSON.stringify(this.state.selectedComment)}</p>*/}
-                                    <p className={'text-2xl'}>
-                                        Stelling {this.state.selectedComment?.tid}
-                                    </p>
-                                    <p className={'text-5xl font-medium mt-1 mb-6'}>
-                                        {this.state.selectedComment?.txt}
-                                    </p>
-                                    <div className={'mb-4'}>
-                                        <Tag>
-                                            Aantal stemmen:{' '}
-                                            <span className={'font-semibold'}>
-                                                {this.state.selectedComment?.saw}
-                                            </span>
-                                        </Tag>
-                                    </div>
-                                </>
-                            )}
+                            <CommentContent comment={this.state.selectedComment} />
                         </div>
                     </>
                 </div>
 
-                <div className="flex-grow mb-24">
-                    <svg ref={this.svgRef} className="w-full h-full"></svg>
+                <div className="flex-grow md:mb-24">
+                    <svg ref={this.svgRef} className="w-full mb-16 md:mb-0"></svg>
 
                     {/*Desktop x-axis*/}
                     <div className={'hidden md:block text-xl relative mt-2'}>
