@@ -280,7 +280,7 @@ class VarianceChart extends Component {
 
                 {/* SVG */}
                 <div
-                    className="flex-grow md:mb-20"
+                    className="flex-grow md:mb-20 pt-4 md:pt-0"
                     style={{ overflowY: this.isMobile() ? 'auto' : 'initial' }}
                 >
                     <div className="max-w-full md:h-full mx-8 md:mx-0">

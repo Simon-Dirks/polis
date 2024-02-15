@@ -12,10 +12,10 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
         >
             <div
                 className={
-                    'w-11/12 md:w-9/12 max-w-[80rem] bg-kennislink-dark-blue text-white p-16 rounded-xl text-2xl'
+                    'w-11/12 md:w-9/12 max-w-[80rem] bg-kennislink-dark-blue text-white p-8 md:p-16 rounded-xl text-base md:text-2xl max-h-full overflow-y-auto'
                 }
             >
-                <p className={'text-5xl font-medium mb-6'}>
+                <p className={'text-xl md:text-5xl font-medium mb-6'}>
                     Hoe moeten we omgaan met het aanpassen van embryo-DNA?
                 </p>
                 <p className={'mb-4'}>
@@ -32,7 +32,7 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
                 <div className={'mt-8 text-left md:text-center'}>
                     <button
                         className={
-                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl block md:inline-block mb-2 md:mb-0'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-normal text-base md:text-xl block md:inline-block mb-2 md:mb-0'
                         }
                         onClick={() => updateWelcomeShown(false)}
                     >
@@ -41,7 +41,7 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
                     <span className={'hidden md:inline-block mx-4'}> of </span>
                     <button
                         className={
-                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl block md:inline-block'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-normal text-base md:text-xl block md:inline-block'
                         }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}

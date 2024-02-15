@@ -34,10 +34,13 @@ const helpButton = ({ math }) => {
                     <p className={'text-sm md:text-base'}>
                         Elke cirkel is een stelling. Klik op een stelling om te zien hoe er gestemd
                         is. Als de meeste mensen hetzelfde hebben gestemd (meerderheid ‘eens’ of
-                        ‘oneens’), is er veel overeenstemming. Die stellingen staan links.
-                        Stellingen waar juist heel verschillend op is gestemd, verschijnen rechts.
-                        Dat zijn stellingen met meer verdeeldheid. Gebruik de knop rechtsboven om
-                        zelf te stemmen.
+                        ‘oneens’), is er veel overeenstemming. Die stellingen staan{' '}
+                        <span className="hidden md:inline-block">links</span>
+                        <span className="inline-block md:hidden">boven</span>. Stellingen waar juist
+                        heel verschillend op is gestemd, verschijnen{' '}
+                        <span className="hidden md:inline-block">rechts</span>
+                        <span className="inline-block md:hidden">onder</span>. Dat zijn stellingen
+                        met meer verdeeldheid. Gebruik de knop rechtsboven om zelf te stemmen.
                     </p>
 
                     {/*<div className={'grid grid-cols-2'}>*/}
