@@ -47,9 +47,18 @@ class VarianceChart extends Component {
         this.createSVG(false)
     }
 
+    isMobileWidth(width) {
+        return width <= 768
+    }
+
     calculateRadius(width, height, numCirclesPerRow, numRows, padding) {
         const maxWidthRadius = (width - (numCirclesPerRow - 1) * padding) / (numCirclesPerRow * 2)
         const maxHeightRadius = (height - (numRows - 1) * padding) / (numRows * 2)
+
+        if (this.isMobileWidth(width)) {
+            // On mobile, maximize for width, and allow scrolling vertically
+            return maxWidthRadius
+        }
 
         return Math.min(maxWidthRadius, maxHeightRadius)
     }
@@ -107,6 +116,7 @@ class VarianceChart extends Component {
 
     initCircles(svg, circlesData, circleRadius) {
         const padding = this.state.padding - 1 // quick fix for making sure the very far right pixel of a circle is not cut off
+        const svgWidth = svg.node().getBoundingClientRect().width
         const svgHeight = svg.node().getBoundingClientRect().height
 
         return svg
@@ -114,8 +124,8 @@ class VarianceChart extends Component {
             .data(circlesData)
             .enter()
             .append('circle')
-            .attr('cx', (d) => (d.index + 0.5) * (circleRadius * 2 + padding))
-            .attr('cy', (d) => svgHeight - (d.row + 0.5) * (circleRadius * 2 + padding))
+            .attr('cy', (d) => (d.index + 0.5) * (circleRadius * 2 + padding))
+            .attr('cx', (d) => (d.row + 0.5) * (circleRadius * 2 + padding))
             .attr('r', circleRadius)
             .attr('fill', '#D9D9D9')
     }
@@ -181,6 +191,7 @@ class VarianceChart extends Component {
 
     createSVG(animate = true) {
         const svg = d3.select(this.svgRef.current)
+
         const container = svg.node().parentElement
         const containerWidth = container.clientWidth
         const containerHeight = container.clientHeight
@@ -190,14 +201,13 @@ class VarianceChart extends Component {
         const circleRadius = this.calculateRadius(
             containerWidth,
             containerHeight,
-            this.state.numCirclesPerRow,
             numRows,
+            this.state.numCirclesPerRow,
+
             this.state.padding
         )
 
         svg.selectAll('circle').remove()
-
-        svg.attr('width', '100%').attr('height', '100%')
 
         const circles = this.initCircles(svg, circlesData, circleRadius)
 
@@ -206,12 +216,15 @@ class VarianceChart extends Component {
         }
 
         this.initCircleHover(svg, animate)
+
+        const contentHeight = this.state.numCirclesPerRow * (2 * circleRadius + this.state.padding)
+        svg.attr('width', '100%').attr('height', `${contentHeight}px`)
     }
     render() {
         return (
             <div className="flex flex-col w-full h-full">
                 <div
-                    className="flex-grow-0 pb-8 flex mx-20"
+                    className="flex-grow-0 pb-8 hidden md:flex mx-20"
                     style={{ visibility: this.state.selectedComment ? 'visible' : 'hidden' }}
                 >
                     <>
@@ -262,7 +275,9 @@ class VarianceChart extends Component {
 
                 <div className="flex-grow mb-24">
                     <svg ref={this.svgRef} className="w-full h-full"></svg>
-                    <div className={'text-xl relative mt-2'}>
+
+                    {/*Desktop x-axis*/}
+                    <div className={'hidden md:block text-xl relative mt-2'}>
                         <p className={'absolute top-0 left-0'}>
                             <img src={arrowLeft} alt={'Arrow icon'} className={'h-8 mr-2 inline'} />
                             <span>Stellingen met overeenstemming</span>
