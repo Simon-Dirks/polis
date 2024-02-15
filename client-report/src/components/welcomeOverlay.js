@@ -15,33 +15,33 @@ const WelcomeOverlay = ({ updateWelcomeShown }) => {
                     'w-9/12 max-w-[80rem] bg-kennislink-dark-blue text-white p-16 rounded-xl text-2xl'
                 }
             >
-                <p className={'text-5xl font-inter font-medium mb-6'}>
+                <p className={'text-5xl font-medium mb-6'}>
                     Hoe moeten we omgaan met het aanpassen van embryo-DNA?
                 </p>
-                <p className={'mb-4 font-inter'}>
+                <p className={'mb-4'}>
                     Ontdek hoe bezoekers van Kennislink hebben gestemd op stellingen over het
                     aanpassen van embryo-DNA. Waar zijn we het over eens, en waar verschillen we van
                     mening?
                 </p>
-                <p className={'mb-4 font-inter'}>
+                <p className={'mb-4'}>
                     Let op: behaalde resultaten bieden geen garantie voor de toekomst – elke nieuwe
                     uitgebrachte stem kan de resultaten beïnvloeden!
                 </p>
-                <p className={'font-inter'}>Heb je nog niet gestemd? Doe dat dan eerst.</p>
+                <p>Heb je nog niet gestemd? Doe dat dan eerst.</p>
 
                 <div className={'mt-8 text-center'}>
                     <button
                         className={
-                            'font-inter btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
                         }
                         onClick={() => updateWelcomeShown(false)}
                     >
                         Ontdek nu
                     </button>
-                    <span className={'mx-4 font-inter'}> of </span>
+                    <span className={'mx-4'}> of </span>
                     <a
                         className={
-                            'font-inter btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-bold text-xl'
                         }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}

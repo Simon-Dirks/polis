@@ -20,7 +20,7 @@ const initialState = {
     selectedParticipantId: -1,
     selectedGroupId: -1,
     selectedStatementId: 0,
-    welcomeShown: true,
+    welcomeShown: false,
 }
 
 const rootReducer = (state = initialState, action) => {

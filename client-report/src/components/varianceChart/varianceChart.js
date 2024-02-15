@@ -3,13 +3,15 @@ import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
 import PercentageVotesBlock from './percentageVotesBlock'
 import Tag from '../tag'
+import arrowLeft from '../../assets/arrow-left.svg'
+import arrowRight from '../../assets/arrow-right.svg'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
 
 const timeForHoverAnimationInMs = 250
 const timeForIntroAnimationInMs = 750
-const delayBetweenCirclesInMs = 3 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
+const delayBetweenCirclesInMs = 0 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
 
 const minVotesForCommentToShow = 7
 
@@ -91,7 +93,7 @@ class VarianceChart extends Component {
 
     initCircleIntroAnimation(circles, radius) {
         circles
-            .attr('r', radius / 2)
+            // .attr('r', radius / 2)
             .attr('opacity', '0')
             .transition()
             .duration(timeForIntroAnimationInMs)
@@ -238,10 +240,10 @@ class VarianceChart extends Component {
                             {this.state.selectedComment && (
                                 <>
                                     {/*<p>{JSON.stringify(this.state.selectedComment)}</p>*/}
-                                    <p className={'font-inter text-2xl'}>
+                                    <p className={'text-2xl'}>
                                         Stelling {this.state.selectedComment?.tid}
                                     </p>
-                                    <p className={'font-inter text-5xl font-medium mt-1 mb-6'}>
+                                    <p className={'text-5xl font-medium mt-1 mb-6'}>
                                         {this.state.selectedComment?.txt}
                                     </p>
                                     <div className={'mb-4'}>
@@ -258,8 +260,22 @@ class VarianceChart extends Component {
                     </>
                 </div>
 
-                <div className="flex-grow mb-4">
+                <div className="flex-grow mb-24">
                     <svg ref={this.svgRef} className="w-full h-full"></svg>
+                    <div className={'text-xl relative mt-2'}>
+                        <p className={'absolute top-0 left-0'}>
+                            <img src={arrowLeft} alt={'Arrow icon'} className={'h-8 mr-2 inline'} />
+                            <span>Stellingen met overeenstemming</span>
+                        </p>
+                        <p className={'absolute top-0 right-0'}>
+                            <span>Stellingen met verdeeldheid</span>
+                            <img
+                                src={arrowRight}
+                                alt={'Arrow icon'}
+                                className={'h-8 ml-2 inline'}
+                            />
+                        </p>
+                    </div>
                 </div>
             </div>
         )
