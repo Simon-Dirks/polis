@@ -55,18 +55,18 @@ const TitleMenuBar = ({
                 <div className={'text-center w-full md:w-auto md:text-left md:absolute md:right-8'}>
                     <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold w-[45%] md:w-auto mr-6 inline-block text-left'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold w-[45%] md:w-auto mr-6'
                         }
                         onClick={() => {
                             updateWelcomeShown(true)
                         }}
                     >
                         <img src={infoIcon} alt={'info icon'} className={'h-4 inline mr-2'} />
-                        <span className={'relative top-[0.1rem]'}>Over deze tool</span>
+                        <span>Over deze tool</span>
                     </button>
                     <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold inline-block text-left'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold'
                         }
                         href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
                         target={'_blank'}
@@ -76,7 +76,7 @@ const TitleMenuBar = ({
                             alt={'megaphone icon'}
                             className={'h-4 mr-2 inline py-[0.05rem]'}
                         />
-                        <span className={'relative top-[0.1rem]'}>Stem mee</span>
+                        <span>Stem mee</span>
                     </button>
                 </div>
             </div>
