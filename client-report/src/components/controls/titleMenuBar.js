@@ -45,9 +45,9 @@ const TitleMenuBar = ({
                     <span>
                         <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
                     </span>
-                    <span className={'ml-4'}>
-                        <strong>{ptptCount}</strong>&nbsp;gegroepeerd
-                    </span>
+                    {/*<span className={'ml-4'}>*/}
+                    {/*    <strong>{ptptCount}</strong>&nbsp;gegroepeerd*/}
+                    {/*</span>*/}
                     <span className={'ml-4'}>
                         <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>&nbsp;stemmen
                     </span>
