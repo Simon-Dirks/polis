@@ -47,17 +47,15 @@ class VarianceChart extends Component {
         this.createSVG(false)
     }
 
-    isMobileWidth(width) {
-        // TODO: Fix this, now passing container width instead of screen width, so does not align with tailwind breakpoints
-        //   Use a hook instead?
-        return width <= 768
+    isMobile() {
+        return window.innerWidth <= 768
     }
 
     calculateRadius(width, height, numCirclesPerRow, numRows, padding) {
         const maxWidthRadius = (width - (numCirclesPerRow - 1) * padding) / (numCirclesPerRow * 2)
         const maxHeightRadius = (height - (numRows - 1) * padding) / (numRows * 2)
 
-        if (this.isMobileWidth(width)) {
+        if (this.isMobile()) {
             // On mobile, maximize for width, and allow scrolling vertically
             return maxWidthRadius
         }
@@ -124,7 +122,7 @@ class VarianceChart extends Component {
         let cx = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
         let cy = (d) => svgHeight - (d.row + 0.5) * (circleRadius * 2 + padding)
 
-        if (this.isMobileWidth(svgWidth)) {
+        if (this.isMobile()) {
             cx = (d) => (d.row + 0.5) * (circleRadius * 2 + padding)
             cy = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
         }
@@ -206,7 +204,7 @@ class VarianceChart extends Component {
         const containerWidth = container.clientWidth
         const containerHeight = container.clientHeight
 
-        const isMobile = this.isMobileWidth(containerWidth)
+        const isMobile = this.isMobile()
 
         const [circlesData, numRows] = this.getCirclesData()
 
