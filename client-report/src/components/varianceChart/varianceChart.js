@@ -48,6 +48,8 @@ class VarianceChart extends Component {
     }
 
     isMobileWidth(width) {
+        // TODO: Fix this, now passing container width instead of screen width, so does not align with tailwind breakpoints
+        //   Use a hook instead?
         return width <= 768
     }
 
@@ -119,13 +121,21 @@ class VarianceChart extends Component {
         const svgWidth = svg.node().getBoundingClientRect().width
         const svgHeight = svg.node().getBoundingClientRect().height
 
+        let cx = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
+        let cy = (d) => svgHeight - (d.row + 0.5) * (circleRadius * 2 + padding)
+
+        if (this.isMobileWidth(svgWidth)) {
+            cx = (d) => (d.row + 0.5) * (circleRadius * 2 + padding)
+            cy = (d) => (d.index + 0.5) * (circleRadius * 2 + padding)
+        }
+
         return svg
             .selectAll('circle')
             .data(circlesData)
             .enter()
             .append('circle')
-            .attr('cy', (d) => (d.index + 0.5) * (circleRadius * 2 + padding))
-            .attr('cx', (d) => (d.row + 0.5) * (circleRadius * 2 + padding))
+            .attr('cx', cx)
+            .attr('cy', cy)
             .attr('r', circleRadius)
             .attr('fill', '#D9D9D9')
     }
@@ -196,14 +206,15 @@ class VarianceChart extends Component {
         const containerWidth = container.clientWidth
         const containerHeight = container.clientHeight
 
+        const isMobile = this.isMobileWidth(containerWidth)
+
         const [circlesData, numRows] = this.getCirclesData()
 
         const circleRadius = this.calculateRadius(
             containerWidth,
             containerHeight,
-            numRows,
-            this.state.numCirclesPerRow,
-
+            isMobile ? numRows : this.state.numCirclesPerRow,
+            isMobile ? this.state.numCirclesPerRow : numRows,
             this.state.padding
         )
 
@@ -217,8 +228,13 @@ class VarianceChart extends Component {
 
         this.initCircleHover(svg, animate)
 
-        const contentHeight = this.state.numCirclesPerRow * (2 * circleRadius + this.state.padding)
-        svg.attr('width', '100%').attr('height', `${contentHeight}px`)
+        let contentHeight = '100%'
+        if (isMobile) {
+            contentHeight = `${
+                this.state.numCirclesPerRow * (2 * circleRadius + this.state.padding)
+            }px`
+        }
+        svg.attr('width', '100%').attr('height', contentHeight)
     }
     render() {
         return (
