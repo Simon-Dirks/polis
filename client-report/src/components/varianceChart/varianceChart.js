@@ -3,8 +3,7 @@ import * as d3 from 'd3'
 import DataUtils from '../../util/dataUtils'
 import PercentageVotesBlocks from './percentageVotesBlocks'
 import CommentContent from './commentContent'
-import arrowRight from '../../assets/arrow-right.svg'
-import arrowLeft from '../../assets/arrow-left.svg'
+import HorizontalVarianceAxis from './horizontalVarianceAxis'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -287,23 +286,8 @@ class VarianceChart extends Component {
                         className="mb-16 md:mb-0"
                         style={{ maxWidth: '100%' }}
                     ></svg>
-                    <div
-                        className={'hidden md:block text-xl relative mt-2'}
-                        style={{ width: `${this.state.svgWidth}px` }}
-                    >
-                        <p className={'absolute top-0 left-0'}>
-                            <img src={arrowLeft} alt={'Arrow icon'} className={'h-8 mr-2 inline'} />
-                            <span>Stellingen met overeenstemming</span>
-                        </p>
-                        <p className={'absolute top-0 right-8'}>
-                            <span>Stellingen met verdeeldheid</span>
-                            <img
-                                src={arrowRight}
-                                alt={'Arrow icon'}
-                                className={'h-8 ml-2 inline'}
-                            />
-                        </p>
-                    </div>
+
+                    <HorizontalVarianceAxis width={this.state.svgWidth} />
                 </div>
             </div>
         )
