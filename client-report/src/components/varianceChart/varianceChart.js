@@ -215,16 +215,19 @@ class VarianceChart extends Component {
                         <div className={'w-64 flex-grow-0'}>
                             <PercentageVotesBlock
                                 color={'#0097F6'}
+                                backgroundColor={'rgba(0,151,246,0.5)'}
                                 percentage={this.state.selectedComment?.pctAgreed}
                                 label={'Eens'}
                             />
                             <PercentageVotesBlock
                                 color={'#FA3EA4'}
+                                backgroundColor={'rgba(250,62,164,0.5)'}
                                 percentage={this.state.selectedComment?.pctDisagreed}
                                 label={'Oneens'}
                             />
                             <PercentageVotesBlock
                                 color={'#FFE63A'}
+                                backgroundColor={'rgba(255,230,58,0.5)'}
                                 percentage={this.state.selectedComment?.pctVoted}
                                 label={'Overslaan'}
                             />
