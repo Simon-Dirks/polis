@@ -150,33 +150,35 @@ class VarianceChart extends Component {
 
         comments = comments.filter((comment) => comment.saw >= minVotesForCommentToShow)
 
-        let minVariance = Infinity
-        let maxVariance = 0
-        const commentsWithVariance = comments.map((comment) => {
-            const agreedVotes = new Array(comment.agreed).fill(1)
-            const disagreedVotes = new Array(comment.disagreed).fill(-1)
-            const commentVotesForVariance = agreedVotes.concat(disagreedVotes)
-            const variance = DataUtils.calculateVariance(commentVotesForVariance)
-            comment.variance = variance
-            minVariance = variance < minVariance ? variance : minVariance
-            maxVariance = variance > maxVariance ? variance : maxVariance
+        let minPercentageDiff = Infinity
+        let maxPercentageDiff = 0
+        const commentsWithPercentageDiff = comments.map((comment) => {
+            const percentageDiff = DataUtils.calculatePercentageDifference(
+                comment.agreed,
+                comment.disagreed
+            )
+            comment.percentageDiff = percentageDiff
+            console.log(comment.agreed, comment.disagreed, comment.percentageDiff)
+            minPercentageDiff =
+                percentageDiff < minPercentageDiff ? percentageDiff : minPercentageDiff
+            maxPercentageDiff =
+                percentageDiff > maxPercentageDiff ? percentageDiff : maxPercentageDiff
 
             comment.passed = comment.saw - comment.agreed - comment.disagreed
 
             return comment
         })
-        // console.log('Comments with variance', commentsWithVariance)
 
         const numSlots = this.state.numCirclesPerRow
-        const slotWidth = (maxVariance - minVariance) / numSlots
+        const slotWidth = (maxPercentageDiff - minPercentageDiff) / numSlots
         const slots = new Array(numSlots).fill(null).map(() => [])
 
         let maxSlotItems = 0
-        commentsWithVariance.forEach((comment) => {
-            const variance = comment.variance
-            if (variance >= minVariance && variance <= maxVariance) {
+        commentsWithPercentageDiff.forEach((comment) => {
+            const percentageDiff = maxPercentageDiff - comment.percentageDiff
+            if (percentageDiff >= minPercentageDiff && percentageDiff <= maxPercentageDiff) {
                 const slotIndex = Math.min(
-                    Math.floor((variance - minVariance) / slotWidth),
+                    Math.floor((percentageDiff - minPercentageDiff) / slotWidth),
                     numSlots - 1
                 )
                 slots[slotIndex].push(comment)
@@ -186,10 +188,19 @@ class VarianceChart extends Component {
             }
         })
 
+        slots.map((slotItems) => {
+            return slotItems.sort((a, b) => {
+                return a.percentageDiff < b.percentageDiff
+            })
+        })
+
+        console.log(slots)
+
         for (let slotColIdx = 0; slotColIdx < this.state.numCirclesPerRow; slotColIdx++) {
             const slotItems = slots[slotColIdx]
             for (let slotRowIdx = 0; slotRowIdx < slotItems.length; slotRowIdx++) {
                 const slotItem = slotItems[slotRowIdx]
+                // console.log(slotRowIdx, slotColIdx, slotItem.percentageDiff)
                 circlesData.push({
                     row: slotRowIdx,
                     index: slotColIdx,

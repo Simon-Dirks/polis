@@ -78,11 +78,23 @@ function calculateVariance(votes) {
     return variance
 }
 
+function calculatePercentageDifference(agree, disagree) {
+    const totalVotes = agree + disagree
+
+    const agreePercentage = (agree / totalVotes) * 100
+    const disagreePercentage = (disagree / totalVotes) * 100
+
+    const percentageDifference = Math.abs(agreePercentage - disagreePercentage)
+
+    return percentageDifference
+}
+
 const dataUtils = {
     getVoteTotals: getVoteTotals,
     getGroupIdsForComment: getGroupIdsForComment,
     getParticipantIds: getParticipantIds,
     getGroupVotesForComments: getGroupVotesForComments,
     calculateVariance: calculateVariance,
+    calculatePercentageDifference: calculatePercentageDifference,
 }
 export default dataUtils
