@@ -33,6 +33,7 @@ import {
     Title,
     Tooltip,
 } from 'chart.js'
+import VoteOverlay from './voteOverlay'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -506,16 +507,15 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div className={'h-full'}>
-                {this.props.welcomeShown && <WelcomeOverlay />}
+                <WelcomeOverlay />
+                <VoteOverlay />
                 <HelpButton math={this.state.math} />
-
                 <TitleMenuBar
                     math={this.state.math}
                     ptptCount={this.state.ptptCount}
                     ptptCountTotal={this.state.ptptCountTotal}
                     conversation={this.state.conversation}
                 ></TitleMenuBar>
-
                 {/*<ViewMenuBar*/}
                 {/*    math={this.state.math}*/}
                 {/*    ptptCount={this.state.ptptCount}*/}

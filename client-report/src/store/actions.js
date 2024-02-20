@@ -27,9 +27,3 @@ export const updateSelectedStatementId = (newStatementId) => ({
     type: UPDATE_SELECTED_STATEMENT_ID,
     payload: newStatementId,
 })
-
-export const UPDATE_WELCOME_SHOWN = 'UPDATE_WELCOME_SHOWN'
-export const updateWelcomeShown = (welcomeShown) => ({
-    type: UPDATE_WELCOME_SHOWN,
-    payload: welcomeShown,
-})

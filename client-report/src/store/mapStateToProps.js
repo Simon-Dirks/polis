@@ -4,5 +4,4 @@ export const mapStateToProps = (state) => ({
     selectedParticipantId: state.selectedParticipantId,
     selectedGroupId: state.selectedGroupId,
     selectedStatementId: state.selectedStatementId,
-    welcomeShown: state.welcomeShown,
 })

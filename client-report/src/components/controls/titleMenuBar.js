@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../../store/mapStateToProps'
-import { updateViewCategory, updateViewState, updateWelcomeShown } from '../../store/actions'
+import { updateViewCategory, updateViewState } from '../../store/actions'
 import _ from 'lodash'
 import megaphoneIcon from '../../assets/megaphone.svg'
 import infoIcon from '../../assets/info.svg'
@@ -10,7 +10,6 @@ const TitleMenuBar = ({
     viewState,
     updateViewState,
     updateViewCategory,
-    updateWelcomeShown,
     ptptCount,
     ptptCountTotal,
     math,
@@ -57,9 +56,7 @@ const TitleMenuBar = ({
                         className={
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold w-[45%] md:w-auto mr-6'
                         }
-                        onClick={() => {
-                            updateWelcomeShown(true)
-                        }}
+                        onClick={() => document.getElementById('welcome_overlay_modal').showModal()}
                     >
                         <img src={infoIcon} alt={'info icon'} className={'h-4 inline md:mr-2'} />
                         <span>Over deze tool</span>
@@ -68,8 +65,7 @@ const TitleMenuBar = ({
                         className={
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold'
                         }
-                        href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
-                        target={'_blank'}
+                        onClick={() => document.getElementById('vote_overlay_modal').showModal()}
                     >
                         <img
                             src={megaphoneIcon}
@@ -86,5 +82,4 @@ const TitleMenuBar = ({
 export default connect(mapStateToProps, {
     updateViewState,
     updateViewCategory,
-    updateWelcomeShown,
 })(TitleMenuBar)

@@ -11,7 +11,6 @@ import {
     UPDATE_SELECTED_STATEMENT_ID,
     UPDATE_VIEW_CATEGORY,
     UPDATE_VIEW_STATE,
-    UPDATE_WELCOME_SHOWN,
 } from './actions'
 
 const initialState = {
@@ -20,7 +19,6 @@ const initialState = {
     selectedParticipantId: -1,
     selectedGroupId: -1,
     selectedStatementId: 0,
-    welcomeShown: false,
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -49,11 +47,6 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedStatementId: action.payload,
-            }
-        case UPDATE_WELCOME_SHOWN:
-            return {
-                ...state,
-                welcomeShown: action.payload,
             }
         default:
             return state

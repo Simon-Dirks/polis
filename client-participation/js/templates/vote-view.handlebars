@@ -45,7 +45,7 @@
 {{else}}  {{!-- !needSocial --}}
 
 {{#if empty}}
-  <div  class="Notification Notification--warning" style="color: white; min-height: 2rem;"> {{!-- empty scenario div --}}
+  <div  class="Notification Notification--warning" style="min-height: 2.5rem;"> {{!-- empty scenario div --}}
   {{#if subscribed}}
     <p class="HeadingF HeadingF--light "><i class="fa fa-bell-o"></i>&nbsp;<strong>{{txt1}}</strong></p>
     <p>{{txt2}}</p>
@@ -90,7 +90,7 @@
       </form>
     {{else}} {{!-- !canSubscribe --}}
       <div style="min-height: 2rem;"><strong>{{txt1}}</strong></div>
-      <div>{{txt2}}</div>
+      <div style="margin-top: 0.5rem;">{{txt2}}</div>
     {{/if}} {{!-- /canSubscribe --}}
   {{/if}} {{!-- /subscribed --}}
   </div> {{!-- /empty scenario div --}}
