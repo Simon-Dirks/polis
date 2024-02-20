@@ -30,8 +30,8 @@ $dark-blue-gray: #373d3f;
 $header-footer-color: #F4F4F4;
 
 // $brand-light-color: #4daae8;
-$brand-color: #02e639;
-$brand-color-darker: #41d016;
+$brand-color: #00E64A;
+$brand-color-darker: #00D137;
 
 $green: $brand-color; // #2ecc71;
 $dark-green: $brand-color-darker;
@@ -42,6 +42,8 @@ $brand-text-color: #0a77bf;
 $kennislink-light-gray: #efefef;
 $kennislink-medium-gray: #252525;
 $kennislink-black: #010101;
+
+$kennislink-dark-blue: #002C3E;
 
 $panel-color: #f7f7f7;
 
@@ -84,24 +86,10 @@ $default-leading: 1.5;
 
  // "canada-type-gibson","Futura", "Gill Sans",
 
-@font-face {
-  font-family: 'Campton-Bold';
-  src: url("https://boasmedia.nl/polis-kennislink/campton-bold.woff2") format("woff2");
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-@font-face {
-  font-family: 'Campton-Book';
-  src: url("https://boasmedia.nl/polis-kennislink/campton-book.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: 'Campton-SemiBold';
-  src: url("https://boasmedia.nl/polis-kennislink/campton-semibold.woff2") format("woff2");
-}
-
-
-$headline-font: "Campton-Book", Helvetica, sans-serif;
-$sans-font: "Campton-Book", Helvetica, sans-serif;
+$headline-font: "Inter", Helvetica, sans-serif;
+$sans-font: "Inter", Helvetica, sans-serif;
 //  alternate sans-serif (?): "Droid Sans", sans-serif;
 // "chaparral-pro", "Chaparral Pro",
 // "chaparral-pro-display",

@@ -14,28 +14,24 @@
   		position:relative;
   		top: 0px;
   		z-index: 3;
-        margin-bottom: 1rem;
+        /*margin-bottom: 1rem;*/
   		{{!-- min-height: 144px; attempt to avoid flashing on vote view load--}}
   	">
 
+    <div style="display: flex; gap: 10px; position: absolute; right: 2rem; top: 1.5rem;">
+        <button class="reactionButton" id="showResultsButton">
+            <span>Bekijk resultaten</span>
+        </button>
 
-    <button class="reactionButton" id="switchBetweenCommentsAndVotingButton">
-        {{#if showingComments}}
-            <span class="reactionButtonIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.5 53.4" xml:space="preserve">
-                    <path d="M33.5 46.6 13.7 26.7 33.5 6.8 26.7 0 0 26.7l26.7 26.7z"/>
-                </svg>
-            </span>
-            <span>STEM</span>
-        {{else}}
-            <span class="reactionButtonIcon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 33.5 53.4" xml:space="preserve">
-                  <path d="m0 6.8 19.9 19.9L0 46.6l6.8 6.8 26.7-26.7L6.8 0z"/>
-                </svg>
-            </span>
-            <span>NIEUW</span>
-        {{/if}}
-    </button>
+        <button class="reactionButton" id="switchBetweenCommentsAndVotingButton">
+            {{#if showingComments}}
+                <span>Stem</span>
+            {{else}}
+                <span>Nieuwe stelling</span>
+            {{/if}}
+        </button>
+    </div>
+
 
     {{!-- This is the optional social prompt --}}
 	  {{#if promptFacebook}}

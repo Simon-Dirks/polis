@@ -45,7 +45,7 @@
 {{else}}  {{!-- !needSocial --}}
 
 {{#if empty}}
-  <div  class="Notification Notification--warning"> {{!-- empty scenario div --}}
+  <div  class="Notification Notification--warning" style="color: white;"> {{!-- empty scenario div --}}
   {{#if subscribed}}
     <p class="HeadingF HeadingF--light "><i class="fa fa-bell-o"></i>&nbsp;<strong>{{txt1}}</strong></p>
     <p>{{txt2}}</p>
@@ -89,7 +89,7 @@
         </div>
       </form>
     {{else}} {{!-- !canSubscribe --}}
-      <div><strong>{{txt1}}</strong></div>
+      <div style="min-height: 2rem;"><strong>{{txt1}}</strong></div>
       <div>{{txt2}}</div>
     {{/if}} {{!-- /canSubscribe --}}
   {{/if}} {{!-- /subscribed --}}
@@ -103,7 +103,8 @@
     <span class="screen-reader-text">
       {{remainingStringScreenReader}}
     </span>
-    <p style="color: grey; margin-top: 0.5rem;"><em>{{topic}}<br/>({{remainingString}})</em></p>
+    <p style="color: white; margin-right: 18rem; min-height: 2rem;"><em>{{topic}} ({{remainingString}})</em></p>
+
     {{#if false}}
     {{! social stuff }}
         <img
@@ -164,6 +165,8 @@
       position: relative;
       line-height: 1.3;
       font-size: 18px;
+      color: white;
+      padding-top: 0.5rem;
       {{customStyles}}
     "
       dir="auto"
@@ -289,34 +292,18 @@
         id="agreeButton"
         class="reactionButton"
         >
-        <span class="reactionButtonIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65.8 47.2" xml:space="preserve">
-              <path d="M25.5 33.5 6.9 14.9 0 21.8l25.5 25.4L65.8 6.9 59 0z"/>
-            </svg>
-        </span>
         <span>{{s.agree}}</span>
       </button>
       <button
         id="disagreeButton"
         class="reactionButton"
         >
-        <span class="reactionButtonIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53.4 53.4" xml:space="preserve">
-                <path d="m0 6.8 19.9 19.9L0 46.6l6.8 6.8 26.7-26.7L6.8 0z"/>
-                <path d="M53.4 46.6 33.5 26.7 53.4 6.8 46.6 0 19.9 26.7l26.7 26.7z"/>
-            </svg>
-        </span>
         <span>{{s.disagree}}</span>
       </button>
       <button
         id="passButton"
         class="reactionButton"
         >
-        <span class="reactionButtonIcon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 53.4 53.4" xml:space="preserve">
-                <path d="m46.575.04 6.788 6.788L6.765 53.425l-6.788-6.788z"/>
-            </svg>
-        </span>
         <span>{{s.pass}}</span>
       </button>
     </div>

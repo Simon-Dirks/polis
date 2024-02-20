@@ -6,8 +6,6 @@
 {{/ifNotEmbedded}}
 
 
-<span id="header_root"></span>
-
 <div
   class="
   conversationViewRoot
@@ -22,6 +20,7 @@
     max-width: 768px; {{!-- check pixel ratio? --}}
     margin: auto; {{!-- use flexbox rather than auto, or add a container for this container? --}}
     background-color: {{polis_bgcolor}};
+    padding: 0;
   "> {{! PARTICIPATION VIEW DIV }}
 
   {{#if useBannerHeader}}
@@ -42,8 +41,9 @@
   style="
     padding-inline-start: 0px;
     padding-inline-end: 0px
+    display: none;
     ">
-    <div class="POLIS_HEADLINE conversationViewHeadline" dir="auto">
+    <div class="POLIS_HEADLINE conversationViewHeadline" dir="auto" style="display: none;">
     {{#unless useBannerHeader}}
       {{#if showLogoAndBreadCrumbInHeader}}
           <div class="HeadingA">
@@ -238,6 +238,7 @@
     padding: 5px 0px 5px 0px;
     font-style: italic;
     font-family: chaparral-pro;
+          display: none;
   " class="
   clickDoesNotDeselectHull
   {{#if hideHelp}} displayNone{{/if}}
@@ -259,7 +260,7 @@
 
 
 {{!  ------------ VOTING PANEL ---------------  }}
-<span class="{{#if no_voting}}displayNone{{/if}}">
+<span class="{{#if no_voting}}displayNone{{/if}}" style="display: block;">
   {{view readReactView}}
 </span>
 
@@ -431,7 +432,7 @@
 {{!  ------------ BEGIN FOOTER ---------------  }}
 {{#unless no_footer}}
 
-  <div style="margin-top: 40px; margin-bottom: 20px;" data-test-footer>
+  <div style="margin-top: 20px; margin-bottom: 20px; display: none;" data-test-footer>
     <div
       style="
         margin-top: 15px;

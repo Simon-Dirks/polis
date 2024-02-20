@@ -1,8 +1,8 @@
 {{!-- Copyright (C) 2012-present, The Authors. This program is free software: you can redistribute it and/or  modify it under the terms of the GNU Affero General Public License, version 3, as published by the Free Software Foundation. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more details. You should have received a copy of the GNU Affero General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>. --}}
 
 <div>
-    <p style="font-weight: bold; margin-bottom: 0;">
-        Dien zelf een stelling in waar anderen op kunnen stemmen
+    <p style="color: white; margin-right: 14rem; line-height: normal; font-weight: normal; min-height: 2rem;">
+        <em>Dien zelf een stelling in waar anderen op kunnen stemmen</em>
     </p>
 </div>
 
@@ -18,15 +18,15 @@
     margin: 0;
 
     color: black;
-    padding: 5px 0px 5px 0px;
+    /*padding: 5px 0px 5px 0px;*/
     font-style: italic;
-    font-family: chaparral-pro;
-
+    font-family: 'Inter', Helvetica, sans-serif;
+    display: none;
     "
     dir={{direction}}> {{! protips column }}
 
   <p
-    style="{{#unless desktop}}font-size:12px;{{/unless}}"
+    style=""
     >
       {{!-- present all hints to screen reader --}}
 
@@ -70,7 +70,7 @@
     id="char_limit_exceeded_message"
     class="protip"
     aria-hidden="true"
-    style="display:none; {{#unless desktop}}font-size:12px{{/unless}}"
+    style="display:none;"
     >
       <span aria-invalid="true" role="alert">
         {{charLimitString}}
@@ -84,7 +84,6 @@
     aria-hidden="true"
     style="
       display: none;
-      {{#unless desktop}}font-size:12px{{/unless}}
       ">
       <span>
         {{s.tipOneIdea}}
@@ -98,7 +97,6 @@
     role="alert"
     style="
       display:none;
-      {{#unless desktop}}font-size:12px{{/unless}}
       ">
         <span aria-invalid="true" role="alert">
           {{s.tipNoQuestions}}
@@ -133,6 +131,7 @@
             font-size: 16px; {{!-- 16px to prevent zooming on iOS. http://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone --}}
             line-height: 23px;
             vertical-align: middle;
+            border-radius: 0.528rem;
           "
           name="txt"
           type="text"
@@ -207,11 +206,12 @@
    <div
     style="
       inset-inline-end: 0px;
-      top: 0px;
-      height: 40px;
+      top: 0;
+      /*height: 40px;*/
       display: flex;
       align-items: center;
       justify-content: start;
+      padding-top: 5px;
       ">
       <button
         class="reactionButton"
@@ -220,7 +220,6 @@
         style="
           text-transform: none;
           font-size: 14px;
-          font-weight: 500;
           cursor: pointer;
           border: none;
           border-radius: 0px;
@@ -229,24 +228,19 @@
           margin-inline-end: 15px;
           {{customBtnStyles}}
           ">
-          <span class="reactionButtonIcon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65.9 65.9" xml:space="preserve">
-                  <path d="M0 37.8h28.1v28.1h9.7V28.1H0z"/><path d="M65.9 28.1H37.8V0h-9.7v37.8h37.8z"/>
-              </svg>
-          </span>
           <span>{{s.submitComment}}</span>
       </button>
        <span
                id="commentCharCount"
                aria-hidden="true" {{!-- don't show this to screen reader, since there's no problem --}}
-               style="display: none; color: gray; {{#if desktop}}min-width: 20px;{{/if}}"
+               style="display: none; color: white; {{#if desktop}}min-width: 20px;{{/if}}"
                class="comment_form_control_hideable unselectable">
       </span>
        <label
                id="commentCharCountExceeded"
                for="comment_form_textarea"
                role="alert"
-               style="display: none; color: red; {{#if desktop}}min-width: 20px;{{/if}}"
+               style="display: none; color: white; {{#if desktop}}min-width: 20px;{{/if}}"
                class="comment_form_control_hideable unselectable">
        </label>
    </div>
@@ -256,13 +250,13 @@
         style="
           {{#if no_write_hint}}visibility: hidden;{{/if}}
           width: 100%;
-          {{#if desktop}}{{!-- margin-inline-end: 20px; --}}width: 100%;{{/if}}
           margin-top: 0.5rem;
+          color: white;
           "> {{! protips column }}
 
         <p
           id="comment_sent_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
@@ -272,7 +266,7 @@
 
         <p
           id="comment_send_failed_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
@@ -285,7 +279,7 @@
 
         <p
           id="comment_send_failed_duplicate_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
@@ -298,7 +292,7 @@
 
         <p
           id="comment_send_failed_conversation_closed_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
@@ -311,7 +305,7 @@
 
         <p
           id="comment_send_failed_empty_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
@@ -324,7 +318,7 @@
 
         <p
           id="comment_send_failed_too_long_message"
-          style="display: none; {{#unless desktop}}font-size:12px{{/unless}}"
+          style="display: none; margin: 0;"
           role="alert"
           >
             <span>
