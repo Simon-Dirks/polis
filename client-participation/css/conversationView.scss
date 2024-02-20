@@ -314,7 +314,7 @@ img {
   gap: 1rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 619px) {
   .reactionButtons {
     flex-flow: column;
     gap: 0.5rem;
@@ -361,11 +361,33 @@ img {
   }
 }
 
+.top-buttons {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+}
+@media (max-width: 619px) {
+  .top-buttons {
+    right: inherit;
+    left: 0;
+    width: 100%;
+  }
+  #showResultsButton, #switchBetweenCommentsAndVotingButton {
+    width: 100%;
+
+    & span {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
 #switchBetweenCommentsAndVotingButton {
   //position: absolute;
   //right: 2rem;
   //top: 1rem;
-  margin: 0;
   color: black;
 
   &:hover span {
@@ -377,6 +399,7 @@ img {
   & span {
     background: $brand-color;
     border: 1px solid $brand-color;
+    margin: 0 2rem 0 0;
   }
 }
 
@@ -582,14 +605,14 @@ svg {
 }
 
 .comment-form-intro-text {
-  margin-right: 14rem;
+  margin-right: 15rem;
 }
 
 .vote-intro-text {
-  margin-right: 18rem;
+  margin-right: 19rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 619px) {
   .comment-form-intro-text, .vote-intro-text {
     margin-right: 0;
     margin-top: 3rem;
