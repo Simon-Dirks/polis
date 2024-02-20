@@ -366,7 +366,7 @@ img {
   //position: absolute;
   //right: 8rem;
   //top: 1rem;
-  margin: 0;
+  margin: 0 0 0 2rem;
 }
 
 #visualization_div {
@@ -556,6 +556,27 @@ svg {
   float: right;
 }
 
+.comment-form-intro-text, .vote-intro-text {
+  color: white;
+  line-height: normal;
+  font-weight: normal;
+  min-height: 2rem;
+}
+
+.comment-form-intro-text {
+  margin-right: 14rem;
+}
+
+.vote-intro-text {
+  margin-right: 18rem;
+}
+
+@media (max-width: 767px) {
+  .comment-form-intro-text, .vote-intro-text {
+    margin-right: 0;
+    margin-top: 3rem;
+  }
+}
 
 #commentCharCount, #commentCharCountExceeded {
   top: 0px;
