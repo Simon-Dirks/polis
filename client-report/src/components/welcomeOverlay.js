@@ -1,8 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
+import _ from 'lodash'
 
-const WelcomeOverlay = ({}) => {
+const WelcomeOverlay = ({ math, ptptCountTotal }) => {
+    const computeVoteTotal = (users) => {
+        let voteTotal = 0
+
+        _.each(users, (count) => {
+            voteTotal += count
+        })
+
+        return voteTotal
+    }
     return (
         <dialog id="welcome_overlay_modal" className="modal">
             <div className="modal-box p-8 md:p-12 text-base md:text-2xl bg-kennislink-dark-blue text-white max-w-5xl">
@@ -18,7 +28,26 @@ const WelcomeOverlay = ({}) => {
                     Let op: behaalde resultaten bieden geen garantie voor de toekomst – elke nieuwe
                     uitgebrachte stem kan de resultaten beïnvloeden!
                 </p>
-                <p>Heb je nog niet gestemd? Doe dat dan eerst.</p>
+                <p className={'mb-4'}>Heb je nog niet gestemd? Doe dat dan eerst.</p>
+
+                <div className={'block xl:hidden'}>
+                    <p className={'font-bold'}>Huidige statistieken:</p>
+                    <ul className={'list-disc pl-4'}>
+                        <li>
+                            <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
+                        </li>
+                        {/*<span className={'ml-4'}>*/}
+                        {/*    <strong>{ptptCount}</strong>&nbsp;gegroepeerd*/}
+                        {/*</span>*/}
+                        <li>
+                            <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>
+                            &nbsp;stemmen
+                        </li>
+                        <li>
+                            <strong>{math['n-cmts']}</strong>&nbsp;stellingen
+                        </li>
+                    </ul>
+                </div>
 
                 <div className={'mt-8 text-left md:text-center'}>
                     <form method="dialog" className={'inline-block'}>

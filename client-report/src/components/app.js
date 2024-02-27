@@ -507,7 +507,7 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div className={'h-full'}>
-                <WelcomeOverlay />
+                <WelcomeOverlay math={this.state.math} ptptCountTotal={this.state.ptptCountTotal} />
                 <VoteOverlay />
                 <HelpButton math={this.state.math} />
                 <TitleMenuBar
