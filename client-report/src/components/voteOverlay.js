@@ -201,7 +201,7 @@ const VoteOverlay = () => {
 
     return (
         <dialog id="vote_overlay_modal" className="modal">
-            <div className="modal-box p-0 max-w-3xl">
+            <div className="modal-box p-0 max-w-3xl bg-kennislink-dark-blue">
                 <div className="polis" data-conversation_id="6tfhikcfmr"></div>
             </div>
             <form method="dialog" className="modal-backdrop">
