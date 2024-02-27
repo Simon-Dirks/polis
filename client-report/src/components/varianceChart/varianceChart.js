@@ -206,6 +206,7 @@ class VarianceChart extends Component {
         const slotWidth = (maxPercentageDiff - minPercentageDiff) / numSlots
         const slots = new Array(numSlots).fill(null).map(() => [])
 
+        // TODO: Ensure that the circles always fill the first and last slots (corresponding to min and max percentage diffs)
         let maxSlotItems = 0
         commentsWithPercentageDiff.forEach((comment) => {
             const percentageDiff = maxPercentageDiff - comment.percentageDiff
