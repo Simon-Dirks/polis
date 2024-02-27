@@ -72,7 +72,7 @@ class VarianceChart extends Component {
     initCircleHover(svg, animate) {
         const that = this
 
-        const onCircleSelect = function (circleData) {
+        const onCircleSelect = function (circleData, circleElem, isHoverEvent) {
             if (animate && !that.state.introAnimationCompleted) {
                 return
             }
@@ -80,7 +80,7 @@ class VarianceChart extends Component {
 
             that.deselectAllCircles()
 
-            d3.select(this)
+            d3.select(circleElem)
                 .transition()
                 .duration(timeForHoverAnimationInMs)
                 .attrTween('fill', function () {
@@ -90,14 +90,28 @@ class VarianceChart extends Component {
                         return d3.interpolate(startColor, endColor)(t)
                     }
                 })
+
+            if (!isHoverEvent) {
+                // TODO: Do not use timeout here (used to wait for popup at bottom to show up)
+                setTimeout(() => {
+                    circleElem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                }, 10)
+            }
         }
 
-        svg.selectAll('circle')
-            .on('mouseover', onCircleSelect)
-            .on('mouseout', function () {
-                that.deselectCircle(d3.select(this))
+        if (that.isMobile()) {
+            svg.selectAll('circle').on('click', function (e) {
+                onCircleSelect(e, this, false)
             })
-            .on('click', onCircleSelect)
+        } else {
+            svg.selectAll('circle')
+                .on('mouseover', function (e) {
+                    onCircleSelect(e, this, true)
+                })
+                .on('mouseout', function () {
+                    that.deselectCircle(d3.select(this))
+                })
+        }
     }
     //
     // initCircleIntroAnimation(circles, radius) {
@@ -259,6 +273,9 @@ class VarianceChart extends Component {
         this.initCircleHover(svg, animate)
 
         let contentWidth = this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
+        if (contentWidth < 0) {
+            contentWidth = 0
+        }
         let contentHeight = '100%'
         if (isMobile) {
             const contentHeightPx =
@@ -294,6 +311,13 @@ class VarianceChart extends Component {
                 <div
                     className="flex-grow md:mb-20 pt-4 md:pt-0"
                     style={{ overflowY: this.isMobile() ? 'auto' : 'initial' }}
+                    onClick={(e) => {
+                        const clickedOnCircle = e.target?.tagName.toLowerCase() === 'circle'
+                        if (this.isMobile() && !clickedOnCircle) {
+                            this.setState({ selectedComment: undefined })
+                            this.deselectAllCircles()
+                        }
+                    }}
                 >
                     <div className="max-w-full md:h-full mx-16 md:mx-0 relative">
                         <svg
