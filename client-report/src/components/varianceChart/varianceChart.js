@@ -119,13 +119,17 @@ class VarianceChart extends Component {
                 onCircleSelect(e, this, false)
             })
         } else {
-            svg.selectAll('circle')
-                .on('mouseover', function (e) {
-                    onCircleSelect(e, this, true)
-                })
-                .on('mouseout', function () {
-                    that.deselectCircle(d3.select(this))
-                })
+            svg.selectAll('circle').on('click', function (e) {
+                onCircleSelect(e, this, false)
+            })
+            // svg.selectAll('circle')
+            //     .on('mouseover', function (e) {
+            //         onCircleSelect(e, this, true)
+            //     })
+            //     .on('mouseout', function () {
+            //         that.deselectCircle(d3.select(this))
+            //         // that.setState({ selectedComment: undefined })
+            //     })
         }
     }
     //

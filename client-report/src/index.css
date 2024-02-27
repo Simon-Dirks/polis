@@ -42,3 +42,7 @@ html, body, #root {
   visibility: visible;
   opacity: 1;
 }
+
+circle {
+  cursor: pointer;
+}
