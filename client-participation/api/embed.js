@@ -235,6 +235,15 @@
           }
         }
 
+        if (data && data.name === "showResults") {
+          window
+            .open(
+              "https://polis-kennislink.boasmedia.nl/report/r8srrmmy3v6havujpzdzv",
+              "_blank",
+            )
+            .focus();
+        }
+
         if (data === "cookieRedirect" && cookiesEnabledAtTopLevel()) {
           //   // temporarily redirect to polis, which will set a cookie and redirect back
           window.location =

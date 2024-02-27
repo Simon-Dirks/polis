@@ -139,6 +139,9 @@ const VoteOverlay = () => {
                                 )
                             if (i && 'init' === i.name)
                                 for (var n = 0; n < t.on.init.length; n++) t.on.init[n](i)
+                            if (i && 'showResults' === i.name) {
+                                document.getElementById('close_vote_overlay_modal_btn').click()
+                            }
                             if (
                                 ('cookieRedirect' === i &&
                                     (function () {
@@ -202,7 +205,7 @@ const VoteOverlay = () => {
                 <div className="polis" data-conversation_id="6tfhikcfmr"></div>
             </div>
             <form method="dialog" className="modal-backdrop">
-                <button>close</button>
+                <button id={'close_vote_overlay_modal_btn'}>close</button>
             </form>
         </dialog>
     )

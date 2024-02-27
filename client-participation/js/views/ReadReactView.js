@@ -6,9 +6,10 @@ var Handlebones = require("handlebones");
 
 var template = require("../templates/readReactView.handlebars");
 var CommentModel = require("../models/comment");
-var VoteView = require('../views/vote-view');
+var VoteView = require("../views/vote-view");
 var CommentFormView = require("../views/comment-form");
-var PolisFacebookUtils = require('../util/facebookButton');
+var PolisFacebookUtils = require("../util/facebookButton");
+const PostMessageUtils = require("../util/postMessageUtils");
 // var serverClient = require("../stores/polis");
 // var Utils = require("../util/utils");
 
@@ -22,29 +23,32 @@ module.exports = Handlebones.ModelView.extend({
   template: template,
   mode: "voting",
   events: {
-
     "click #fbNotNowBtn": "fbNotNowBtn",
     "click #fbNoUseBtn": "fbNoUseBtn",
     "click #fbConnectBtn": "fbConnectBtn",
-    "click #switchBetweenCommentsAndVotingButton": "switchBetweenCommentsAndVotingButton",
+    "click #switchBetweenCommentsAndVotingButton":
+      "switchBetweenCommentsAndVotingButton",
+    "click #showResultsButton": "showResultsButton",
     // "click #passButton": "participantPassed",
-
   },
-  fbNotNowBtn: function() {
+  fbNotNowBtn: function () {
     this.model.set("response", "fbnotnow");
   },
-  fbNoUseBtn: function() {
+  fbNoUseBtn: function () {
     this.model.set("response", "fbnouse");
   },
-  fbConnectBtn: function() {
-    PolisFacebookUtils.connect().then(function() {
-      // that.model.set("response", "fbdone");
-      location.reload();
-    }, function(err) {
-      // alert("facebook error");
-    });
+  fbConnectBtn: function () {
+    PolisFacebookUtils.connect().then(
+      function () {
+        // that.model.set("response", "fbdone");
+        location.reload();
+      },
+      function (err) {
+        // alert("facebook error");
+      },
+    );
   },
-  switchBetweenCommentsAndVotingButton: function() {
+  switchBetweenCommentsAndVotingButton: function () {
     if (this.mode === "comments") {
       this.mode = "voting";
     } else {
@@ -53,53 +57,63 @@ module.exports = Handlebones.ModelView.extend({
 
     this.render();
   },
-
-  context: function() {
+  showResultsButton: function () {
+    setTimeout(PostMessageUtils.postShowResultsEvent);
+  },
+  context: function () {
     var ctx = Handlebones.ModelView.prototype.context.apply(this, arguments);
     // ctx.iOS = iOS;
     var hasFacebookAttached = window.userObject.hasFacebook;
 
     var voteCountForFacebookPrompt = 3;
 
-    ctx.promptFacebook = SHOULD_PROMPT_FOR_FB && !hasFacebookAttached && !this.model.get("response") && this.model.get("voteCount") > voteCountForFacebookPrompt;
+    ctx.promptFacebook =
+      SHOULD_PROMPT_FOR_FB &&
+      !hasFacebookAttached &&
+      !this.model.get("response") &&
+      this.model.get("voteCount") > voteCountForFacebookPrompt;
 
     ctx.showingComments = this.mode === "comments";
     ctx.no_write = this.noWrite;
     return ctx;
   },
 
-  initialize: function(options) {
+  initialize: function (options) {
     Handlebones.ModelView.prototype.initialize.apply(this, arguments);
     var that = this;
     this.model = options.model;
 
     this.noWrite = options.noWrite;
 
-    this.voteView = this.addChild(new VoteView({
-      firstCommentPromise: options.firstCommentPromise,
-      serverClient: options.serverClient,
-      model: new CommentModel(),
-      conversationModel: options.conversationModel,
-      votesByMe: options.votesByMe,
-      is_public: options.is_public,
-      isSubscribed: options.isSubscribed,
-      conversation_id: options.conversation_id
-    }));
+    this.voteView = this.addChild(
+      new VoteView({
+        firstCommentPromise: options.firstCommentPromise,
+        serverClient: options.serverClient,
+        model: new CommentModel(),
+        conversationModel: options.conversationModel,
+        votesByMe: options.votesByMe,
+        is_public: options.is_public,
+        isSubscribed: options.isSubscribed,
+        conversation_id: options.conversation_id,
+      }),
+    );
 
-    this.commentForm = this.addChild(new CommentFormView({
-      model: new Backbone.Model({}),
-      conversationModel: options.conversationModel,
-      serverClient: options.serverClient,
-      conversation_id: options.conversation_id,
-      wipCommentFormText: options.wipCommentFormText
-    }));
+    this.commentForm = this.addChild(
+      new CommentFormView({
+        model: new Backbone.Model({}),
+        conversationModel: options.conversationModel,
+        serverClient: options.serverClient,
+        conversation_id: options.conversation_id,
+        wipCommentFormText: options.wipCommentFormText,
+      }),
+    );
 
-    this.commentForm.on("commentSubmitted", function() {
+    this.commentForm.on("commentSubmitted", function () {
       // $("#"+VOTE_TAB).tab("show");
     });
 
-    eb.on("vote", function() {
-      that.model.set("voteCount", (that.model.get("voteCount") + 1) || 1);
+    eb.on("vote", function () {
+      that.model.set("voteCount", that.model.get("voteCount") + 1 || 1);
     });
-  }
+  },
 });
