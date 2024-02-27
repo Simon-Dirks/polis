@@ -32,38 +32,41 @@ const TitleMenuBar = ({
             }
         >
             <div className={'p-2 flex-1 flex items-center md:pr-[22rem]'}>
-                <span className={'hidden md:block ml-8 font-bold text-left'}>
+                <span className={'hidden md:block ml-8 font-semibold text-left'}>
                     {conversation.topic}
                 </span>
 
                 <div className={'ml-12 hidden xl:block'}>
                     <span>
-                        <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
+                        <span className={'font-medium'}>{ptptCountTotal}</span>&nbsp;deelnemers
                     </span>
                     {/*<span className={'ml-4'}>*/}
                     {/*    <strong>{ptptCount}</strong>&nbsp;gegroepeerd*/}
                     {/*</span>*/}
                     <span className={'ml-4'}>
-                        <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>&nbsp;stemmen
+                        <span className={'font-medium'}>
+                            {computeVoteTotal(math['user-vote-counts'])}
+                        </span>
+                        &nbsp;stemmen
                     </span>
                     <span className={'ml-4'}>
-                        <strong>{math['n-cmts']}</strong>&nbsp;stellingen
+                        <span className={'font-medium'}>{math['n-cmts']}</span>&nbsp;stellingen
                     </span>
                 </div>
 
                 <div className={'text-center w-full md:w-auto md:text-left md:absolute md:right-8'}>
                     <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-semibold w-[45%] md:w-auto mr-6'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-medium w-[45%] md:w-auto mr-6'
                         }
                         onClick={() => document.getElementById('welcome_overlay_modal').showModal()}
                     >
-                        <img src={infoIcon} alt={'info icon'} className={'h-4 inline md:mr-2'} />
+                        <img src={infoIcon} alt={'info icon'} className={'h-4 inline'} />
                         <span>Over deze tool</span>
                     </button>
                     <button
                         className={
-                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold'
+                            'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-medium'
                         }
                         id={'open_vote_modal_btn'}
                         onClick={() => document.getElementById('vote_overlay_modal').showModal()}
@@ -71,7 +74,7 @@ const TitleMenuBar = ({
                         <img
                             src={megaphoneIcon}
                             alt={'megaphone icon'}
-                            className={'h-4 md:mr-2 inline py-[0.05rem]'}
+                            className={'h-4 inline py-[0.05rem]'}
                         />
                         <span>Stem mee</span>
                     </button>

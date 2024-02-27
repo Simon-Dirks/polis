@@ -33,20 +33,22 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
                 <p className={'mb-4'}>Heb je nog niet gestemd? Doe dat dan eerst.</p>
 
                 <div className={'block xl:hidden'}>
-                    <p className={'font-bold'}>Huidige statistieken:</p>
+                    <p className={'font-medium'}>Huidige statistieken:</p>
                     <ul className={'list-disc pl-4'}>
                         <li>
-                            <strong>{ptptCountTotal}</strong>&nbsp;deelnemers
+                            <span className={'font-medium'}>{ptptCountTotal}</span>&nbsp;deelnemers
                         </li>
                         {/*<span className={'ml-4'}>*/}
                         {/*    <strong>{ptptCount}</strong>&nbsp;gegroepeerd*/}
                         {/*</span>*/}
                         <li>
-                            <strong>{computeVoteTotal(math['user-vote-counts'])}</strong>
+                            <span className={'font-medium'}>
+                                {computeVoteTotal(math['user-vote-counts'])}
+                            </span>
                             &nbsp;stemmen
                         </li>
                         <li>
-                            <strong>{math['n-cmts']}</strong>&nbsp;stellingen
+                            <span className={'font-medium'}>{math['n-cmts']}</span>&nbsp;stellingen
                         </li>
                     </ul>
                 </div>
@@ -55,7 +57,7 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
                     <form method="dialog" className={'inline-block'}>
                         <button
                             className={
-                                'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-normal text-base md:text-lg block md:inline-block mb-2 md:mb-0'
+                                'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-light text-base md:text-lg block md:inline-block mb-2 md:mb-0 min-h-[2.6rem] h-[2.6rem] px-[1.8rem] '
                             }
                         >
                             Ontdek nu
@@ -65,7 +67,7 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
                     <span className={'hidden md:inline-block mx-4'}> of </span>
                     <button
                         className={
-                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-normal text-base md:text-lg block md:inline-block'
+                            'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-light text-base md:text-lg block md:inline-block min-h-[2.6rem] h-[2.6rem] px-[1.8rem]'
                         }
                         onClick={() => {
                             closeModalButtonRef.current?.click()

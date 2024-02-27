@@ -5,7 +5,7 @@ import arrowRight from '../../assets/arrow-right.svg'
 const HorizontalVarianceAxis = ({ width }) => {
     return (
         <div
-            className={'hidden md:block text-xl relative mt-2 h-8'}
+            className={'hidden md:block text-xl relative mt-3 h-8'}
             style={{ width: `${width}px` }}
         >
             <p className={'absolute top-0 left-0'}>

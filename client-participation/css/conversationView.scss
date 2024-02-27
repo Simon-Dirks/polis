@@ -304,6 +304,12 @@ img {
   color: white;
 }
 
+#comment_message_container p {
+  opacity: 0.8;
+  font-size: 0.8rem !important;
+  padding-top: 0.2rem;
+}
+
 .reactionButtons {
   display: -webkit-box;
   display: -moz-box;
@@ -381,6 +387,8 @@ img {
     & span {
       width: 100%;
       justify-content: center;
+      padding: 0 0.5rem 0;
+      font-size: 0.8rem;
     }
   }
 }
@@ -607,6 +615,7 @@ svg {
 
 .comment-form-intro-text {
   margin-right: 15rem;
+  min-height: 2.2rem !important;
 }
 
 .vote-intro-text {
@@ -645,6 +654,7 @@ svg {
     box-shadow: none;
     border: 0;
     min-height: 81px; // space for three lines, height itself is overwritten at element-level
+    font-size: 0.95rem;
 
     &:focus {
       outline: 1px $kennislink-medium-gray solid;

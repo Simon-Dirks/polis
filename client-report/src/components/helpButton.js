@@ -27,11 +27,11 @@ const helpButton = ({ math }) => {
             >
                 <div
                     className={
-                        'w-64 sm:w-96 rounded-lg p-6 mr-4 bg-kennislink-dark-blue text-white'
+                        'w-64 sm:w-96 rounded-lg p-6 md:px-8 md:py-6 mr-4 bg-kennislink-dark-blue text-white'
                     }
                 >
-                    <p className={'font-semibold text-sm md:text-base mb-2'}>Waar kijk ik naar?</p>
-                    <p className={'text-sm md:text-base'}>
+                    <p className={'font-medium text-sm md:text-base mb-2'}>Waar kijk ik naar?</p>
+                    <p className={'text-sm md:text-base leading-[1.35rem] md:leading-[1.5rem]'}>
                         Elke cirkel is een stelling. Klik op een stelling om te zien hoe er gestemd
                         is. Als de meeste mensen hetzelfde hebben gestemd (meerderheid ‘eens’ of
                         ‘oneens’), is er veel overeenstemming. Die stellingen staan{' '}
