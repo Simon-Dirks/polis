@@ -46,3 +46,10 @@ html, body, #root {
 circle {
   cursor: pointer;
 }
+
+@media (min-width: 769px) and (max-width: 1080px) {
+  #comment-text {
+    font-size: 2rem;
+    line-height: 2.2rem;
+  }
+}

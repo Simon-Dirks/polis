@@ -32,7 +32,7 @@ const TitleMenuBar = ({
             }
         >
             <div className={'p-2 flex-1 flex items-center md:pr-[22rem]'}>
-                <span className={'hidden md:block ml-8 font-semibold text-left'}>
+                <span className={'hidden md:block ml-8 font-medium text-left'}>
                     {conversation.topic}
                 </span>
 

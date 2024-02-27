@@ -8,8 +8,9 @@ const CommentContent = ({ comment }) => {
             <p className={'text-base md:text-2xl'}>Stelling {comment?.tid}</p>
             <p
                 className={
-                    'text-xl md:text-5xl leading-[1.7rem] md:leading-[3.1rem] font-normal mt-1 mb-3 md:mb-6'
+                    'text-xl lg:text-5xl leading-[1.7rem] lg:leading-[3.1rem] font-normal mt-1 mb-3 md:mb-6'
                 }
+                id={'comment-text'}
             >
                 {comment?.txt}
             </p>
