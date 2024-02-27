@@ -27,6 +27,7 @@ class VarianceChart extends Component {
             selectedComment: undefined,
             introAnimationCompleted: false,
             svgWidth: 0,
+            hasSelectedRandomComment: false,
         }
         this.svgRef = React.createRef()
         this.svgRefContainer = React.createRef()
@@ -49,6 +50,15 @@ class VarianceChart extends Component {
         if (this.resizeObserverContainer) {
             this.resizeObserverContainer.disconnect()
         }
+    }
+
+    selectRandomComment() {
+        console.log('Selecting random comment')
+        const allCircles = d3.selectAll('circle')
+        const numCircles = allCircles.size()
+        const randomIndex = Math.floor(Math.random() * numCircles)
+        const randomCircle = allCircles.nodes()[randomIndex]
+        d3.select(randomCircle).dispatch('click')
     }
 
     handleResize() {
@@ -77,13 +87,14 @@ class VarianceChart extends Component {
         return Math.min(maxWidthRadius, maxHeightRadius)
     }
 
-    initCircleHover(svg, animate) {
+    initCircleSelect(svg, animate) {
         const that = this
 
         const onCircleSelect = function (circleData, circleElem, isHoverEvent) {
             if (animate && !that.state.introAnimationCompleted) {
                 return
             }
+            console.log('SELECTING CIRCLE', circleData, circleElem, isHoverEvent)
             that.setState({ selectedComment: circleData.comment })
 
             that.deselectAllCircles()
@@ -290,7 +301,7 @@ class VarianceChart extends Component {
         //     this.initCircleIntroAnimation(circles, circleRadius)
         // }
 
-        this.initCircleHover(svg, animate)
+        this.initCircleSelect(svg, animate)
 
         let contentWidth = this.state.numCirclesPerRow * (2 * circleRadius + this.state.paddingPx)
         if (contentWidth < 0) {
@@ -307,6 +318,14 @@ class VarianceChart extends Component {
 
         // container.style.width = `${contentWidth}px`
         svg.attr('width', `${contentWidth}px`).attr('height', contentHeight)
+
+        // TODO: Wait for all circles to be drawn to the screen, now sometimes does not select. Remove delay.
+        if (!this.state.hasSelectedRandomComment && !this.isMobile()) {
+            this.setState({ hasSelectedRandomComment: true })
+            setTimeout(() => {
+                this.selectRandomComment()
+            }, 200)
+        }
     }
 
     render() {
