@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { connect } from 'react-redux'
 import { mapStateToProps } from '../store/mapStateToProps'
 import _ from 'lodash'
@@ -13,6 +13,8 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
 
         return voteTotal
     }
+    const closeModalButtonRef = useRef()
+
     return (
         <dialog id="welcome_overlay_modal" className="modal">
             <div className="modal-box p-8 md:p-12 text-base md:text-2xl bg-kennislink-dark-blue text-white max-w-5xl">
@@ -65,15 +67,17 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
                         className={
                             'btn btn-outline text-white rounded-full border border-white hover:border-white hover:bg-white hover:text-kennislink-dark-blue font-normal text-base md:text-xl block md:inline-block'
                         }
-                        href={'https://www.nemokennislink.nl/pagina/polis-hoe-werkt-het/'}
-                        target={'_blank'}
+                        onClick={() => {
+                            closeModalButtonRef.current?.click()
+                            document.getElementById('open_vote_modal_btn')?.click()
+                        }}
                     >
                         Eerst stemmen
                     </button>
                 </div>
             </div>
             <form method="dialog" className="modal-backdrop">
-                <button>close</button>
+                <button ref={closeModalButtonRef}>close</button>
             </form>
         </dialog>
     )

@@ -65,6 +65,7 @@ const TitleMenuBar = ({
                         className={
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 w-[45%] md:w-auto font-semibold'
                         }
+                        id={'open_vote_modal_btn'}
                         onClick={() => document.getElementById('vote_overlay_modal').showModal()}
                     >
                         <img
