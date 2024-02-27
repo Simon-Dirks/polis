@@ -14,6 +14,7 @@ const timeForHoverAnimationInMs = 100
 // const timeForIntroAnimationInMs = 750
 // const delayBetweenCirclesInMs = 0 // TODO: Adjust this based on number of total circles? Configure total animation time based on this
 
+const minCirclesPerRowForCalculatingRadius = 6 // Used to determine radius of circles on mobile
 const minVotesForCommentToShow = 7
 
 class VarianceChart extends Component {
@@ -58,6 +59,9 @@ class VarianceChart extends Component {
     }
 
     calculateRadius(width, height, numCirclesPerRow, numRows, padding) {
+        if (numCirclesPerRow < minCirclesPerRowForCalculatingRadius) {
+            numCirclesPerRow = minCirclesPerRowForCalculatingRadius
+        }
         const maxWidthRadius = (width - (numCirclesPerRow - 1) * padding) / (numCirclesPerRow * 2)
         const maxHeightRadius = (height - (numRows - 1) * padding) / (numRows * 2)
 
