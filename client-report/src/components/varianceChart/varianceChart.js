@@ -6,6 +6,7 @@ import CommentContent from './commentContent'
 import HorizontalVarianceAxis from './horizontalVarianceAxis'
 import closeIcon from '../../assets/close.svg'
 import VerticalVarianceAxis from './verticalVarianceAxis'
+import scrollIntoView from 'scroll-into-view-if-needed'
 
 const circleColor = '#D9D9D9'
 const circleColorOnHover = '#929292'
@@ -28,14 +29,15 @@ class VarianceChart extends Component {
             svgWidth: 0,
         }
         this.svgRef = React.createRef()
+        this.svgRefContainer = React.createRef()
         this.handleResize = this.handleResize.bind(this)
     }
 
     componentDidMount() {
         this.createSVG()
 
-        this.resizeObserver = new ResizeObserver(this.handleResize)
-        this.resizeObserver.observe(this.svgRef.current)
+        this.resizeObserverContainer = new ResizeObserver(this.handleResize)
+        this.resizeObserverContainer.observe(this.svgRefContainer.current)
 
         // setTimeout(() => {
         //     this.resizeObserver = new ResizeObserver(this.handleResize)
@@ -44,12 +46,14 @@ class VarianceChart extends Component {
     }
 
     componentWillUnmount() {
-        if (this.resizeObserver) {
-            this.resizeObserver.disconnect()
+        if (this.resizeObserverContainer) {
+            this.resizeObserverContainer.disconnect()
         }
     }
 
     handleResize() {
+        // console.log('HANDLING RESIZE')
+
         this.removeAllCircles()
         this.createSVG(false)
     }
@@ -97,8 +101,15 @@ class VarianceChart extends Component {
 
             if (!isHoverEvent) {
                 // TODO: Do not use timeout here (used to wait for popup at bottom to show up)
+
                 setTimeout(() => {
-                    circleElem.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    scrollIntoView(circleElem, {
+                        // scrollMode: 'if-needed',
+                        block: 'center',
+                        inline: 'nearest',
+                        behavior: 'smooth',
+                    })
+                    // circleElem.scrollIntoView({ behavior: 'smooth', block: 'center' })
                 }, 10)
             }
         }
@@ -322,8 +333,12 @@ class VarianceChart extends Component {
                             this.deselectAllCircles()
                         }
                     }}
+                    id={'svg-scroll-container'}
                 >
-                    <div className="max-w-full md:h-full mx-16 md:mx-0 relative">
+                    <div
+                        className="max-w-full md:h-full mx-16 md:mx-0 relative"
+                        ref={this.svgRefContainer}
+                    >
                         <svg
                             ref={this.svgRef}
                             className="mb-16 md:mb-0"
