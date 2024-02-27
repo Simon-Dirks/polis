@@ -158,7 +158,7 @@ class VarianceChart extends Component {
                 comment.disagreed
             )
             comment.percentageDiff = percentageDiff
-            console.log(comment.agreed, comment.disagreed, comment.percentageDiff)
+            // console.log(comment.agreed, comment.disagreed, comment.percentageDiff)
             minPercentageDiff =
                 percentageDiff < minPercentageDiff ? percentageDiff : minPercentageDiff
             maxPercentageDiff =
@@ -193,8 +193,6 @@ class VarianceChart extends Component {
                 return a.percentageDiff < b.percentageDiff
             })
         })
-
-        console.log(slots)
 
         for (let slotColIdx = 0; slotColIdx < this.state.numCirclesPerRow; slotColIdx++) {
             const slotItems = slots[slotColIdx]
