@@ -184,6 +184,21 @@ class VarianceChart extends Component {
             .append('circle')
             .attr('cx', cx)
             .attr('cy', cy)
+            .attr('aria-role', 'button')
+            .attr('aria-label', (d) => {
+                if (!d.comment || !d.comment.txt) {
+                    return 'Cirkel die een stelling vertegenwoordigt.'
+                }
+                const commentText = d.comment.txt
+                console.log(d.comment)
+                const commentVotes = `${Math.round(d.comment.pctAgreed * 100)}% eens, ${Math.round(
+                    d.comment.pctDisagreed * 100
+                )}% oneens, ${Math.round(d.comment.pctVoted * 100)} overslaan. Aantal stemmen: ${
+                    d.comment.saw
+                }.`
+                return `Stelling ${d.comment.tid}: ${commentText} ${commentVotes}`
+            })
+            .attr('tabIndex', (d) => d.tabIndex)
             .attr('r', circleRadius)
             .attr('fill', (d) => {
                 const isSelectedComment =
@@ -260,6 +275,7 @@ class VarianceChart extends Component {
             })
         })
 
+        let tabIndex = 0
         for (let slotColIdx = 0; slotColIdx < this.state.numCirclesPerRow; slotColIdx++) {
             const slotItems = slots[slotColIdx]
             for (let slotRowIdx = 0; slotRowIdx < slotItems.length; slotRowIdx++) {
@@ -269,7 +285,9 @@ class VarianceChart extends Component {
                     row: slotRowIdx,
                     index: slotColIdx,
                     comment: slotItem,
+                    tabIndex: tabIndex,
                 })
+                tabIndex++
             }
         }
 
@@ -380,6 +398,9 @@ class VarianceChart extends Component {
                             ref={this.svgRef}
                             className="mb-16 md:mb-0"
                             style={{ maxWidth: '100%' }}
+                            aria-label={
+                                'Grafiek met cirkels, elke cirkel vertegenwoordigt een stelling. Aan de linkerkant staan stellingen met overeenstemming, aan de rechterkant stellingen met verdeeldheid.'
+                            }
                         ></svg>
 
                         <VerticalVarianceAxis height={this.state.svgHeight} />
