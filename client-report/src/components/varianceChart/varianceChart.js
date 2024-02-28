@@ -218,7 +218,7 @@ class VarianceChart extends Component {
         const slotWidth = (maxPercentageDiff - minPercentageDiff) / numSlots
         const slots = new Array(numSlots).fill(null).map(() => [])
 
-        if (selectRandomCircle) {
+        if (selectRandomCircle && !this.isMobile()) {
             const randomCommentToSelectIndex = Math.floor(
                 Math.random() * commentsWithPercentageDiff.length
             )
