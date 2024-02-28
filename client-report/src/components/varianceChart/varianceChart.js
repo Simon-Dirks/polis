@@ -9,7 +9,7 @@ import VerticalVarianceAxis from './verticalVarianceAxis'
 import scrollIntoView from 'scroll-into-view-if-needed'
 
 const circleColor = '#D9D9D9'
-const circleColorOnHover = '#929292'
+const selectedCircleColor = '#929292'
 
 const timeForHoverAnimationInMs = 100
 // const timeForIntroAnimationInMs = 750
@@ -27,7 +27,6 @@ class VarianceChart extends Component {
             selectedComment: undefined,
             introAnimationCompleted: false,
             svgWidth: 0,
-            hasSelectedRandomComment: false,
         }
         this.svgRef = React.createRef()
         this.svgRefContainer = React.createRef()
@@ -35,7 +34,7 @@ class VarianceChart extends Component {
     }
 
     componentDidMount() {
-        this.createSVG()
+        this.createSVG(false, true)
 
         this.resizeObserverContainer = new ResizeObserver(this.handleResize)
         this.resizeObserverContainer.observe(this.svgRefContainer.current)
@@ -52,20 +51,11 @@ class VarianceChart extends Component {
         }
     }
 
-    selectRandomComment() {
-        console.log('Selecting random comment')
-        const allCircles = d3.selectAll('circle')
-        const numCircles = allCircles.size()
-        const randomIndex = Math.floor(Math.random() * numCircles)
-        const randomCircle = allCircles.nodes()[randomIndex]
-        d3.select(randomCircle).dispatch('click')
-    }
-
     handleResize() {
         // console.log('HANDLING RESIZE')
 
         this.removeAllCircles()
-        this.createSVG(false)
+        this.createSVG(false, false)
     }
 
     isMobile() {
@@ -104,7 +94,7 @@ class VarianceChart extends Component {
                 .duration(timeForHoverAnimationInMs)
                 .attrTween('fill', function () {
                     const startColor = d3.rgb(circleColor)
-                    const endColor = d3.rgb(circleColorOnHover)
+                    const endColor = d3.rgb(selectedCircleColor)
                     return function (t) {
                         return d3.interpolate(startColor, endColor)(t)
                     }
@@ -181,10 +171,21 @@ class VarianceChart extends Component {
             .attr('cx', cx)
             .attr('cy', cy)
             .attr('r', circleRadius)
-            .attr('fill', '#D9D9D9')
+            .attr('fill', (d) => {
+                const isSelectedComment =
+                    d.comment &&
+                    this.state &&
+                    this.state.selectedComment &&
+                    d.comment.tid === this.state.selectedComment.tid
+                if (isSelectedComment) {
+                    return selectedCircleColor
+                } else {
+                    return circleColor
+                }
+            })
     }
 
-    getCirclesData() {
+    getCirclesData(selectRandomCircle) {
         const circlesData = []
 
         let comments = this.props.comments
@@ -217,8 +218,18 @@ class VarianceChart extends Component {
         const slotWidth = (maxPercentageDiff - minPercentageDiff) / numSlots
         const slots = new Array(numSlots).fill(null).map(() => [])
 
+        if (selectRandomCircle) {
+            const randomCommentToSelectIndex = Math.floor(
+                Math.random() * commentsWithPercentageDiff.length
+            )
+            this.setState({
+                selectedComment: commentsWithPercentageDiff[randomCommentToSelectIndex],
+            })
+        }
+
         // TODO: Ensure that the circles always fill the first and last slots (corresponding to min and max percentage diffs)
         let maxSlotItems = 0
+
         commentsWithPercentageDiff.forEach((comment) => {
             const percentageDiff = maxPercentageDiff - comment.percentageDiff
             if (percentageDiff >= minPercentageDiff && percentageDiff <= maxPercentageDiff) {
@@ -275,7 +286,7 @@ class VarianceChart extends Component {
         svg.selectAll('circle').remove()
     }
 
-    createSVG(animate = true) {
+    createSVG(animate, selectRandomCircle) {
         const svg = d3.select(this.svgRef.current)
 
         const container = svg.node().parentElement
@@ -284,7 +295,7 @@ class VarianceChart extends Component {
 
         const isMobile = this.isMobile()
 
-        const [circlesData, numRows] = this.getCirclesData()
+        const [circlesData, numRows] = this.getCirclesData(selectRandomCircle)
 
         const circleRadius = this.calculateRadius(
             containerWidth,
@@ -318,14 +329,6 @@ class VarianceChart extends Component {
 
         // container.style.width = `${contentWidth}px`
         svg.attr('width', `${contentWidth}px`).attr('height', contentHeight)
-
-        // TODO: Wait for all circles to be drawn to the screen, now sometimes does not select. Remove delay.
-        if (!this.state.hasSelectedRandomComment && !this.isMobile()) {
-            this.setState({ hasSelectedRandomComment: true })
-            setTimeout(() => {
-                this.selectRandomComment()
-            }, 200)
-        }
     }
 
     render() {
