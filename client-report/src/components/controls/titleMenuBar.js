@@ -32,11 +32,11 @@ const TitleMenuBar = ({
             }
         >
             <div className={'p-2 flex-1 flex items-center md:pr-[22rem]'}>
-                <span className={'hidden md:block ml-8 font-medium text-left'}>
+                <span className={'hidden md:block ml-8 font-medium text-left'} tabIndex={0}>
                     {conversation.topic}
                 </span>
 
-                <div className={'ml-12 hidden xl:block'}>
+                <div className={'ml-12 hidden xl:block'} tabIndex={1}>
                     <span>
                         <span className={'font-medium'}>{ptptCountTotal}</span>&nbsp;deelnemers
                     </span>
@@ -60,6 +60,7 @@ const TitleMenuBar = ({
                             'btn btn-sm rounded-full bg-white border border-kennislink-light-gray px-4 py-0 font-medium w-[45%] md:w-auto mr-6'
                         }
                         onClick={() => document.getElementById('welcome_overlay_modal').showModal()}
+                        tabIndex={2}
                     >
                         <img src={infoIcon} alt={'info icon'} className={'h-4 inline'} />
                         <span>Over deze tool</span>
@@ -70,6 +71,7 @@ const TitleMenuBar = ({
                         }
                         id={'open_vote_modal_btn'}
                         onClick={() => document.getElementById('vote_overlay_modal').showModal()}
+                        tabIndex={3}
                     >
                         <img
                             src={megaphoneIcon}

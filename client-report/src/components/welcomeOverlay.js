@@ -53,7 +53,7 @@ const WelcomeOverlay = ({ math, ptptCountTotal }) => {
                     </ul>
                 </div>
 
-                <div className={'mt-8 text-left'}>
+                <div className={'mt-8 text-left'} id={'welcome-overlay-modal-button-container'}>
                     <form method="dialog" className={'inline-block'}>
                         <button
                             className={

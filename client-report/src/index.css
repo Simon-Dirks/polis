@@ -31,14 +31,13 @@ html, body, #root {
   overflow: hidden;
 }
 
-/* Important for Safari to allow scrolling */
-#vote_overlay_modal iframe {
+#vote_overlay_modal iframe, #welcome_overlay_modal #welcome-overlay-modal-button-container {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s, visibility 0.2s, height 0.25s !important;
 }
 
-#vote_overlay_modal[open] iframe {
+#vote_overlay_modal[open] iframe, #welcome_overlay_modal[open] #welcome-overlay-modal-button-container {
   visibility: visible;
   opacity: 1;
 }
@@ -57,3 +56,4 @@ circle {
 ::selection {
   background: rgba(253, 244, 231, 1);
 }
+

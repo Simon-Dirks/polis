@@ -507,8 +507,6 @@ class App extends React.Component {
         console.log('top level app state and props', this.state, this.props)
         return (
             <div className={'h-full'}>
-                <WelcomeOverlay math={this.state.math} ptptCountTotal={this.state.ptptCountTotal} />
-                <VoteOverlay />
                 <HelpButton math={this.state.math} />
                 <TitleMenuBar
                     math={this.state.math}
@@ -741,6 +739,12 @@ class App extends React.Component {
                     {/*<BoxPlot groupVotes={this.state.math['group-votes']} />*/}
 
                     {/*<Footer />*/}
+
+                    <WelcomeOverlay
+                        math={this.state.math}
+                        ptptCountTotal={this.state.ptptCountTotal}
+                    />
+                    <VoteOverlay />
                 </div>
             </div>
         )

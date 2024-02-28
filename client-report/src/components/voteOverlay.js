@@ -121,6 +121,7 @@ const VoteOverlay = () => {
                     (o.style.backgroundColor = 'white'),
                     (o.id = d),
                     o.setAttribute('data-test-id', 'polis-iframe'),
+                    o.setAttribute('title', 'Polis voting iframe'),
                     t.appendChild(o),
                     i.push(o)
             }
