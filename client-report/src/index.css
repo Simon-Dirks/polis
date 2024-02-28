@@ -53,3 +53,7 @@ circle {
     line-height: 2.2rem;
   }
 }
+
+::selection {
+  background: rgba(253, 244, 231, 1);
+}
