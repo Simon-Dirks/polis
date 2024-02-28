@@ -39,6 +39,10 @@ class VarianceChart extends Component {
         this.resizeObserverContainer = new ResizeObserver(this.handleResize)
         this.resizeObserverContainer.observe(this.svgRefContainer.current)
 
+        // TODO: Can optimize by not watching two containers
+        this.resizeObserver = new ResizeObserver(this.handleResize)
+        this.resizeObserver.observe(this.svgRef.current)
+
         // setTimeout(() => {
         //     this.resizeObserver = new ResizeObserver(this.handleResize)
         //     this.resizeObserver.observe(this.svgRef.current)
@@ -48,6 +52,10 @@ class VarianceChart extends Component {
     componentWillUnmount() {
         if (this.resizeObserverContainer) {
             this.resizeObserverContainer.disconnect()
+        }
+
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect()
         }
     }
 
