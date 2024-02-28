@@ -84,7 +84,13 @@ class VarianceChart extends Component {
             if (animate && !that.state.introAnimationCompleted) {
                 return
             }
-            console.log('SELECTING CIRCLE', circleData, circleElem, isHoverEvent)
+            // console.log(
+            //     'SELECTING CIRCLE',
+            //     circleData,
+            //     circleElem,
+            //     isHoverEvent,
+            //     circleData.comment.percentageDiff
+            // )
             that.setState({ selectedComment: circleData.comment })
 
             that.deselectAllCircles()
@@ -198,10 +204,8 @@ class VarianceChart extends Component {
         let minPercentageDiff = Infinity
         let maxPercentageDiff = 0
         const commentsWithPercentageDiff = comments.map((comment) => {
-            const percentageDiff = DataUtils.calculatePercentageDifference(
-                comment.agreed,
-                comment.disagreed
-            )
+            const percentageDiff =
+                100 - DataUtils.calculatePercentageDifference(comment.agreed, comment.disagreed)
             comment.percentageDiff = percentageDiff
             // console.log(comment.agreed, comment.disagreed, comment.percentageDiff)
             minPercentageDiff =
@@ -217,7 +221,6 @@ class VarianceChart extends Component {
         const numSlots = this.state.numCirclesPerRow
         const slotWidth = (maxPercentageDiff - minPercentageDiff) / numSlots
         const slots = new Array(numSlots).fill(null).map(() => [])
-
         if (selectRandomCircle && !this.isMobile()) {
             const randomCommentToSelectIndex = Math.floor(
                 Math.random() * commentsWithPercentageDiff.length
@@ -227,11 +230,10 @@ class VarianceChart extends Component {
             })
         }
 
-        // TODO: Ensure that the circles always fill the first and last slots (corresponding to min and max percentage diffs)
         let maxSlotItems = 0
 
         commentsWithPercentageDiff.forEach((comment) => {
-            const percentageDiff = maxPercentageDiff - comment.percentageDiff
+            const percentageDiff = comment.percentageDiff
             if (percentageDiff >= minPercentageDiff && percentageDiff <= maxPercentageDiff) {
                 const slotIndex = Math.min(
                     Math.floor((percentageDiff - minPercentageDiff) / slotWidth),
@@ -246,7 +248,7 @@ class VarianceChart extends Component {
 
         slots.map((slotItems) => {
             return slotItems.sort((a, b) => {
-                return a.percentageDiff < b.percentageDiff
+                return a.percentageDiff > b.percentageDiff
             })
         })
 
