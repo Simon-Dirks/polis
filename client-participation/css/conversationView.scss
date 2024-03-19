@@ -395,6 +395,29 @@ img {
   }
 }
 
+#showResultsButton {
+  //position: absolute;
+  //right: 8rem;
+  //top: 1rem;
+  margin: 0 0 0 2rem;
+}
+
+
+@media (max-width: 370px) {
+  // Reduce side margins on small screens
+  #showResultsButton {
+    margin: 0 0 0 1.5rem;
+  }
+
+  #switchBetweenCommentsAndVotingButton span {
+    margin: 0 1.5rem 0 0;
+  }
+
+  .lightPanel {
+    padding: 1.5rem 1.5rem;
+  }
+}
+
 #switchBetweenCommentsAndVotingButton {
   //position: absolute;
   //right: 2rem;
@@ -414,12 +437,6 @@ img {
   }
 }
 
-#showResultsButton {
-  //position: absolute;
-  //right: 8rem;
-  //top: 1rem;
-  margin: 0 0 0 2rem;
-}
 
 #visualization_div {
   width: 100%;
