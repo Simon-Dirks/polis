@@ -10,7 +10,7 @@ const VoteOverlay = () => {
                 e = !window.polis._hasRun
             t._hasRun = 1
             var i = [],
-                a = window.location.protocol + '//localhost'
+                a = window.location.protocol + '//polis.nemokennislink.nl'
             function o(t, e) {
                 if ('string' != typeof e) return {}
                 e.charAt(0) === t && (e = e.slice(1))
@@ -130,7 +130,7 @@ const VoteOverlay = () => {
                     'message',
                     function (e) {
                         var i = e.data || {}
-                        if (e.origin.replace(/^https?:\/\//, '').match(/(^|\.)localhost$/)) {
+                        if (e.origin.replace(/^https?:\/\//, '').match(/(^|\.)polis\.nemokennislink\.nl$/)) {
                             for (var o = t.on[i.name] || [], r = [], d = 0; d < o.length; d++)
                                 r.push(
                                     o[d]({

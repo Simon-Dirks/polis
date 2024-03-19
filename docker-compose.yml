@@ -43,6 +43,7 @@ services:
     volumes:
     # Persist logs to a volume, so they can be accessed after the container is stopped.
       - server-logs:/app/logs
+    restart: always
 
   math:
     image: docker.io/compdem/polis-math:${TAG:-dev}
@@ -59,6 +60,9 @@ services:
       - WEBSERVER_PASS=${WEBSERVER_PASS:?error}
     networks:
       - "polis-net"
+    restart: always
+    volumes:
+      - "math-export:/app/export"
 
   postgres:
     image: docker.io/compdem/polis-postgres:${TAG:-dev}
@@ -94,6 +98,7 @@ services:
       - ${HTTPS_PORT:-443}:443
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+    restart: always
   
   file-server:
     image: docker.io/compdem/polis-file-server:${TAG:-dev}
@@ -114,6 +119,7 @@ services:
       - PORT=${STATIC_FILES_PORT:-8080}
     networks:
       - "polis-net"
+    restart: always
 
 networks:
   polis-net:
@@ -126,5 +132,8 @@ volumes:
     labels:
       polis_tag: ${TAG:-dev}
   server-logs:
+    labels:
+      polis_tag: ${TAG:-dev}
+  math-export:
     labels:
       polis_tag: ${TAG:-dev}
