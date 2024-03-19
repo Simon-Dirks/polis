@@ -238,7 +238,7 @@
         if (data && data.name === "showResults") {
           window
             .open(
-              "https://polis-kennislink.boasmedia.nl/report/r8srrmmy3v6havujpzdzv",
+              "https://polis.nemokennislink.nl/report/r8srrmmy3v6havujpzdzv",
               "_blank",
             )
             .focus();
