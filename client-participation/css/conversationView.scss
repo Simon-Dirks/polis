@@ -405,17 +405,9 @@ img {
 
 @media (max-width: 370px) {
   // Reduce side margins on small screens
-  //#showResultsButton {
-  //  margin: 0 0 0 1.5rem;
-  //}
-  //
-  //#switchBetweenCommentsAndVotingButton span {
-  //  margin: 0 1.5rem 0 0;
-  //}
-  //
-  //.lightPanel {
-  //  padding: 1.5rem 1.5rem;
-  //}
+  .lightPanel {
+    padding: 1.5rem 1.5rem;
+  }
 
   // Show buttons underneath each other
   .top-buttons {
@@ -423,7 +415,7 @@ img {
     flex-direction: column;
   }
 
-  .vote-intro-text {
+  .comment-form-intro-text, .vote-intro-text, .Notification--warning {
     margin-top: 1.5rem !important;
   }
 
