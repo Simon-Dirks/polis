@@ -413,10 +413,11 @@ img {
   .top-buttons {
     position: initial;
     flex-direction: column;
+    gap: 5px;
   }
 
   .comment-form-intro-text, .vote-intro-text, .Notification--warning {
-    margin-top: 1.5rem !important;
+    margin-top: 1rem !important;
   }
 
   #showResultsButton {
